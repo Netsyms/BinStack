@@ -9,19 +9,19 @@ Program Structure
 -----------------
 
 ### Folders
-*lang/
+*lang
 ...Translations and alert messages.
 ...The language file that is loaded depends on the value of `LANGUAGE` in `settings.php`.
 ...Translate the values (but not the keys) in `en_us.php` into other languages and save in appropriately named files to add languages.
-*lib/
+*lib
 ...A good place to put helper functions that you don't want "in the way".
-*pages/
+*pages
 ...What it looks like.  If you go into `pages.php` and define a page with the name `foo`, there should be a `foo.php` in here.
 ...The app checks before loading, so it will give a friendly 404 error if it doesn't find your page.
 ...Woe to you if you delete `home.php` or `404.php`, as those are assumed to exist for fallback behavior.
-*static/
+*static
 ...CSS, JS, fonts, images...
-*vendor/
+*vendor
 ...If you don't know what this is about, or you don't have it, you need to read up on Composer.  Right now.
 
 ### Files
