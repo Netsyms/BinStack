@@ -10,7 +10,6 @@ header('Content-Type: text/html; charset=utf-8');
 // l33t $ecurity h4x
 header('X-Content-Type-Options: nosniff');
 header('X-XSS-Protection: 1; mode=block');
-header('X-Powered-By: Late-night coding frenzies (plz send caffeine, thx)');
 $session_length = 60 * 60; // 1 hour
 session_set_cookie_params($session_length, "/", null, false, true);
 
@@ -127,35 +126,6 @@ function lang2($key, $replace, $echo = true) {
     }
 }
 
-/**
- * Checks if an email address is valid.
- * @param string $email Email to check
- * @return boolean True if email passes validation, else false.
- */
-function isValidEmail($email) {
-    return filter_var($email, FILTER_VALIDATE_EMAIL);
-}
-
-
-/**
- * Hashes the given plaintext password
- * @param String $password
- * @return String the hash, using bcrypt
- */
-function encryptPassword($password) {
-    return password_hash($password, PASSWORD_BCRYPT);
-}
-
-/**
- * Securely verify a password and its hash
- * @param String $password
- * @param String $hash the hash to compare to
- * @return boolean True if password OK, else false
- */
-function comparePassword($password, $hash) {
-    return password_verify($password, $hash);
-}
-
 function dieifnotloggedin() {
     if ($_SESSION['loggedin'] != true) {
         sendError("Session expired.  Please log out and log in again.");
@@ -211,16 +181,9 @@ if (!function_exists('base_url')) {
 
 }
 
-function redirectToPageId($id, $args, $dontdie) {
-    header('Location: ' . URL . '?id=' . $id . $args);
-    if (is_null($dontdie)) {
-        die("Please go to " . URL . '?id=' . $id . $args);
-    }
-}
-
 function redirectIfNotLoggedIn() {
     if ($_SESSION['loggedin'] !== TRUE) {
-        header('Location: ' . URL . '/login.php');
+        header('Location: ' . URL . '/index.php');
         die();
     }
 }

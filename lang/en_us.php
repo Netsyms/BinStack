@@ -9,6 +9,7 @@ define("STRINGS", [
     "2fa prompt" => "Enter the six-digit code from your mobile authenticator app.",
     "2fa incorrect" => "Authentication code incorrect.",
     "login incorrect" => "Login incorrect.",
+    "login server unavailable" => "Login server unavailable.  Try again later or contact technical support.",
     "account locked" => "This account has been disabled. Contact technical support.",
     "password expired" => "You must change your password before continuing.",
     "account terminated" => "Account terminated.  Access denied.",

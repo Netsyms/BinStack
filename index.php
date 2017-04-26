@@ -6,48 +6,52 @@ require_once __DIR__ . "/lib/login.php";
 /* Authenticate user */
 $userpass_ok = false;
 $multiauth = false;
-if ($VARS['progress'] == "1") {
-    if (authenticate_user($VARS['username'], $VARS['password'])) {
-        switch (get_account_status($VARS['username'])) {
-            case "LOCKED_OR_DISABLED":
-                $alert = lang("account locked", false);
-                break;
-            case "TERMINATED":
-                $alert = lang("account terminated", false);
-                break;
-            case "CHANGE_PASSWORD":
-                $alert = lang("password expired", false);
-            case "NORMAL":
-                $userpass_ok = true;
-                break;
-            case "ALERT_ON_ACCESS":
-                sendLoginAlertEmail($VARS['username']);
-                $userpass_ok = true;
-                break;
+if (checkLoginServer()) {
+    if ($VARS['progress'] == "1") {
+        if (authenticate_user($VARS['username'], $VARS['password'])) {
+            switch (get_account_status($VARS['username'])) {
+                case "LOCKED_OR_DISABLED":
+                    $alert = lang("account locked", false);
+                    break;
+                case "TERMINATED":
+                    $alert = lang("account terminated", false);
+                    break;
+                case "CHANGE_PASSWORD":
+                    $alert = lang("password expired", false);
+                case "NORMAL":
+                    $userpass_ok = true;
+                    break;
+                case "ALERT_ON_ACCESS":
+                    sendLoginAlertEmail($VARS['username']);
+                    $userpass_ok = true;
+                    break;
+            }
+            if ($userpass_ok) {
+                if (userHasTOTP($VARS['username'])) {
+                    $multiauth = true;
+                } else {
+                    doLoginUser($VARS['username'], $VARS['password']);
+                    header('Location: app.php');
+                    die("Logged in, go to app.php");
+                }
+            }
+        } else {
+            $alert = lang("login incorrect", false);
         }
-        if ($userpass_ok) {
-            if (userHasTOTP($VARS['username'])) {
-                $multiauth = true;
-            } else {
-                doLoginUser($VARS['username'], $VARS['password']);
+    } else if ($VARS['progress'] == "2") {
+        if (verifyTOTP($VARS['username'], $VARS['authcode'])) {
+            if (doLoginUser($VARS['username'])) {
                 header('Location: app.php');
                 die("Logged in, go to app.php");
+            } else {
+                $alert = lang("login server user data error", false);
             }
-        }
-    } else {
-        $alert = lang("login incorrect", false);
-    }
-} else if ($VARS['progress'] == "2") {
-    if (verifyTOTP($VARS['username'], $VARS['authcode'])) {
-        if (doLoginUser($VARS['username'])) {
-            header('Location: app.php');
-            die("Logged in, go to app.php");
         } else {
-            $alert = lang("login server user data error", false);
+            $alert = lang("2fa incorrect", false);
         }
-    } else {
-        $alert = lang("2fa incorrect", false);
     }
+} else {
+    $alert = lang("login server unavailable", false);
 }
 ?>
 <!DOCTYPE html>
@@ -60,6 +64,7 @@ if ($VARS['progress'] == "1") {
         <title><?php echo SITE_TITLE; ?></title>
 
         <link href="static/css/bootstrap.min.css" rel="stylesheet">
+        <link href="static/css/font-awesome.min.css" rel="stylesheet">
         <link href="static/css/app.css" rel="stylesheet">
     </head>
     <body>
@@ -83,7 +88,7 @@ if ($VARS['progress'] == "1") {
                                 if (!is_empty($alert)) {
                                     ?>
                                     <div class="alert alert-danger">
-                                        <?php echo $alert; ?>
+                                        <i class="fa fa-fw fa-exclamation-triangle"></i> <?php echo $alert; ?>
                                     </div>
                                     <?php
                                 }

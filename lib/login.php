@@ -3,6 +3,38 @@
 /**
  * Authentication and account functions.  Connects to a Portal instance.
  */
+
+/**
+ * Check the login server API for sanity
+ * @return boolean true if OK, else false
+ */
+function checkLoginServer() {
+    try {
+        $client = new GuzzleHttp\Client();
+
+        $response = $client
+                ->request('POST', PORTAL_API, [
+            'form_params' => [
+                'key' => PORTAL_KEY,
+                'action' => "ping"
+            ]
+        ]);
+
+        if ($response->getStatusCode() != 200) {
+            return false;
+        }
+
+        $resp = json_decode($response->getBody(), TRUE);
+        if ($resp['status'] == "OK") {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (Exception $e) {
+        return false;
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 //                           Account handling                                 //
 ////////////////////////////////////////////////////////////////////////////////

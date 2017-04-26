@@ -125,7 +125,7 @@ if (!is_empty($_GET['page'])) {
                 if (is_empty($_GET['arg'])) {
                     $alertmsg = lang(MESSAGES[$_GET['msg']]['string'], false);
                 } else {
-                    $alertmsg = lang2(MESSAGES[$_GET['msg']]['string'], ["arg" => $_GET['arg']], false);
+                    $alertmsg = lang2(MESSAGES[$_GET['msg']]['string'], ["arg" => strip_tags($_GET['arg'])], false);
                 }
                 $alerttype = MESSAGES[$_GET['msg']]['type'];
                 $alerticon = "square-o";
