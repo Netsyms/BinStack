@@ -39,9 +39,12 @@ if ($VARS['progress'] == "1") {
     }
 } else if ($VARS['progress'] == "2") {
     if (verifyTOTP($VARS['username'], $VARS['authcode'])) {
-        doLoginUser($VARS['username'], $VARS['password']);
-        header('Location: app.php');
-        die("Logged in, go to app.php");
+        if (doLoginUser($VARS['username'])) {
+            header('Location: app.php');
+            die("Logged in, go to app.php");
+        } else {
+            $alert = lang("login server user data error", false);
+        }
     } else {
         $alert = lang("2fa incorrect", false);
     }
@@ -64,7 +67,11 @@ if ($VARS['progress'] == "1") {
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-sm-offset-3 col-md-offset-4 col-lg-offset-4">
                     <div>
-                        <img class="img-responsive banner-image" src="static/img/banner.png" />
+                        <?php
+                        if (SHOW_ICON == "both" || SHOW_ICON == "index") {
+                            ?>
+                            <img class="img-responsive banner-image" src="static/img/logo.png" />
+                        <?php } ?>
                     </div>
                     <div class="panel panel-primary">
                         <div class="panel-heading">

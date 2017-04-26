@@ -4,7 +4,8 @@
     "type": "project",
     "require": {
         "catfan/medoo": "^1.2",
-        "spomky-labs/otphp": "^8.3"
+        "spomky-labs/otphp": "^8.3",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "license": "MIT",
     "authors": [

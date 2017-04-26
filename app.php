@@ -36,10 +36,18 @@ if (!is_empty($_GET['page'])) {
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-sm-offset-3 col-md-offset-4 col-lg-offset-4">
-                    <img class="img-responsive banner-image" src="static/img/banner.png" />
+                    <?php
+                    if ((SHOW_ICON == "both" || SHOW_ICON == "app") && ICON_POSITION != "menu") {
+                        if (MENU_BAR_STYLE != "fixed") {
+                            ?>
+                            <img class="img-responsive banner-image" src="static/img/logo.png" />
+                            <?php
+                        }
+                    }
+                    ?>
                 </div>
             </div>
-            <nav class="navbar navbar-inverse">
+            <nav class="navbar navbar-inverse navbar-<?php echo MENU_BAR_STYLE; ?>-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
@@ -48,34 +56,70 @@ if (!is_empty($_GET['page'])) {
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="app.php?page=home">
+                        <?php
+                        if (SHOW_ICON == "both" || SHOW_ICON == "app") {
+                            if (MENU_BAR_STYLE == "fixed" || ICON_POSITION == "menu") {
+                                ?>
+                                <a class="navbar-brand" href="app.php">
+                                    <img style="height: 35px; padding-bottom: 12px; padding-left: 5px;" src="static/img/logo.png" />
+                                </a>
+                                <?php
+                            }
+                        }
+                        ?>
+                        <a class="navbar-brand" href="app.php">
                             <?php
+                            echo SITE_TITLE;
                             // add breadcrumb-y thing
                             //lang("home");
                             //echo " <i class=\"fa fa-caret-right\"></i> ";
-                            lang(PAGES[$pageid]['title']);
+                            //lang(PAGES[$pageid]['title']);
                             ?>
                         </a>
                     </div>
 
                     <div class="collapse navbar-collapse" id="navbar-collapse">
                         <ul class="nav navbar-nav">
+                            <?php
+                            foreach (PAGES as $id => $pg) {
+                                if ($pg['navbar'] === TRUE) {
+                                    if ($pageid == $id) {
+                                        ?>
+                                        <li class="active">
+                                            <?php
+                                        } else {
+                                            ?>
+                                        <li>
+                                        <?php } ?>
+                                        <a href="app.php?page=<?php echo $id; ?>">
+                                            <?php
+                                            if (isset($pg['icon'])) {
+                                                ?>
+                                                <i class="fa fa-<?php echo $pg['icon']; ?> fa-fw"></i> 
+                                            <?php } ?>
+                                            <?php lang($pg['title']) ?>
+                                        </a>
+                                    </li>
+                                    <?php
+                                }
+                            }
+                            ?>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-gears fa-fw"></i> <?php lang("options") ?> <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="app.php?page=security"><i class="fa fa-lock fa-fw"></i> <?php lang("account security") ?></a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="action.php?action=signout"><i class="fa fa-sign-out fa-fw"></i> <?php lang("sign out") ?></a></li>
-                                </ul>
-                            </li>
+                            <li><a href="action.php?action=signout"><i class="fa fa-sign-out fa-fw"></i> <?php lang("sign out") ?></a></li>
                         </ul>
                     </div>
                 </div>
             </nav>
             <?php
-            // Alert messages
+            if (MENU_BAR_STYLE == "fixed") {
+                ?>
+                <div style="height: 75px;"></div>
+                <?php
+            }
+            ?>
+            <?php
+// Alert messages
             if (!is_empty($_GET['msg']) && array_key_exists($_GET['msg'], MESSAGES)) {
                 // optional string generation argument
                 if (is_empty($_GET['arg'])) {

@@ -18,6 +18,20 @@ define("SITE_TITLE", "Web App Template");
 // Used to identify the system in OTP and other places
 define("SYSTEM_NAME", "Web App Template");
 
+// Which pages to show the app icon on:
+// index, app, both, none
+define("SHOW_ICON", "both");
+// Where to put the icon: top or menu
+// Overridden to 'menu' if MENU_BAR_STYLE is 'fixed'.
+define("ICON_POSITION", "menu");
+// App menu bar style: fixed or static
+define("MENU_BAR_STYLE", "fixed");
+
+// URL of the Business Portal API endpoint
+define("PORTAL_API", "http://localhost/api.php");
+// Business Portal API Key
+define("PORTAL_KEY", "123");
+
 // For supported values, see http://php.net/manual/en/timezones.php
 define("TIMEZONE", "America/Denver");
 
