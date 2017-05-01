@@ -160,7 +160,6 @@ function doLoginUser($username) {
         $_SESSION['uid'] = $userinfo['uid'];
         $_SESSION['email'] = $userinfo['email'];
         $_SESSION['realname'] = $userinfo['name'];
-        $_SESSION['password'] = $password;
         $_SESSION['loggedin'] = true;
         return true;
     } else {
