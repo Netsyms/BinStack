@@ -125,7 +125,7 @@ if (checkLoginServer()) {
                                     <div class="alert alert-info">
                                         <?php lang("2fa prompt"); ?>
                                     </div>
-                                    <input type="text" class="form-control" name="authcode" placeholder="<?php lang("authcode"); ?>" required="required" autofocus /><br />
+                                    <input type="text" class="form-control" name="authcode" placeholder="<?php lang("authcode"); ?>" required="required" autocomplete="off" autofocus /><br />
                                     <input type="hidden" name="progress" value="2" />
                                     <input type="hidden" name="username" value="<?php echo $VARS['username']; ?>" />
                                     <?php
