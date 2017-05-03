@@ -23,5 +23,6 @@ define("STRINGS", [
     "invalid parameters" => "Invalid request parameters.",
     "login server error" => "The login server returned an error: {arg}",
     "login server user data error" => "The login server refused to provide account information.  Try again or contact technical support.",
+    "captcha error" => "There was a problem with the CAPTCHA (robot test).  Try again.",
     "home" => "Home",
 ]);

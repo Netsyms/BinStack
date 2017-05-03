@@ -38,6 +38,12 @@ define("TIMEZONE", "America/Denver");
 // Base URL for site links.
 define('URL', 'http://localhost:8000/');
 
+// Use reCAPTCHA on login screen
+// https://www.google.com/recaptcha/
+define("RECAPTCHA_ENABLED", FALSE);
+define('RECAPTCHA_SITE_KEY', '');
+define('RECAPTCHA_SECRET_KEY', '');
+
 // See lang folder for language options
 define('LANGUAGE', "en_us");
 

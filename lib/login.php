@@ -192,6 +192,32 @@ function simLogin($username, $password) {
     }
 }
 
+function verifyReCaptcha($code) {
+    try {
+        $client = new GuzzleHttp\Client();
+
+        $response = $client
+                ->request('POST', "https://www.google.com/recaptcha/api/siteverify", [
+            'form_params' => [
+                'secret' => RECAPTCHA_SECRET_KEY,
+                'response' => $code
+            ]
+        ]);
+
+        if ($response->getStatusCode() != 200) {
+            return false;
+        }
+
+        $resp = json_decode($response->getBody(), TRUE);
+        if ($resp['success'] === true) {
+            return true;
+        }
+        return false;
+    } catch (Exception $e) {
+        return false;
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 //                          2-factor authentication                           //
 ////////////////////////////////////////////////////////////////////////////////
