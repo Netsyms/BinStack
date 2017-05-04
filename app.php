@@ -24,13 +24,21 @@ if (!is_empty($_GET['page'])) {
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" contgreent="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title><?php echo SITE_TITLE; ?></title>
 
         <link href="static/css/bootstrap.min.css" rel="stylesheet">
         <link href="static/css/font-awesome.min.css" rel="stylesheet">
         <link href="static/css/app.css" rel="stylesheet">
+        <?php
+        // custom page styles
+        if (isset(PAGES[$pageid]['styles'])) {
+            foreach (PAGES[$pageid]['styles'] as $style) {
+                echo "<link href=\"$style\" rel=\"stylesheet\">\n";
+            }
+        }
+        ?>
     </head>
     <body>
         <div class="container">
@@ -168,5 +176,13 @@ END;
         <script src="static/js/jquery-3.2.1.min.js"></script>
         <script src="static/js/bootstrap.min.js"></script>
         <script src="static/js/app.js"></script>
+        <?php
+        // custom page scripts
+        if (isset(PAGES[$pageid]['scripts'])) {
+            foreach (PAGES[$pageid]['scripts'] as $script) {
+                echo "<script src=\"$script\"></script>\n";
+            }
+        }
+        ?>
     </body>
 </html>
