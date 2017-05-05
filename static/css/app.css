@@ -11,3 +11,43 @@
     margin-top: 10em;
     text-align: center;
 }
+
+/*
+==============================
+            THEMING
+==============================
+
+Changing the .navbar-inverse background should be enough on modern browsers.
+If this app is to be used on IE < 9 (not supported), also set a background-color
+to replace the rgba()s.
+*/
+
+/* navbar background */
+.navbar-inverse {
+    /* background-color: green; */
+}
+
+/* Selected page background */
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    background: rgba(0,0,0,.2);
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    border-color: rgba(0,0,0,.2);
+}
+
+.navbar-inverse .navbar-toggle .icon-bar {
+    background-color: white;
+}
+
+.navbar-inverse .navbar-brand {
+    color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+.navbar-inverse .navbar-link {
+    color: white;
+}
