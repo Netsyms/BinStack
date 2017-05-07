@@ -48,8 +48,8 @@ Program Structure
    __Optional parameters:__  
       `'navbar' => true` will show the page as a button in the app menu bar.  
       `'icon' => '...'` will show an icon from FontAwesome in the menu bar.  Setting this to `home` will show the icon `fa-home`.  
-      `'styles'` => ["file.css"] will inject the listed CSS files into the page header (after all other CSS, like Bootstrap).  
-      `'scripts'` => ["file.js"] will inject the listed JavaScript files into the page footer (after jQuery and other builtin scripts).
+      `'styles' => ["file.css"]` will inject the listed CSS files into the page header (after all other CSS, like Bootstrap).  
+      `'scripts' => ["file.js"]` will inject the listed JavaScript files into the page footer (after jQuery and other builtin scripts).
 * lang/messages.php  
    Array of alert messages.
    `"string"` is the language string for the message, `"type"` is one of `success`, `info`, `warning`, or `danger` (i.e. Bootstrap alert classes).
