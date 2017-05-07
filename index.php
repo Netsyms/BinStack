@@ -14,7 +14,8 @@ $multiauth = false;
 if (checkLoginServer()) {
     if ($VARS['progress'] == "1") {
         if (!RECAPTCHA_ENABLED || (RECAPTCHA_ENABLED && verifyReCaptcha($VARS['g-recaptcha-response']))) {
-            if (authenticate_user($VARS['username'], $VARS['password'])) {
+            $errmsg = "";
+            if (authenticate_user($VARS['username'], $VARS['password'], $errmsg)) {
                 switch (get_account_status($VARS['username'])) {
                     case "LOCKED_OR_DISABLED":
                         $alert = lang("account locked", false);
@@ -43,7 +44,11 @@ if (checkLoginServer()) {
                     }
                 }
             } else {
-                $alert = lang("login incorrect", false);
+                if (!is_empty($errmsg)) {
+                    $alert = lang2("login server error", ['arg' => $errmsg], false);
+                } else {
+                    $alert = lang("login incorrect", false);
+                }
             }
         } else {
             $alert = lang("captcha error", false);

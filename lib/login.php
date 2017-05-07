@@ -45,7 +45,7 @@ function checkLoginServer() {
  * @param string $password
  * @return boolean True if OK, else false
  */
-function authenticate_user($username, $password) {
+function authenticate_user($username, $password, &$errmsg) {
     $client = new GuzzleHttp\Client();
 
     $response = $client
@@ -66,6 +66,7 @@ function authenticate_user($username, $password) {
     if ($resp['status'] == "OK") {
         return true;
     } else {
+        $errmsg = $resp['msg'];
         return false;
     }
 }
@@ -83,6 +84,34 @@ function user_exists($username) {
             'key' => PORTAL_KEY,
             'action' => "userexists",
             'username' => $username
+        ]
+    ]);
+
+    if ($response->getStatusCode() > 299) {
+        sendError("Login server error: " . $response->getBody());
+    }
+
+    $resp = json_decode($response->getBody(), TRUE);
+    if ($resp['status'] == "OK" && $resp['exists'] === true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Check if a UID exists.
+ * @param String $uid
+ */
+function uid_exists($uid) {
+    $client = new GuzzleHttp\Client();
+
+    $response = $client
+            ->request('POST', PORTAL_API, [
+        'form_params' => [
+            'key' => PORTAL_KEY,
+            'action' => "userexists",
+            'uid' => $uid
         ]
     ]);
 

@@ -114,6 +114,7 @@ if (!is_empty($_GET['page'])) {
                             ?>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
+                            <li><span class="navbar-text navbar-link"><i class="fa fa-user fa-fw"></i> <?php echo $_SESSION['realname'] ?></span></li>
                             <li><a href="action.php?action=signout"><i class="fa fa-sign-out fa-fw"></i> <?php lang("sign out") ?></a></li>
                         </ul>
                     </div>
