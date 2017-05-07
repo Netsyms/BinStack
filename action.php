@@ -8,6 +8,12 @@ require_once __DIR__ . "/required.php";
 
 dieifnotloggedin();
 
+/**
+ * Redirects back to the page ID in $_POST/$_GET['source'] with the given message ID.
+ * The message will be displayed by the app.
+ * @param string $msg message ID (see lang/messages.php)
+ * @param string $arg If set, replaces "{arg}" in the message string when displayed to the user.
+ */
 function returnToSender($msg, $arg = "") {
     global $VARS;
     if ($arg == "") {

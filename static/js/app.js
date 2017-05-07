@@ -2,6 +2,6 @@
 $(document).ready(function () {
     /* Fade out alerts */
     $(".alert .close").click(function (e) {
-        $(this).parent().fadeOut('slow');
+        $(this).parent().fadeOut("slow");
     });
 });
