@@ -14,6 +14,8 @@ $session_length = 60 * 60; // 1 hour
 session_set_cookie_params($session_length, "/", null, false, true);
 
 session_start(); // stick some cookies in it
+// renew session cookie
+setcookie(session_name(), session_id(), time() + $session_length);
 //
 // Composer
 require __DIR__ . '/vendor/autoload.php';
