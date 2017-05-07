@@ -3,7 +3,7 @@ Business App Template
 
 This is an empty (but fully functional) PHP application.  It is designed to 
 integrate with Portal, an account management web interface.  Portal manages 
-user credentials and account data, and is accessed by this app via a simple API.
+user credentials and account data, and is accessed by this app via [a simple API](http://docs.netsyms.com/docs/Portal/API%20Documentation/).
 
 Program Structure
 -----------------
