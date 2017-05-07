@@ -46,16 +46,22 @@ Program Structure
 * pages.php  
    Define app pages/screens in an array.  The page ID/array key is assumed to exist as a file `pages/{key}.php`, or it will 404.  
    __Optional parameters:__  
-      `'navbar' => true` will show the page as a button in the app menu bar  
-      `'icon' => '...'` will show an icon from FontAwesome in the menu bar.  Setting this to `home` will show the icon `fa-home`.
+      `'navbar' => true` will show the page as a button in the app menu bar.  
+      `'icon' => '...'` will show an icon from FontAwesome in the menu bar.  Setting this to `home` will show the icon `fa-home`.  
+      `'styles'` => ["file.css"] will inject the listed CSS files into the page header (after all other CSS, like Bootstrap).  
+      `'scripts'` => ["file.js"] will inject the listed JavaScript files into the page footer (after jQuery and other builtin scripts).
 * lang/messages.php  
    Array of alert messages.
-   `"string"` is the language string for the message, `"type"` is one of `success`, `info`, `warning`, or `danger`.
+   `"string"` is the language string for the message, `"type"` is one of `success`, `info`, `warning`, or `danger` (i.e. Bootstrap alert classes).
    Changing the type changes the icon and color of the alert box.
 *lang/en_us.php  
    Language data for US English.
 *lib/login.php  
-   Functions for logging in users and stuff like that.  Mostly makes requests to the Portal API, which calls the real functions "over there".
+   Functions for logging in users and stuff like that.  Most functions transparently makes requests to the Portal API and return the results.
+*lib/userinfo.php  
+   Functions for getting user data, like real names and managed employees.
+*static/css/app.css  
+   Custom styles for the app.  See the comments inside for instructions on theming the app.
 
 License
 -------
