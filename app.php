@@ -78,10 +78,6 @@ if (!is_empty($_GET['page'])) {
                         <a class="navbar-brand" href="app.php">
                             <?php
                             echo SITE_TITLE;
-                            // add breadcrumb-y thing
-                            //lang("home");
-                            //echo " <i class=\"fa fa-caret-right\"></i> ";
-                            //lang(PAGES[$pageid]['title']);
                             ?>
                         </a>
                     </div>
@@ -114,7 +110,7 @@ if (!is_empty($_GET['page'])) {
                             ?>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><span class="navbar-text navbar-link"><i class="fa fa-user fa-fw"></i> <?php echo $_SESSION['realname'] ?></span></li>
+                            <li><a href="<?php echo PORTAL_URL; ?>"><i class="fa fa-user fa-fw"></i> <?php echo $_SESSION['realname'] ?></a></li>
                             <li><a href="action.php?action=signout"><i class="fa fa-sign-out fa-fw"></i> <?php lang("sign out") ?></a></li>
                         </ul>
                     </div>
