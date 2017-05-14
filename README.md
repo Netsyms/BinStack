@@ -36,6 +36,8 @@ Program Structure
    Read through it to see what those functions do.
 * action.php  
    A good place to post forms to.  By default it only handles logging out, but is easily expanded.
+* api.php
+   Similar to action.php, but designed for user/pass authenticated JSON responses.
 * index.php  
    Login page and handler.  Hands off to `app.php` after authenticating user.  
    It includes 2fa support, by the way.
