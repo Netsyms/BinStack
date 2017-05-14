@@ -1,0 +1,16 @@
+{
+    "name": "netsyms/business-app-template",
+    "description": "Template for a webapp integrated with a Portal server for authentication.",
+    "type": "project",
+    "require": {
+        "catfan/medoo": "^1.2",
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Skylar Ittner",
+            "email": "admin@netsyms.com"
+        }
+    ]
+}

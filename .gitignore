@@ -1,0 +1,4 @@
+vendor
+settings.php
+nbproject/private
+*.sync-conflict*
