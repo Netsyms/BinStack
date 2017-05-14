@@ -7,14 +7,14 @@ define("DEBUG", false);
 // Database connection settings
 // See http://medoo.in/api/new for info
 define("DB_TYPE", "mysql");
-define("DB_NAME", "app");
+define("DB_NAME", "inventory");
 define("DB_SERVER", "localhost");
-define("DB_USER", "app");
+define("DB_USER", "inventory");
 define("DB_PASS", "");
 define("DB_CHARSET", "utf8");
 
 // Name of the app.
-define("SITE_TITLE", "Web App Template");
+define("SITE_TITLE", "SimpleInventory");
 
 // Which pages to show the app icon on:
 // index, app, both, none
@@ -36,7 +36,7 @@ define("PORTAL_KEY", "123");
 define("TIMEZONE", "America/Denver");
 
 // Base URL for site links.
-define('URL', 'http://localhost/app');
+define('URL', 'http://localhost/inventory');
 
 // Use reCAPTCHA on login screen
 // https://www.google.com/recaptcha/
@@ -51,6 +51,6 @@ define('LANGUAGE', "en_us");
 //  /!\       Warning: Changing these values may       /!\  //
 //  /!\  violate the terms of your license agreement!  /!\  //
 //////////////////////////////////////////////////////////////
-define("LICENSE_TEXT", "<b>Free Software: MIT License</b>");
+define("LICENSE_TEXT", "<b>Personal, Non-commercial Use Only</b>");
 define("COPYRIGHT_NAME", "Netsyms Technologies");
 //////////////////////////////////////////////////////////////
