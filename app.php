@@ -30,6 +30,7 @@ if (!is_empty($_GET['page'])) {
 
         <link href="static/css/bootstrap.min.css" rel="stylesheet">
         <link href="static/css/font-awesome.min.css" rel="stylesheet">
+        <link href="static/css/material-color.min.css" rel="stylesheet">
         <link href="static/css/app.css" rel="stylesheet">
         <?php
         // custom page styles
