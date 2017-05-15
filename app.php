@@ -67,9 +67,13 @@ if (!is_empty($_GET['page'])) {
                         <?php
                         if (SHOW_ICON == "both" || SHOW_ICON == "app") {
                             if (MENU_BAR_STYLE == "fixed" || ICON_POSITION == "menu") {
+                                $src = "static/img/logo.png";
+                                if ($pageid != "home") {
+                                    $src = "static/img/up-arrow-white.png";
+                                }
                                 ?>
                                 <a class="navbar-brand" href="app.php">
-                                    <img style="height: 35px; padding-bottom: 12px; padding-left: 5px;" src="static/img/logo.png" />
+                                    <img style="height: 35px; padding-bottom: 12px; padding-left: 5px;" src="<?php echo $src; ?>" />
                                 </a>
                                 <?php
                             }
