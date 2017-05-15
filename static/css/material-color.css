@@ -297,6 +297,9 @@
                         NAVBAR
 \*****************************************************/
 
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    border-color: rgba(0,0,0,.3);
+}
 
 /* red */
 

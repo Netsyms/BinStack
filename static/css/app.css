@@ -22,6 +22,9 @@
 Changing the .navbar-inverse background should be enough on modern browsers.
 If this app is to be used on IE < 9 (not supported), also set a background-color
 to replace the rgba()s.
+
+To use a material-color.css navbar theme, remove all the theming styles in this 
+file and add a .navbar-[color] class to the navbar in app.php.
 */
 
 /* navbar background */
