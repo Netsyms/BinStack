@@ -84,6 +84,7 @@ if (checkLoginServer()) {
 
         <link href="static/css/bootstrap.min.css" rel="stylesheet">
         <link href="static/css/font-awesome.min.css" rel="stylesheet">
+        <link href="static/css/material-color.min.css" rel="stylesheet">
         <link href="static/css/app.css" rel="stylesheet">
         <?php if (RECAPTCHA_ENABLED) { ?>
             <script src='https://www.google.com/recaptcha/api.js'></script>
@@ -100,7 +101,7 @@ if (checkLoginServer()) {
                             <img class="img-responsive banner-image" src="static/img/logo.png" />
                         <?php } ?>
                     </div>
-                    <div class="panel panel-primary">
+                    <div class="panel panel-teal">
                         <div class="panel-heading">
                             <h3 class="panel-title"><?php lang("sign in"); ?></h3>
                         </div>

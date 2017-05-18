@@ -30,6 +30,7 @@ if (!is_empty($_GET['page'])) {
 
         <link href="static/css/bootstrap.min.css" rel="stylesheet">
         <link href="static/css/font-awesome.min.css" rel="stylesheet">
+        <link href="static/css/material-color.css" rel="stylesheet">
         <link href="static/css/app.css" rel="stylesheet">
         <?php
         // custom page styles
@@ -55,7 +56,7 @@ if (!is_empty($_GET['page'])) {
                     ?>
                 </div>
             </div>
-            <nav class="navbar navbar-inverse navbar-<?php echo MENU_BAR_STYLE; ?>-top">
+            <nav class="navbar navbar-inverse navbar-teal navbar-<?php echo MENU_BAR_STYLE; ?>-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
@@ -67,9 +68,13 @@ if (!is_empty($_GET['page'])) {
                         <?php
                         if (SHOW_ICON == "both" || SHOW_ICON == "app") {
                             if (MENU_BAR_STYLE == "fixed" || ICON_POSITION == "menu") {
+                                $src = "static/img/logo.png";
+                                if ($pageid != "home") {
+                                    $src = "static/img/up-arrow-white.png";
+                                }
                                 ?>
                                 <a class="navbar-brand" href="app.php">
-                                    <img style="height: 35px; padding-bottom: 12px; padding-left: 5px;" src="static/img/logo.png" />
+                                    <img style="height: 35px; padding-bottom: 12px; padding-left: 5px;" src="<?php echo $src; ?>" />
                                 </a>
                                 <?php
                             }
