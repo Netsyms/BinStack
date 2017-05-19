@@ -45,7 +45,7 @@ if (!is_empty($VARS['id'])) {
         </div>
         <div class="panel-body">
             <div class="form-group">
-                <label for="name"><i class="fa fa-archive"></i> Name</label>
+                <label for="name"><i class="fa fa-archive"></i> <?php lang("name"); ?></label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="Foo Bar" required="required" value="<?php echo htmlspecialchars($catdata['catname']); ?>" />
             </div>
         </div>
@@ -55,7 +55,7 @@ if (!is_empty($VARS['id'])) {
         <input type="hidden" name="source" value="categories" />
 
         <div class="panel-footer">
-            <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> Save</button>
+            <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> <?php lang("save"); ?></button>
             <?php
             if ($editing) {
                 ?>

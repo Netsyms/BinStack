@@ -52,20 +52,20 @@ if (!is_empty($VARS['id'])) {
             <div class="row">
                 <div class="col-xs-12 col-md-6">
                     <div class="form-group">
-                        <label for="name"><i class="fa fa-map-marker"></i> Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Foo Bar" required="required" value="<?php echo htmlspecialchars($locdata['locname']); ?>" />
+                        <label for="name"><i class="fa fa-map-marker"></i> <?php lang("name"); ?></label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="<?php lang("placeholder location name"); ?>" required="required" value="<?php echo htmlspecialchars($locdata['locname']); ?>" />
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-6">
                     <div class="form-group">
-                        <label for="code"><i class="fa fa-barcode"></i> Code</label>
+                        <label for="code"><i class="fa fa-barcode"></i> <?php lang("code"); ?></label>
                         <input type="text" class="form-control" id="code" name="code" placeholder="123456789" value="<?php echo htmlspecialchars($locdata['loccode']); ?>" />
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="info"><i class="fa fa-info"></i> Description</label>
+                <label for="info"><i class="fa fa-info"></i> <?php lang("description"); ?></label>
                 <textarea class="form-control" id="info" name="info"><?php echo htmlspecialchars($locdata['locinfo']); ?></textarea>
             </div>
         </div>
@@ -75,7 +75,7 @@ if (!is_empty($VARS['id'])) {
         <input type="hidden" name="source" value="locations" />
 
         <div class="panel-footer">
-            <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> Save</button>
+            <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> <?php lang("save"); ?></button>
             <?php
             if ($editing) {
                 ?>

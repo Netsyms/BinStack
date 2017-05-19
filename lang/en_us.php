@@ -67,5 +67,13 @@ define("STRINGS", [
     "location deleted" => "Location deleted.",
     "location in use" => "Cannot delete location because there is at least one item still in it.",
     "new location" => "New Location",
-    "location saved" => "Location saved."
+    "location saved" => "Location saved.",
+    "name" => "Name",
+    "save" => "Save",
+    "placeholder item name" => "Foo Bar",
+    "placeholder category name" => "Widgets",
+    "placeholder location name" => "Over the Hills",
+    "description" => "Description",
+    "notes" => "Notes",
+    "comments" => "Comments"
 ]);

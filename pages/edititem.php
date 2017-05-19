@@ -76,22 +76,22 @@ if (!is_empty($VARS['id'])) {
         </div>
         <div class="panel-body">
             <div class="form-group">
-                <label for="name"><i class="fa fa-cube"></i> Name</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Foo Bar" required="required" value="<?php echo htmlspecialchars($itemdata['name']); ?>" />
+                <label for="name"><i class="fa fa-cube"></i> <?php lang("name"); ?></label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="<?php lang("placeholder item name"); ?>" required="required" value="<?php echo htmlspecialchars($itemdata['name']); ?>" />
             </div>
 
             <div class="row">
                 <div class="col-xs-12 col-md-6">
                     <div class="form-group">
-                        <label for="cat"><i class="fa fa-archive"></i> Category</label>
-                        <input type="text" class="form-control" id="cat" placeholder="Widgets" value="<?php echo htmlspecialchars($itemdata['catname']); ?>" />
+                        <label for="cat"><i class="fa fa-archive"></i> <?php lang("category"); ?></label>
+                        <input type="text" class="form-control" id="cat" placeholder="<?php lang("placeholder category name"); ?>" value="<?php echo htmlspecialchars($itemdata['catname']); ?>" />
                         <input type="hidden" id="realcat" name="cat" value="<?php echo $itemdata['catid']; ?>" required="required" />
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-6">
                     <div class="form-group">
-                        <label for="loc"><i class="fa fa-map-marker"></i> Location</label>
-                        <input type="text" class="form-control" id="loc" placeholder="Over the Hills" value="<?php echo htmlspecialchars($itemdata['locname']); ?>" />
+                        <label for="loc"><i class="fa fa-map-marker"></i> <?php lang("location"); ?></label>
+                        <input type="text" class="form-control" id="loc" placeholder="<?php lang("placeholder location name"); ?>" value="<?php echo htmlspecialchars($itemdata['locname']); ?>" />
                         <input type="hidden" id="realloc" name="loc" value="<?php echo $itemdata['locid']; ?>" required="required" />
                     </div>
                 </div>
@@ -100,13 +100,13 @@ if (!is_empty($VARS['id'])) {
             <div class="row">
                 <div class="col-xs-12 col-md-6">
                     <div class="form-group">
-                        <label for="code1"><i class="fa fa-barcode"></i> Code 1</label>
+                        <label for="code1"><i class="fa fa-barcode"></i> <?php lang("code 1"); ?></label>
                         <input type="text" class="form-control" id="code1" name="code1" placeholder="123456789" value="<?php echo htmlspecialchars($itemdata['code1']); ?>" />
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-6">
                     <div class="form-group">
-                        <label for="code2"><i class="fa fa-qrcode"></i> Code 2</label>
+                        <label for="code2"><i class="fa fa-qrcode"></i> <?php lang("code 2"); ?></label>
                         <input type="text" class="form-control" id="code2" name="code2" placeholder="qwerty123" value="<?php echo htmlspecialchars($itemdata['code2']); ?>" />
                     </div>
                 </div>
@@ -134,19 +134,19 @@ if (!is_empty($VARS['id'])) {
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-4">
                     <div class="form-group">
-                        <label for="info1"><i class="fa fa-info"></i> Description</label>
+                        <label for="info1"><i class="fa fa-info"></i> <?php lang("description"); ?></label>
                         <textarea class="form-control" id="info1" name="text1"><?php echo htmlspecialchars($itemdata['text1']); ?></textarea>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4">
                     <div class="form-group">
-                        <label for="info2"><i class="fa fa-sticky-note-o"></i> Notes</label>
+                        <label for="info2"><i class="fa fa-sticky-note-o"></i> <?php lang("notes"); ?></label>
                         <textarea class="form-control" id="info2" name="text2"><?php echo htmlspecialchars($itemdata['text2']); ?></textarea>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4">
                     <div class="form-group">
-                        <label for="info3"><i class="fa fa-comments-o"></i> Comments</label>
+                        <label for="info3"><i class="fa fa-comments-o"></i> <?php lang("comments"); ?></label>
                         <textarea class="form-control" id="info3" name="text3"><?php echo htmlspecialchars($itemdata['text3']); ?></textarea>
                     </div>
                 </div>
@@ -158,7 +158,7 @@ if (!is_empty($VARS['id'])) {
         <input type="hidden" name="source" value="items" />
 
         <div class="panel-footer">
-            <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> Save</button>
+            <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> <?php lang("save"); ?></button>
             <?php
             if ($editing) {
                 ?>
