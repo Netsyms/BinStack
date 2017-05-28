@@ -35,12 +35,9 @@ redirectifnotloggedin();
             'loccode',
             'code1',
             'code2',
-            'text1',
-            'text2',
-            'text3',
             'qty',
             'userid'
-        ]);
+        ], ["LIMIT" => 100]);
         $usercache = [];
         foreach ($items as $item) {
             if (is_null($item['userid'])) {

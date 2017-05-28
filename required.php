@@ -131,6 +131,7 @@ function lang2($key, $replace, $echo = true) {
 function dieifnotloggedin() {
     if ($_SESSION['loggedin'] != true) {
         sendError("Session expired.  Please log out and log in again.");
+        die();
     }
 }
 
