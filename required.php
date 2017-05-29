@@ -133,6 +133,10 @@ function dieifnotloggedin() {
         sendError("Session expired.  Please log out and log in again.");
         die();
     }
+    require_once __DIR__ . "/lib/login.php";
+    if (account_has_permission($_SESSION['username'], "INV_VIEW") == FALSE) {
+        die("You don't have permission to be here.");
+    }
 }
 
 /**
@@ -186,7 +190,12 @@ if (!function_exists('base_url')) {
 
 function redirectIfNotLoggedIn() {
     if ($_SESSION['loggedin'] !== TRUE) {
-        header('Location: ' . URL . '/index.php');
+        header('Location: ./index.php');
         die();
+    }
+    require_once __DIR__ . "/lib/login.php";
+    if (account_has_permission($_SESSION['username'], "INV_VIEW") == FALSE) {
+        header('Location: ./index.php');
+        die("You don't have permission to be here.");
     }
 }

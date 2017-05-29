@@ -157,6 +157,37 @@ function get_account_status($username) {
     }
 }
 
+/**
+ * Check if the given username has the given permission (or admin access)
+ * @param string $username
+ * @param string $permcode
+ * @return boolean TRUE if the user has the permission (or admin access), else FALSE
+ */
+function account_has_permission($username, $permcode) {
+    $client = new GuzzleHttp\Client();
+
+    $response = $client
+            ->request('POST', PORTAL_API, [
+        'form_params' => [
+            'key' => PORTAL_KEY,
+            'action' => "permission",
+            'username' => $username,
+            'code' => $permcode
+        ]
+    ]);
+
+    if ($response->getStatusCode() > 299) {
+        sendError("Login server error: " . $response->getBody());
+    }
+
+    $resp = json_decode($response->getBody(), TRUE);
+    if ($resp['status'] == "OK") {
+        return $resp['has_permission'];
+    } else {
+        return false;
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 //                              Login handling                                //
 ////////////////////////////////////////////////////////////////////////////////

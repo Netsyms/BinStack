@@ -13,6 +13,10 @@ define("MESSAGES", [
         "string" => "page not found",
         "type" => "info"
     ],
+    "no_edit_permission" => [
+        "string" => "no edit permission",
+        "type" => "danger"
+    ],
     "invalid_itemid" => [
         "string" => "invalid itemid",
         "type" => "danger"

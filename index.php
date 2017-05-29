@@ -4,7 +4,7 @@ require_once __DIR__ . "/required.php";
 require_once __DIR__ . "/lib/login.php";
 
 // if we're logged in, we don't need to be here.
-if ($_SESSION['loggedin']) {
+if ($_SESSION['loggedin'] && account_has_permission($_SESSION['username'], "INV_VIEW")) {
     header('Location: app.php');
 }
 
@@ -34,13 +34,17 @@ if (checkLoginServer()) {
                         break;
                 }
                 if ($userpass_ok) {
-                    $_SESSION['passok'] = true; // stop logins using only username and authcode
-                    if (userHasTOTP($VARS['username'])) {
-                        $multiauth = true;
+                    if (account_has_permission($VARS['username'], "INV_VIEW") == FALSE) {
+                        $alert = lang("no permission", false);
                     } else {
-                        doLoginUser($VARS['username'], $VARS['password']);
-                        header('Location: app.php');
-                        die("Logged in, go to app.php");
+                        $_SESSION['passok'] = true; // stop logins using only username and authcode
+                        if (userHasTOTP($VARS['username'])) {
+                            $multiauth = true;
+                        } else {
+                            doLoginUser($VARS['username'], $VARS['password']);
+                            header('Location: app.php');
+                            die("Logged in, go to app.php");
+                        }
                     }
                 }
             } else {

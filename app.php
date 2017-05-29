@@ -1,10 +1,7 @@
 <?php
 require_once __DIR__ . "/required.php";
 
-if ($_SESSION['loggedin'] != true) {
-    header('Location: index.php');
-    die("Session expired.  Log in again to continue.");
-}
+redirectIfNotLoggedIn();
 
 require_once __DIR__ . "/pages.php";
 

@@ -26,6 +26,10 @@ function returnToSender($msg, $arg = "") {
     die();
 }
 
+if ($VARS['action'] != "signout" && !account_has_permission($_SESSION['username'], "INV_EDIT")) {
+    returnToSender("no_edit_permission");
+}
+
 switch ($VARS['action']) {
     case "edititem":
         $insert = true;
