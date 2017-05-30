@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "catfan/medoo",
-            "version": "v1.4.2",
+            "version": "v1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/catfan/Medoo.git",
-                "reference": "1134cd6372c6ec9e3ffca81335fbf04adaec4422"
+                "reference": "00b28046376880e1a7bd3026fa06b4e261bce3fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/catfan/Medoo/zipball/1134cd6372c6ec9e3ffca81335fbf04adaec4422",
-                "reference": "1134cd6372c6ec9e3ffca81335fbf04adaec4422",
+                "url": "https://api.github.com/repos/catfan/Medoo/zipball/00b28046376880e1a7bd3026fa06b4e261bce3fd",
+                "reference": "00b28046376880e1a7bd3026fa06b4e261bce3fd",
                 "shasum": ""
             },
             "require": {
@@ -63,7 +63,7 @@
                 "sql",
                 "sqlite"
             ],
-            "time": "2017-05-16T14:30:44+00:00"
+            "time": "2017-05-22T04:39:48+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
