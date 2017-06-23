@@ -227,6 +227,31 @@ function doLoginUser($username) {
     }
 }
 
+function sendLoginAlertEmail($username) {
+    $client = new GuzzleHttp\Client();
+
+    $response = $client
+            ->request('POST', PORTAL_API, [
+        'form_params' => [
+            'key' => PORTAL_KEY,
+            'action' => "alertemail",
+            'username' => $username,
+            'appname' => SITE_TITLE
+        ]
+    ]);
+
+    if ($response->getStatusCode() > 299) {
+        return "An unknown error occurred.";
+    }
+
+    $resp = json_decode($response->getBody(), TRUE);
+    if ($resp['status'] == "OK") {
+        return true;
+    } else {
+        return $resp['msg'];
+    }
+}
+
 function simLogin($username, $password) {
     $client = new GuzzleHttp\Client();
 
