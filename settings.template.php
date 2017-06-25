@@ -14,7 +14,7 @@ define("DB_PASS", "");
 define("DB_CHARSET", "utf8");
 
 // Name of the app.
-define("SITE_TITLE", "SimpleInventory");
+define("SITE_TITLE", "BinStack");
 
 // Which pages to show the app icon on:
 // index, app, both, none

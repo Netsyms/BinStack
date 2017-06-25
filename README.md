@@ -1,10 +1,10 @@
-SimpleInventory
-=========
+BinStack
+========
 
-SimpleInventory is the easy way to keep track of your business assets. 
+BinStack is the easy way to keep track of your business assets. 
 Never wander in search of the stapler again.
 
-https://biz.netsyms.com/simpleinventory
+https://biz.netsyms.com/binstack
 
 Features
 --------
@@ -19,8 +19,8 @@ only a few. Sorting also built in.
 
 **Autofill**  
 You don't need to remember category codes or usernames. Just start typing and 
-SimpleInventory will figure out what you're looking for.
+BinStack will figure out what you're looking for.
 
 **Mobile-ready**  
-Take inventory or find what you need on the go. SimpleInventory looks and works 
+Take inventory or find what you need on the go. BinStack looks and works 
 great on modern smartphones and tablets.
