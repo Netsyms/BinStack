@@ -213,7 +213,7 @@ function doLoginUser($username) {
     }
 
     $resp = json_decode($response->getBody(), TRUE);
-    var_dump($resp);
+    
     if ($resp['status'] == "OK") {
         $userinfo = $resp['data'];
         $_SESSION['username'] = $username;
