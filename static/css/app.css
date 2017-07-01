@@ -56,3 +56,18 @@ file and add a .navbar-[color] class to the navbar in app.php.
 .navbar-inverse .navbar-link {
     color: white;
 }
+
+@media screen and (max-width: 767px) {
+    button.navbar-toggle[data-toggle="collapse"] {
+        float: left;
+        margin-left: 15px;
+    }
+
+    .navbar-header .navbar-brand {
+        margin-left: -20px;
+    }
+
+    .navbar-header .navbar-brand img {
+        display: none;
+    }
+}
