@@ -122,8 +122,8 @@ if (checkLoginServer()) {
 
                                 if ($multiauth != true) {
                                     ?>
-                                    <input type="text" class="form-control" name="username" placeholder="<?php lang("username"); ?>" required="required" autofocus /><br />
-                                    <input type="password" class="form-control" name="password" placeholder="<?php lang("password"); ?>" required="required" /><br />
+                                    <input type="text" class="form-control" name="username" placeholder="<?php lang("username"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus /><br />
+                                    <input type="password" class="form-control" name="password" placeholder="<?php lang("password"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" /><br />
                                     <?php if (RECAPTCHA_ENABLED) { ?>
                                         <div class="g-recaptcha" data-sitekey="<?php echo RECAPTCHA_SITE_KEY; ?>"></div>
                                         <br />
@@ -135,7 +135,7 @@ if (checkLoginServer()) {
                                     <div class="alert alert-info">
                                         <?php lang("2fa prompt"); ?>
                                     </div>
-                                    <input type="text" class="form-control" name="authcode" placeholder="<?php lang("authcode"); ?>" required="required" autocomplete="off" autofocus /><br />
+                                    <input type="text" class="form-control" name="authcode" placeholder="<?php lang("authcode"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus /><br />
                                     <input type="hidden" name="progress" value="2" />
                                     <input type="hidden" name="username" value="<?php echo $VARS['username']; ?>" />
                                     <?php

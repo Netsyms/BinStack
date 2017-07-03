@@ -9,6 +9,7 @@ require __DIR__ . "/../required.php";
 require __DIR__ . "/../lib/login.php";
 
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
 
 // Allow ping check without authentication
 if ($VARS['action'] == "ping") {
