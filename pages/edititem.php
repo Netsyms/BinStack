@@ -24,32 +24,32 @@ $editing = false;
 
 if (!is_empty($VARS['id'])) {
     if ($database->has('items', ['itemid' => $VARS['id']])) {
-    $editing = true;
-    $itemdata = $database->select(
-                    'items', [
-                '[>]categories' => [
-                    'catid' => 'catid'
-                ],
-                '[>]locations' => [
-                    'locid' => 'locid'
-                ]
-                    ], [
-                'name',
-                'code1',
-                'code2',
-                'text1',
-                'text2',
-                'text3',
-                'items.catid',
-                'catname',
-                'items.locid',
-                'locname',
-                'loccode',
-                'qty',
-                'userid'
-                    ], [
-                'itemid' => $VARS['id']
-            ])[0];
+        $editing = true;
+        $itemdata = $database->select(
+                        'items', [
+                    '[>]categories' => [
+                        'catid' => 'catid'
+                    ],
+                    '[>]locations' => [
+                        'locid' => 'locid'
+                    ]
+                        ], [
+                    'name',
+                    'code1',
+                    'code2',
+                    'text1',
+                    'text2',
+                    'text3',
+                    'items.catid',
+                    'catname',
+                    'items.locid',
+                    'locname',
+                    'loccode',
+                    'qty',
+                    'userid'
+                        ], [
+                    'itemid' => $VARS['id']
+                ])[0];
     } else {
         // item id is invalid, redirect to a page that won't cause an error when pressing Save
         header('Location: app.php?page=edititem');
@@ -101,13 +101,23 @@ if (!is_empty($VARS['id'])) {
                 <div class="col-xs-12 col-md-6">
                     <div class="form-group">
                         <label for="code1"><i class="fa fa-barcode"></i> <?php lang("code 1"); ?></label>
-                        <input type="text" class="form-control" id="code1" name="code1" placeholder="123456789" value="<?php echo htmlspecialchars($itemdata['code1']); ?>" />
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="code1" name="code1" placeholder="123456789" value="<?php echo htmlspecialchars($itemdata['code1']); ?>" />
+                            <span class="input-group-btn mobile-app-show">
+                                <button type="button" class="btn btn-default" onclick="scancode('#code1'); return false;"><i class="fa fa-fw fa-barcode"></i></button>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-6">
                     <div class="form-group">
                         <label for="code2"><i class="fa fa-qrcode"></i> <?php lang("code 2"); ?></label>
-                        <input type="text" class="form-control" id="code2" name="code2" placeholder="qwerty123" value="<?php echo htmlspecialchars($itemdata['code2']); ?>" />
+                        <div class="input-group">
+                            <input type="text" style="width: available;" class="form-control" id="code2" name="code2" placeholder="qwerty123" value="<?php echo htmlspecialchars($itemdata['code2']); ?>" />
+                            <span class="input-group-btn mobile-app-show">
+                                <button type="button" class="btn btn-default" onclick="scancode('#code2'); return false;"><i class="fa fa-fw fa-barcode"></i></button>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>

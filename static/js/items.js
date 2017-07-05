@@ -1,4 +1,4 @@
-$('#itemtable').DataTable({
+var itemtable = $('#itemtable').DataTable({
     responsive: {
         details: {
             display: $.fn.dataTable.Responsive.display.modal({
@@ -54,3 +54,5 @@ $('#itemtable').DataTable({
         }
     }
 });
+
+$('#itemtable_filter').append("<span class=\"btn btn-default btn-sm mobile-app-show mobile-app-display\" onclick=\"scancode('#itemtable_filter label input');\"><i class=\"fa fa-barcode fa-fw\"></i></span>");

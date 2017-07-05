@@ -71,3 +71,11 @@ to replace the rgba()s.
         display: none;
     }
 }
+
+.mobile-app-show {
+    visibility: hidden;
+}
+
+.mobile-app-display {
+    display: none;
+}
