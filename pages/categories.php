@@ -10,7 +10,7 @@ redirectifnotloggedin();
     <thead>
         <tr>
             <th><?php lang('actions'); ?></th>
-            <th><i class="fa fa-archive"></i> <?php lang('category'); ?></th>
+            <th><i class="fa fa-archive hidden-xs"></i> <?php lang('category'); ?></th>
         </tr>
     </thead>
     <tbody>
