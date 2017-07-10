@@ -152,7 +152,7 @@ function checkDBError($specials = []) {
 }
 
 /*
- * http://stackoverflow.com/a/20075147/2534036
+ * http://stackoverflow.com/a/20075147
  */
 if (!function_exists('base_url')) {
 
