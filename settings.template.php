@@ -26,9 +26,9 @@ define("ICON_POSITION", "menu");
 define("MENU_BAR_STYLE", "fixed");
 
 // URL of the Business Portal API endpoint
-define("PORTAL_API", "http://localhost/portal/api.php");
+define("PORTAL_API", "http://localhost/accounthub/api.php");
 // URL of the Portal home page
-define("PORTAL_URL", "http://localhost/portal/home.php");
+define("PORTAL_URL", "http://localhost/accounthub/home.php");
 // Business Portal API Key
 define("PORTAL_KEY", "123");
 
