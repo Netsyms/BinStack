@@ -77,5 +77,12 @@ define("STRINGS", [
     "placeholder location name" => "Over the Hills",
     "description" => "Description",
     "notes" => "Notes",
-    "comments" => "Comments"
+    "comments" => "Comments",
+    "minwant" => "Minimum On Hand",
+    "want" => "Need",
+    "field not a number" => "You entered something that isn't a number when a number was expected.",
+    "understocked items" => "Understocked Items",
+    "view understocked" => "View Understocked",
+    "only showing understocked" => "Only showing understocked items.",
+    "show all items" => "Show all items"
 ]);

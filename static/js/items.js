@@ -34,6 +34,11 @@ var itemtable = $('#itemtable').DataTable({
     serverSide: true,
     ajax: {
         url: "lib/getitemtable.php",
+        data: function (d) {
+            if (filter == "stock") {
+                d.show_want = 1;
+            }
+        },
         dataFilter: function (data) {
             var json = jQuery.parseJSON(data);
             json.data = [];
@@ -47,6 +52,7 @@ var itemtable = $('#itemtable').DataTable({
                     row.code1,
                     row.code2,
                     row.qty,
+                    row.want,
                     row.username
                 ]);
             });

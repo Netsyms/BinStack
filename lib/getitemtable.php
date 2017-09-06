@@ -8,11 +8,18 @@ require_once __DIR__ . '/userinfo.php';
 
 header("Content-Type: application/json");
 
+$showwant = ($VARS['show_want'] == 1);
+
 $out = [];
 
 $out['draw'] = intval($VARS['draw']);
 
-$out['recordsTotal'] = $database->count('items');
+if ($showwant) {
+    $out['recordsTotal'] = $database->count('items', ["AND" => ["qty[<]want", "want[>]" => 0]]);
+} else {
+    $out['recordsTotal'] = $database->count('items');
+}
+
 $filter = false;
 
 // sort
@@ -40,25 +47,33 @@ switch ($VARS['order'][0]['column']) {
     case 7:
         $order = ["qty" => $sortby];
         break;
+    case 8:
+        $order = ["want" => $sortby];
+        break;
     // Note: We're not going to sort by assigned user.  It's too hard.  Maybe later.
 }
 
 // search
 if (!is_empty($VARS['search']['value'])) {
     $filter = true;
-    $wherenolimit = [
-        "OR" => [
-            "name[~]" => $VARS['search']['value'],
-            "catname[~]" => $VARS['search']['value'],
-            "locname[~]" => $VARS['search']['value'],
-            "code1[~]" => $VARS['search']['value'],
-            "code2[~]" => $VARS['search']['value']
-        ]
+    $wherenolimit = [];
+    if ($showwant) {
+        $wherenolimit["AND"] = ["qty[<]want", "want[>]" => 0];
+    }
+    $wherenolimit["AND"]["OR"] = [
+        "name[~]" => $VARS['search']['value'],
+        "catname[~]" => $VARS['search']['value'],
+        "locname[~]" => $VARS['search']['value'],
+        "code1[~]" => $VARS['search']['value'],
+        "code2[~]" => $VARS['search']['value']
     ];
     $where = $wherenolimit;
     $where["LIMIT"] = [$VARS['start'], $VARS['length']];
 } else {
     $where = ["LIMIT" => [$VARS['start'], $VARS['length']]];
+    if ($showwant) {
+        $where["AND"] = ["qty[<]want", "want[>]" => 0];
+    }
 }
 if (!is_null($order)) {
     $where["ORDER"] = $order;
@@ -77,6 +92,7 @@ $items = $database->select('items', [
     'code1',
     'code2',
     'qty',
+    'want',
     'userid'
         ], $where);
 

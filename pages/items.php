@@ -8,6 +8,13 @@ redirectifnotloggedin();
 <div class="btn-group" style="margin-bottom: 10px;">
     <a href="app.php?page=edititem" class="btn btn-success"><i class="fa fa-plus"></i> <?php lang("new item"); ?></a>
 </div>
+<?php if ($_GET['filter'] == 'stock') { ?>
+<script>var filter = "stock";</script>
+<div class="alert alert-blue-grey"><i class="fa fa-filter fa-fw"></i> <?php lang("only showing understocked"); ?> &nbsp; <a href="app.php?page=items" class="btn btn-sm btn-blue-grey"><?php lang("show all items"); ?></a></div>
+<?php } else {
+    echo "<script>var filter = null;</script>\n";
+}
+?>
 <table id="itemtable" class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -19,6 +26,7 @@ redirectifnotloggedin();
             <th data-priority="3"><i class="fa fa-fw fa-barcode hidden-xs"></i> <?php lang('code 1'); ?></th>
             <th data-priority="4"><i class="fa fa-fw fa-qrcode hidden-xs"></i> <?php lang('code 2'); ?></th>
             <th data-priority="3"><i class="fa fa-fw fa-hashtag hidden-xs"></i> <?php lang('qty'); ?></th>
+            <th data-priority="4"><i class="fa fa-fw fa-hashtag hidden-xs"></i> <?php lang('want'); ?></th>
             <th data-priority="3"><i class="fa fa-fw fa-user hidden-xs"></i> <?php lang('assigned to'); ?></th>
         </tr>
     </thead>
@@ -36,6 +44,7 @@ redirectifnotloggedin();
             'code1',
             'code2',
             'qty',
+            'want',
             'userid'
         ], ["LIMIT" => 100]);
         $usercache = [];
@@ -60,6 +69,7 @@ redirectifnotloggedin();
                 <td><?php echo $item['code1']; ?></td>
                 <td><?php echo $item['code2']; ?></td>
                 <td><?php echo $item['qty']; ?></td>
+                <td><?php echo $item['want']; ?></td>
                 <td><?php echo $user; ?></td>
             </tr>
             <?php
@@ -76,6 +86,7 @@ redirectifnotloggedin();
             <th data-priority="3"><i class="fa fa-fw fa-barcode hidden-xs"></i> <?php lang('code 1'); ?></th>
             <th data-priority="4"><i class="fa fa-fw fa-qrcode hidden-xs"></i> <?php lang('code 2'); ?></th>
             <th data-priority="3"><i class="fa fa-fw fa-hashtag hidden-xs"></i> <?php lang('qty'); ?></th>
+            <th data-priority="4"><i class="fa fa-fw fa-hashtag hidden-xs"></i> <?php lang('want'); ?></th>
             <th data-priority="3"><i class="fa fa-fw fa-user hidden-xs"></i> <?php lang('assigned to'); ?></th>
         </tr>
     </tfoot>

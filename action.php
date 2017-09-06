@@ -47,6 +47,13 @@ switch ($VARS['action']) {
         }
         if (is_empty($VARS['qty'])) {
             $VARS['qty'] = 1;
+        } else if (!is_numeric($VARS['qty'])) {
+            returnToSender('field_nan');
+        }
+        if (is_empty($VARS['want'])) {
+            $VARS['want'] = 0;
+        } else if (!is_numeric($VARS['want'])) {
+            returnToSender('field_nan');
         }
         if (!$database->has('categories', ['catid' => $VARS['cat']])) {
             returnToSender('invalid_category');
@@ -71,6 +78,7 @@ switch ($VARS['action']) {
             'catid' => $VARS['cat'],
             'locid' => $VARS['loc'],
             'qty' => $VARS['qty'],
+            'want' => $VARS['want'],
             'userid' => $userid
         ];
 

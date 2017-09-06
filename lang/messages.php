@@ -69,4 +69,8 @@ define("MESSAGES", [
         "string" => "location in use",
         "type" => "danger"
     ],
+    "field_nan" => [
+        "string" => "field not a number",
+        "type" => "danger"
+    ]
 ]);

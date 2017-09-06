@@ -18,6 +18,7 @@ $itemdata = [
     'text2' => '',
     'text3' => '',
     'qty' => 1,
+    'want' => 0,
     'userid' => ''];
 
 $editing = false;
@@ -46,6 +47,7 @@ if (!is_empty($VARS['id'])) {
                     'locname',
                     'loccode',
                     'qty',
+                    'want',
                     'userid'
                         ], [
                     'itemid' => $VARS['id']
@@ -123,10 +125,16 @@ if (!is_empty($VARS['id'])) {
             </div>
 
             <div class="row">
-                <div class="col-xs-12 col-md-6">
+                <div class="col-xs-12 col-md-3">
                     <div class="form-group">
                         <label for="qty"><i class="fa fa-hashtag"></i> <?php lang('quantity'); ?></label>
                         <input type="number" class="form-control" id="qty" name="qty" placeholder="1" value="<?php echo $itemdata['qty']; ?>" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <div class="form-group">
+                        <label for="want"><i class="fa fa-hashtag"></i> <?php lang('minwant'); ?></label>
+                        <input type="number" class="form-control" id="want" name="want" placeholder="1" value="<?php echo $itemdata['want']; ?>" />
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-6">
