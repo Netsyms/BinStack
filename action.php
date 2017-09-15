@@ -42,7 +42,24 @@ switch ($VARS['action']) {
                 returnToSender("invalid_itemid");
             }
         }
-        if (is_empty($VARS['name']) || is_empty($VARS['cat']) || is_empty($VARS['loc'])) {
+        if (is_empty($VARS['name'])) {
+            returnToSender('missing_name');
+        }
+        if (!is_empty($VARS['catstr']) && is_empty($VARS['cat'])) {
+            if ($database->count("categories", ["catname" => $VARS['catstr']]) == 1) {
+                $VARS['cat'] = $database->get("categories", 'catid', ["catname" => $VARS['catstr']]);
+            } else {
+                returnToSender('use_the_drop_luke');
+            }
+        }
+        if (!is_empty($VARS['locstr']) && is_empty($VARS['loc'])) {
+            if ($database->count("locations", ["locname" => $VARS['locstr']]) == 1) {
+                $VARS['loc'] = $database->get("locations", 'locid', ["locname" => $VARS['locstr']]);
+            } else {
+                returnToSender('use_the_drop_luke');
+            }
+        }
+        if (is_empty($VARS['cat']) || is_empty($VARS['loc'])) {
             returnToSender('invalid_parameters');
         }
         if (is_empty($VARS['qty'])) {

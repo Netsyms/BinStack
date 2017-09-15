@@ -84,5 +84,7 @@ define("STRINGS", [
     "understocked items" => "Understocked Items",
     "view understocked" => "View Understocked",
     "only showing understocked" => "Only showing understocked items.",
-    "show all items" => "Show all items"
+    "show all items" => "Show all items",
+    "missing name" => "You need to enter a name.",
+    "use the dropdowns" => "Whoops, you need to use the category and location autocomplete boxes."
 ]);

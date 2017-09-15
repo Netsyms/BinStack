@@ -86,14 +86,14 @@ if (!is_empty($VARS['id'])) {
                 <div class="col-xs-12 col-md-6">
                     <div class="form-group">
                         <label for="cat"><i class="fa fa-archive"></i> <?php lang("category"); ?></label>
-                        <input type="text" class="form-control" id="cat" placeholder="<?php lang("placeholder category name"); ?>" value="<?php echo htmlspecialchars($itemdata['catname']); ?>" />
+                        <input type="text" name="catstr" class="form-control" id="cat" placeholder="<?php lang("placeholder category name"); ?>" value="<?php echo htmlspecialchars($itemdata['catname']); ?>" />
                         <input type="hidden" id="realcat" name="cat" value="<?php echo $itemdata['catid']; ?>" required="required" />
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-6">
                     <div class="form-group">
                         <label for="loc"><i class="fa fa-map-marker"></i> <?php lang("location"); ?></label>
-                        <input type="text" class="form-control" id="loc" placeholder="<?php lang("placeholder location name"); ?>" value="<?php echo htmlspecialchars($itemdata['locname']); ?>" />
+                        <input type="text" name="locstr" class="form-control" id="loc" placeholder="<?php lang("placeholder location name"); ?>" value="<?php echo htmlspecialchars($itemdata['locname']); ?>" />
                         <input type="hidden" id="realloc" name="loc" value="<?php echo $itemdata['locid']; ?>" required="required" />
                     </div>
                 </div>

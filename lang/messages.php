@@ -72,5 +72,13 @@ define("MESSAGES", [
     "field_nan" => [
         "string" => "field not a number",
         "type" => "danger"
+    ],
+    "missing_name" => [
+        "string" => "missing name",
+        "type" => "danger"
+    ],
+    "use_the_drop_luke" => [
+        "string" => "use the dropdowns",
+        "type" => "danger"
     ]
 ]);
