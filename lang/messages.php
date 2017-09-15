@@ -80,5 +80,9 @@ define("MESSAGES", [
     "use_the_drop_luke" => [
         "string" => "use the dropdowns",
         "type" => "danger"
+    ],
+    "noloccat" => [
+        "string" => "make categories and locations",
+        "type" => "info"
     ]
 ]);

@@ -5,6 +5,11 @@ require_once __DIR__ . "/../lib/userinfo.php";
 
 redirectifnotloggedin();
 
+if ($database->count("locations") == 0 || $database->count("categories") == 0) {
+    header('Location: app.php?page=items&msg=noloccat');
+    die();
+}
+
 $itemdata = [
     'name' => '',
     'catid' => '',
@@ -55,6 +60,7 @@ if (!is_empty($VARS['id'])) {
     } else {
         // item id is invalid, redirect to a page that won't cause an error when pressing Save
         header('Location: app.php?page=edititem');
+        die();
     }
 }
 ?>
