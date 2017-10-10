@@ -8,7 +8,9 @@ require_once __DIR__ . "/required.php";
 require_once __DIR__ . "/lib/login.php";
 require_once __DIR__ . "/lib/userinfo.php";
 
-dieifnotloggedin();
+if ($VARS['action'] !== "signout") {
+    dieifnotloggedin();
+}
 
 /**
  * Redirects back to the page ID in $_POST/$_GET['source'] with the given message ID.
