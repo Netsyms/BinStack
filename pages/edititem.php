@@ -27,10 +27,14 @@ $itemdata = [
     'userid' => ''];
 
 $editing = false;
+$cloning = false;
 
 if (!is_empty($VARS['id'])) {
     if ($database->has('items', ['itemid' => $VARS['id']])) {
         $editing = true;
+        if ($VARS['clone'] == 1) {
+            $cloning = true;
+        }
         $itemdata = $database->select(
                         'items', [
                     '[>]categories' => [
@@ -70,7 +74,11 @@ if (!is_empty($VARS['id'])) {
         <div class="panel-heading">
             <h3 class="panel-title">
                 <?php
-                if ($editing) {
+                if ($cloning) {
+                    ?>
+                    <i class="fa fa-pencil-square-o"></i> <?php lang2("cloning item", ['oitem' => htmlspecialchars($itemdata['name']), 'nitem' => "<span id=\"name_title\">" . htmlspecialchars($itemdata['name']) . "</span>"]); ?>
+                    <?php
+                } else if ($editing) {
                     ?>
                     <i class="fa fa-pencil-square-o"></i> <?php lang2("editing item", ['item' => "<span id=\"name_title\">" . htmlspecialchars($itemdata['name']) . "</span>"]); ?>
                     <?php
@@ -177,14 +185,18 @@ if (!is_empty($VARS['id'])) {
             </div>
         </div>
 
-        <input type="hidden" name="itemid" value="<?php echo htmlspecialchars($VARS['id']); ?>" />
+        <input type="hidden" name="itemid" value="<?php
+        if ($editing && !$cloning) {
+            echo htmlspecialchars($VARS['id']);
+        }
+        ?>" />
         <input type="hidden" name="action" value="edititem" />
         <input type="hidden" name="source" value="items" />
 
         <div class="panel-footer">
             <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> <?php lang("save"); ?></button>
             <?php
-            if ($editing) {
+            if ($editing && !$cloning) {
                 ?>
                 <a href="action.php?action=deleteitem&source=items&itemid=<?php echo htmlspecialchars($VARS['id']); ?>" style="margin-top: 8px;" class="btn btn-danger btn-xs pull-right"><i class="fa fa-times"></i> <?php lang('delete'); ?></a>
                 <?php

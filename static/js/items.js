@@ -45,7 +45,7 @@ var itemtable = $('#itemtable').DataTable({
             json.items.forEach(function (row) {
                 json.data.push([
                     "",
-                    row.editbtn,
+                    row.editbtn + " " + row.clonebtn,
                     row.name,
                     row.catname,
                     row.locname + " (" + row.loccode + ")",

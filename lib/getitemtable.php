@@ -111,6 +111,7 @@ $out['recordsFiltered'] = $recordsFiltered;
 $usercache = [];
 for ($i = 0; $i < count($items); $i++) {
     $items[$i]["editbtn"] = '<a class="btn btn-blue btn-xs" href="app.php?page=edititem&id=' . $items[$i]['itemid'] . '"><i class="fa fa-pencil-square-o"></i> ' . lang("edit", false) . '</a>';
+    $items[$i]["clonebtn"] = '<a class="btn btn-green btn-xs" href="app.php?page=edititem&id=' . $items[$i]['itemid'] . '&clone=1"><i class="fa fa-clone"></i> ' . lang("clone", false) . '</a>';
     if (is_null($items[$i]['userid'])) {
         $items[$i]["username"] = "";
     } else {
