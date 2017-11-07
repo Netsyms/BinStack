@@ -1,0 +1,3 @@
+[submodule "static/css/material-color"]
+	path = static/css/material-color
+	url = https://source.netsyms.com/Netsyms/Material-Color
