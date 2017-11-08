@@ -11,7 +11,7 @@ header('Content-Type: text/html; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 header('X-XSS-Protection: 1; mode=block');
 $session_length = 60 * 60; // 1 hour
-session_set_cookie_params($session_length, "/", null, false, true);
+session_set_cookie_params($session_length, "/", null, false, false);
 
 session_start(); // stick some cookies in it
 // renew session cookie
