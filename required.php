@@ -10,12 +10,42 @@ header('Content-Type: text/html; charset=utf-8');
 // l33t $ecurity h4x
 header('X-Content-Type-Options: nosniff');
 header('X-XSS-Protection: 1; mode=block');
+header('X-Powered-By: PHP'); // no versions makes it harder to find vulns
+header('X-Frame-Options: "DENY"');
+header('Referrer-Policy: "no-referrer, strict-origin-when-cross-origin"');
+$SECURE_NONCE = base64_encode(random_bytes(8));
+
 $session_length = 60 * 60; // 1 hour
 session_set_cookie_params($session_length, "/", null, false, false);
 
 session_start(); // stick some cookies in it
 // renew session cookie
 setcookie(session_name(), session_id(), time() + $session_length);
+
+if ($_SESSION['mobile'] === TRUE) {
+    header("Content-Security-Policy: "
+            . "default-src 'self';"
+            . "object-src 'none'; "
+            . "img-src * data:; "
+            . "media-src 'self'; "
+            . "frame-src 'none'; "
+            . "font-src 'self'; "
+            . "connect-src *; "
+            . "style-src 'self' 'unsafe-inline'; "
+            . "script-src 'self' 'unsafe-inline'");
+} else {
+    header("Content-Security-Policy: "
+            . "default-src 'self';"
+            . "object-src 'none'; "
+            . "img-src * data:; "
+            . "media-src 'self'; "
+            . "frame-src 'none'; "
+            . "font-src 'self'; "
+            . "connect-src *; "
+            . "style-src 'self' 'nonce-$SECURE_NONCE'; "
+            . "script-src 'self' 'nonce-$SECURE_NONCE'");
+}
+
 //
 // Composer
 require __DIR__ . '/vendor/autoload.php';
@@ -32,7 +62,21 @@ require __DIR__ . '/lang/' . LANGUAGE . ".php";
  * @param string $error error message
  */
 function sendError($error) {
-    die("<!DOCTYPE html><html><head><title>Error</title></head><body><h1 style='color: red; font-family: sans-serif; font-size:100%;'>" . htmlspecialchars($error) . "</h1></body></html>");
+    global $SECURE_NONCE;
+    die("<!DOCTYPE html>"
+            . "<meta charset=\"UTF-8\">"
+            . "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+            . "<title>Error</title>"
+            . "<style nonce=\"" . $SECURE_NONCE . "\">"
+            . "h1 {color: red; font-family: sans-serif; font-size: 20px; margin-bottom: 0px;} "
+            . "h2 {font-family: sans-serif; font-size: 16px;} "
+            . "p {font-family: monospace; font-size: 14px; width: 100%; wrap-style: break-word;} "
+            . "i {font-size: 12px;}"
+            . "</style>"
+            . "<h1>A fatal application error has occurred.</h1>"
+            . "<i>(This isn't your fault.)</i>"
+            . "<h2>Details:</h2>"
+            . "<p>" . htmlspecialchars($error) . "</p>");
 }
 
 date_default_timezone_set(TIMEZONE);

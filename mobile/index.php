@@ -94,6 +94,7 @@ switch ($VARS['action']) {
                 if (authenticate_user($VARS['username'], $VARS['password'], $autherror)) {
                     if (is_null($access_permission) || account_has_permission($VARS['username'], $access_permission)) {
                         doLoginUser($VARS['username'], $VARS['password']);
+                        $_SESSION['mobile'] = true;
                         exit(json_encode(["status" => "OK"]));
                     } else {
                         exit(json_encode(["status" => "ERROR", "msg" => lang("no admin permission", false)]));
