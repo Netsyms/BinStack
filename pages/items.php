@@ -5,14 +5,14 @@ require_once __DIR__ . "/../lib/userinfo.php";
 redirectifnotloggedin();
 ?>
 
-<div class="btn-group" style="margin-bottom: 10px;">
+<div class="btn-group mgn-btm-10px">
     <a href="app.php?page=edititem" class="btn btn-success"><i class="fa fa-plus"></i> <?php lang("new item"); ?></a>
 </div>
 <?php if ($_GET['filter'] == 'stock') { ?>
-<script>var filter = "stock";</script>
+<script nonce="<?php echo $SECURE_NONCE; ?>">var filter = "stock";</script>
 <div class="alert alert-blue-grey"><i class="fa fa-filter fa-fw"></i> <?php lang("only showing understocked"); ?> &nbsp; <a href="app.php?page=items" class="btn btn-sm btn-blue-grey"><?php lang("show all items"); ?></a></div>
 <?php } else {
-    echo "<script>var filter = null;</script>\n";
+    echo "<script nonce=\"$SECURE_NONCE\">var filter = null;</script>\n";
 }
 ?>
 <table id="itemtable" class="table table-bordered table-striped">

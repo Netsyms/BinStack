@@ -90,6 +90,7 @@ switch ($VARS['action']) {
                 if (authenticate_user($VARS['username'], $VARS['password'], $autherror)) {
                     if (account_has_permission($VARS['username'], "INV_VIEW")) {
                         doLoginUser($VARS['username'], $VARS['password']);
+                        $_SESSION['mobile'] = true;
                         exit(json_encode(["status" => "OK"]));
                     } else {
                         exit(json_encode(["status" => "ERROR", "msg" => lang("no permission", false)]));

@@ -71,7 +71,7 @@ if (!is_empty($_GET['page'])) {
                                 }
                                 ?>
                                 <a class="navbar-brand" href="app.php">
-                                    <img style="height: 35px; padding-bottom: 12px; padding-left: 5px;" src="<?php echo $src; ?>" />
+                                    <img src="<?php echo $src; ?>" />
                                 </a>
                                 <?php
                             }
@@ -121,7 +121,7 @@ if (!is_empty($_GET['page'])) {
             <?php
             if (MENU_BAR_STYLE == "fixed") {
                 ?>
-                <div style="height: 75px;"></div>
+                <div class="pad-75px"></div>
                 <?php
             }
             ?>

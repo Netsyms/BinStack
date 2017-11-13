@@ -11,7 +11,7 @@ redirectifnotloggedin();
                 <h1><i class="fa fa-fw fa-cubes"></i> <?php echo $database->count('items'); ?></h1>
             </div>
             <div class="panel-footer">
-                <a href="app.php?page=items" style="color: black;"><i class="fa fa-arrow-right"></i> <?php lang("view items"); ?></a>
+                <a href="app.php?page=items" class="black-text"><i class="fa fa-arrow-right"></i> <?php lang("view items"); ?></a>
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@ redirectifnotloggedin();
                 <h1><i class="fa fa-fw fa-tachometer"></i> <?php echo $lowcnt; ?></h1>
             </div>
             <div class="panel-footer">
-                <a href="app.php?page=items&filter=stock" style="color: black;"><i class="fa fa-arrow-right"></i> <?php lang("view understocked"); ?></a>
+                <a href="app.php?page=items&filter=stock" class="black-text"><i class="fa fa-arrow-right"></i> <?php lang("view understocked"); ?></a>
             </div>
         </div>
     </div>

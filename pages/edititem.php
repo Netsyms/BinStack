@@ -129,7 +129,7 @@ if (!is_empty($VARS['id'])) {
                     <div class="form-group">
                         <label for="code2"><i class="fa fa-qrcode"></i> <?php lang("code 2"); ?></label>
                         <div class="input-group">
-                            <input type="text" style="width: available;" class="form-control" id="code2" name="code2" placeholder="qwerty123" value="<?php echo htmlspecialchars($itemdata['code2']); ?>" />
+                            <input type="text" class="form-control" id="code2" name="code2" placeholder="qwerty123" value="<?php echo htmlspecialchars($itemdata['code2']); ?>" />
                             <span class="input-group-btn mobile-app-show">
                                 <button type="button" class="btn btn-default" onclick="scancode('#code2'); return false;"><i class="fa fa-fw fa-barcode"></i></button>
                             </span>
@@ -198,7 +198,7 @@ if (!is_empty($VARS['id'])) {
             <?php
             if ($editing && !$cloning) {
                 ?>
-                <a href="action.php?action=deleteitem&source=items&itemid=<?php echo htmlspecialchars($VARS['id']); ?>" style="margin-top: 8px;" class="btn btn-danger btn-xs pull-right"><i class="fa fa-times"></i> <?php lang('delete'); ?></a>
+                <a href="action.php?action=deleteitem&source=items&itemid=<?php echo htmlspecialchars($VARS['id']); ?>" class="btn btn-danger btn-xs pull-right mgn-top-8px"><i class="fa fa-times"></i> <?php lang('delete'); ?></a>
                 <?php
             }
             ?>
