@@ -4,20 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c8b61c5d506ae016285b99b20040cf0",
+    "hash": "67e95c250946f032648f9527831ec71a",
+    "content-hash": "36bca807ff9018548a5ce6c686d131dc",
     "packages": [
         {
             "name": "catfan/medoo",
-            "version": "v1.4.3",
+            "version": "v1.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/catfan/Medoo.git",
-                "reference": "00b28046376880e1a7bd3026fa06b4e261bce3fd"
+                "reference": "8ee8ae1c4df0fee3822a01333eab88893e548fcc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/catfan/Medoo/zipball/00b28046376880e1a7bd3026fa06b4e261bce3fd",
-                "reference": "00b28046376880e1a7bd3026fa06b4e261bce3fd",
+                "url": "https://api.github.com/repos/catfan/Medoo/zipball/8ee8ae1c4df0fee3822a01333eab88893e548fcc",
+                "reference": "8ee8ae1c4df0fee3822a01333eab88893e548fcc",
                 "shasum": ""
             },
             "require": {
@@ -63,20 +64,20 @@
                 "sql",
                 "sqlite"
             ],
-            "time": "2017-05-22T04:39:48+00:00"
+            "time": "2017-06-24 14:43:07"
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "6.2.3",
+            "version": "6.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "8d6c6cc55186db87b7dc5009827429ba4e9dc006"
+                "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/8d6c6cc55186db87b7dc5009827429ba4e9dc006",
-                "reference": "8d6c6cc55186db87b7dc5009827429ba4e9dc006",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/f4db5a78a5ea468d4831de7f0bf9d9415e348699",
+                "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699",
                 "shasum": ""
             },
             "require": {
@@ -86,8 +87,11 @@
             },
             "require-dev": {
                 "ext-curl": "*",
-                "phpunit/phpunit": "^4.0",
+                "phpunit/phpunit": "^4.0 || ^5.0",
                 "psr/log": "^1.0"
+            },
+            "suggest": {
+                "psr/log": "Required for using the Log middleware"
             },
             "type": "library",
             "extra": {
@@ -125,7 +129,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2017-02-28T22:50:30+00:00"
+            "time": "2017-06-22 18:50:49"
         },
         {
             "name": "guzzlehttp/promises",
@@ -176,7 +180,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2016-12-20T10:07:11+00:00"
+            "time": "2016-12-20 10:07:11"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -241,7 +245,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2017-03-20T17:10:46+00:00"
+            "time": "2017-03-20 17:10:46"
         },
         {
             "name": "psr/http-message",
@@ -291,7 +295,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06T14:39:51+00:00"
+            "time": "2016-08-06 14:39:51"
         }
     ],
     "packages-dev": [],
