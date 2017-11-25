@@ -4,7 +4,7 @@ BinStack
 BinStack is the easy way to keep track of your business assets. 
 Never wander in search of the stapler again.
 
-https://biz.netsyms.com/binstack
+https://netsyms.biz/apps/binstack
 
 Features
 --------
