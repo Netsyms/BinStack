@@ -4,7 +4,30 @@ require_once __DIR__ . '/../required.php';
 redirectifnotloggedin();
 ?>
 <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-4">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+        <form action="app.php" method="get">
+            <input type="hidden" name="page" value="items" />
+            <div class="input-group">
+                <input type="text" class="form-control" name="q" id="quicklookup_box" placeholder="<?php lang("search"); ?>"/>
+                <div class="input-group-btn">
+                    <?php
+                    if ($_SESSION['mobile']) {
+                        ?>
+                        <span class="btn btn-default" onclick="scancode('#quicklookup_box');">
+                            <i class="fa fa-barcode fa-fw"></i>
+                        </span>
+                    <?php } ?>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-search fa-fw"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-md-offset-2">
         <div class="panel panel-blue-grey">
             <div class="panel-heading"><div class="panel-title"><?php lang("total items") ?></div></div>
             <div class="panel-body">

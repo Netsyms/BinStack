@@ -89,5 +89,6 @@ define("STRINGS", [
     "show all items" => "Show all items",
     "missing name" => "You need to enter a name.",
     "use the dropdowns" => "Whoops, you need to use the category and location autocomplete boxes.",
-    "make categories and locations" => "Please create at least one category and location before adding an item."
+    "make categories and locations" => "Please create at least one category and location before adding an item.",
+    "search" => "Search"
 ]);

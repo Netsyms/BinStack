@@ -9,9 +9,10 @@ redirectifnotloggedin();
     <a href="app.php?page=edititem" class="btn btn-success"><i class="fa fa-plus"></i> <?php lang("new item"); ?></a>
 </div>
 <?php if ($_GET['filter'] == 'stock') { ?>
-<script nonce="<?php echo $SECURE_NONCE; ?>">var filter = "stock";</script>
-<div class="alert alert-blue-grey"><i class="fa fa-filter fa-fw"></i> <?php lang("only showing understocked"); ?> &nbsp; <a href="app.php?page=items" class="btn btn-sm btn-blue-grey"><?php lang("show all items"); ?></a></div>
-<?php } else {
+    <script nonce="<?php echo $SECURE_NONCE; ?>">var filter = "stock";</script>
+    <div class="alert alert-blue-grey"><i class="fa fa-filter fa-fw"></i> <?php lang("only showing understocked"); ?> &nbsp; <a href="app.php?page=items" class="btn btn-sm btn-blue-grey"><?php lang("show all items"); ?></a></div>
+    <?php
+} else {
     echo "<script nonce=\"$SECURE_NONCE\">var filter = null;</script>\n";
 }
 ?>
@@ -31,50 +32,6 @@ redirectifnotloggedin();
         </tr>
     </thead>
     <tbody>
-        <?php /*
-        $items = $database->select('items', [
-            '[>]categories' => ['catid' => 'catid'],
-            '[>]locations' => ['locid' => 'locid']
-                ], [
-            'itemid',
-            'name',
-            'catname',
-            'locname',
-            'loccode',
-            'code1',
-            'code2',
-            'qty',
-            'want',
-            'userid'
-        ], ["LIMIT" => 100]);
-        $usercache = [];
-        foreach ($items as $item) {
-            if (is_null($item['userid'])) {
-                $user = "";
-            } else {
-                if (!isset($usercache[$item['userid']])) {
-                    $usercache[$item['userid']] = getUserByID($item['userid']);
-                }
-                $user = $usercache[$item['userid']]['name'];
-            }
-            ?>
-            <tr>
-                <td></td>
-                <td>
-                    <a class="btn btn-blue btn-xs" href="app.php?page=edititem&id=<?php echo $item['itemid']; ?>"><i class="fa fa-pencil-square-o"></i> <?php lang("edit"); ?></a>
-                </td>
-                <td><?php echo $item['name']; ?></td>
-                <td><?php echo $item['catname']; ?></td>
-                <td><?php echo $item['locname'] . " (" . $item['loccode'] . ")"; ?></td>
-                <td><?php echo $item['code1']; ?></td>
-                <td><?php echo $item['code2']; ?></td>
-                <td><?php echo $item['qty']; ?></td>
-                <td><?php echo $item['want']; ?></td>
-                <td><?php echo $user; ?></td>
-            </tr>
-            <?php
-        } */
-        ?>
     </tbody>
     <tfoot>
         <tr>
@@ -91,3 +48,16 @@ redirectifnotloggedin();
         </tr>
     </tfoot>
 </table>
+<?php
+if (!is_empty($VARS['q'])) {
+    ?>
+    <script nonce="<?php echo $SECURE_NONCE; ?>">
+        var search_preload_content = "<?php echo $VARS['q']; ?>";
+    </script>
+    <?php
+} else {
+    ?>
+    <script nonce="<?php echo $SECURE_NONCE; ?>">
+        var search_preload_content = false;
+    </script>
+<?php } ?>
