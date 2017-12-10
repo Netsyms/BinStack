@@ -23,7 +23,7 @@ redirectifnotloggedin();
             ?>
             <tr>
                 <td>
-                    <a class="btn btn-blue btn-xs" href="app.php?page=editcat&id=<?php echo $cat['catid']; ?>"><i class="fa fa-pencil-square-o"></i> <?php lang("edit"); ?></a>
+                    <a class="btn btn-primary btn-xs" href="app.php?page=editcat&id=<?php echo $cat['catid']; ?>"><i class="fa fa-pencil-square-o"></i> <?php lang("edit"); ?></a>
                 </td>
                 <td><?php echo $cat['catname']; ?></td>
             </tr>

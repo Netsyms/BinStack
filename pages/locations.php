@@ -29,7 +29,7 @@ redirectifnotloggedin();
             <tr>
                 <td></td>
                 <td>
-                    <a class="btn btn-blue btn-xs" href="app.php?page=editloc&id=<?php echo $loc['locid']; ?>"><i class="fa fa-pencil-square-o"></i> <?php lang("edit"); ?></a>
+                    <a class="btn btn-primary btn-xs" href="app.php?page=editloc&id=<?php echo $loc['locid']; ?>"><i class="fa fa-pencil-square-o"></i> <?php lang("edit"); ?></a>
                 </td>
                 <td><?php echo $loc['locname']; ?></td>
                 <td><?php echo $loc['loccode']; ?></td>
