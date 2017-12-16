@@ -146,7 +146,7 @@ if (checkLoginServer()) {
                 </div>
             </div>
             <div class="footer">
-                <?php echo LICENSE_TEXT; ?><br />
+                <?php echo FOOTER_TEXT; ?><br />
                 Copyright &copy; <?php echo date('Y'); ?> <?php echo COPYRIGHT_NAME; ?>
             </div>
         </div>
