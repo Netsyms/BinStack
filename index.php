@@ -1,4 +1,9 @@
 <?php
+
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 require_once __DIR__ . "/required.php";
 
 require_once __DIR__ . "/lib/login.php";
@@ -150,7 +155,7 @@ if (checkLoginServer()) {
                 </div>
             </div>
             <div class="footer">
-                <?php echo LICENSE_TEXT; ?><br />
+                <?php echo FOOTER_TEXT; ?><br />
                 Copyright &copy; <?php echo date('Y'); ?> <?php echo COPYRIGHT_NAME; ?>
             </div>
         </div>
