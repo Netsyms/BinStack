@@ -6,7 +6,7 @@
         "catfan/medoo": "^1.2",
         "guzzlehttp/guzzle": "^6.2"
     },
-    "license": "OTHER",
+    "license": "MPL-2.0",
     "authors": [
         {
             "name": "Skylar Ittner",
