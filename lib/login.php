@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Authentication and account functions.  Connects to a Portal instance.
+ * Authentication and account functions.  Connects to an AccountHub instance.
  */
 
 /**
@@ -30,6 +30,33 @@ function checkLoginServer() {
         } else {
             return false;
         }
+    } catch (Exception $e) {
+        return false;
+    }
+}
+
+/**
+ * Checks if the given AccountHub API key is valid by attempting to 
+ * access the API with it.
+ * @param String $key The API key to check
+ * @return boolean TRUE if the key is valid, FALSE if invalid or something went wrong
+ */
+function checkAPIKey($key) {
+    try {
+        $client = new GuzzleHttp\Client();
+
+        $response = $client
+                ->request('POST', PORTAL_API, [
+            'form_params' => [
+                'key' => $key,
+                'action' => "ping"
+            ]
+        ]);
+
+        if ($response->getStatusCode() === 200) {
+            return true;
+        }
+        return false;
     } catch (Exception $e) {
         return false;
     }
@@ -213,7 +240,7 @@ function doLoginUser($username) {
     }
 
     $resp = json_decode($response->getBody(), TRUE);
-    
+
     if ($resp['status'] == "OK") {
         $userinfo = $resp['data'];
         $_SESSION['username'] = $username;
