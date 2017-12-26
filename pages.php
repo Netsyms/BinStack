@@ -75,6 +75,14 @@ define("PAGES", [
             "static/js/editloc.js"
         ],
     ],
+    "export" => [
+        "title" => "report export",
+        "navbar" => true,
+        "icon" => "download",
+        "scripts" => [
+            "static/js/export.js"
+        ]
+    ],
     "404" => [
         "title" => "404 error"
     ]

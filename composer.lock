@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "67e95c250946f032648f9527831ec71a",
-    "content-hash": "36bca807ff9018548a5ce6c686d131dc",
+    "hash": "0476ce3c9f1be7b4a13d6533df71433d",
+    "content-hash": "9ff412188d3e72a7961ecf9b9e966404",
     "packages": [
         {
             "name": "catfan/medoo",
@@ -246,6 +246,113 @@
                 "url"
             ],
             "time": "2017-03-20 17:10:46"
+        },
+        {
+            "name": "lapinator/ods-php-generator",
+            "version": "v0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Lapinator/odsPhpGenerator.git",
+                "reference": "575314c003c2ec3032813bedcc1d27032b7b7ab2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Lapinator/odsPhpGenerator/zipball/575314c003c2ec3032813bedcc1d27032b7b7ab2",
+                "reference": "575314c003c2ec3032813bedcc1d27032b7b7ab2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Laurent VUIBERT",
+                    "email": "lapinator@gmx.fr",
+                    "homepage": "http://lapinator.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Open Document Spreadsheet (.ods) generator ",
+            "homepage": "https://odsphpgenerator.lapinator.net/",
+            "keywords": [
+                "LibreOffice",
+                "ods"
+            ],
+            "time": "2016-04-14 21:51:27"
+        },
+        {
+            "name": "league/csv",
+            "version": "9.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/csv.git",
+                "reference": "66118f5c2a7e4da77e743e69f74773c63b73e8f9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/csv/zipball/66118f5c2a7e4da77e743e69f74773c63b73e8f9",
+                "reference": "66118f5c2a7e4da77e743e69f74773c63b73e8f9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=7.0.10"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "friendsofphp/php-cs-fixer": "^2.0",
+                "phpunit/phpunit": "^6.0"
+            },
+            "suggest": {
+                "ext-iconv": "Needed to ease transcoding CSV using iconv stream filters"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "9.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Csv\\": "src"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ignace Nyamagana Butera",
+                    "email": "nyamsprod@gmail.com",
+                    "homepage": "https://github.com/nyamsprod/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Csv data manipulation made easy in PHP",
+            "homepage": "http://csv.thephpleague.com",
+            "keywords": [
+                "csv",
+                "export",
+                "filter",
+                "import",
+                "read",
+                "write"
+            ],
+            "time": "2017-11-28 08:29:49"
         },
         {
             "name": "psr/http-message",

@@ -4,7 +4,9 @@
     "type": "project",
     "require": {
         "catfan/medoo": "^1.2",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "league/csv": "^9.0",
+        "lapinator/ods-php-generator": "^0.0.3"
     },
     "license": "MPL-2.0",
     "authors": [
