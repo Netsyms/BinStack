@@ -43,7 +43,8 @@ define("PAGES", [
         "navbar" => true,
         "icon" => "archive",
         "styles" => [
-            "static/css/datatables.min.css"
+            "static/css/datatables.min.css",
+            "static/css/tables.css"
         ],
         "scripts" => [
             "static/js/datatables.min.js",
