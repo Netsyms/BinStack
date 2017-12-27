@@ -138,9 +138,10 @@ function getLocationReport() {
     $locs = $database->select('locations', [
         'locid',
         'locname',
-        'loccode'
+        'loccode',
+        'locinfo'
     ]);
-    $header = [lang("id", false), lang("location", false), lang("code", false), lang("item count", false)];
+    $header = [lang("id", false), lang("location", false), lang("code", false), lang("item count", false), lang("description", false)];
     $out = [$header];
     for ($i = 0; $i < count($locs); $i++) {
         $itemcount = $database->count('items', ['locid' => $locs[$i]['locid']]);
@@ -148,7 +149,8 @@ function getLocationReport() {
             $locs[$i]["locid"],
             $locs[$i]["locname"],
             $locs[$i]["loccode"],
-            $itemcount . ""
+            $itemcount . "",
+            $locs[$i]["locinfo"]
         ];
     }
     return $out;
