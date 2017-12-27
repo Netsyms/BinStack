@@ -22,5 +22,5 @@ function getniceurl() {
 try {
     window.history.replaceState("", "", getniceurl());
 } catch (ex) {
-    
+
 }
