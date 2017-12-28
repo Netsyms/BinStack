@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f6f3b6a73c9931523ffedfcb7b2704e9",
+    "hash": "577921e9d14ff39571692f88476151ee",
     "content-hash": "1c8b61c5d506ae016285b99b20040cf0",
     "packages": [
         {
             "name": "catfan/medoo",
-            "version": "v1.4.5",
+            "version": "v1.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/catfan/Medoo.git",
-                "reference": "8ee8ae1c4df0fee3822a01333eab88893e548fcc"
+                "reference": "1aa25a4001e0cfb739ba2996f00f4a3d2a7fdf07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/catfan/Medoo/zipball/8ee8ae1c4df0fee3822a01333eab88893e548fcc",
-                "reference": "8ee8ae1c4df0fee3822a01333eab88893e548fcc",
+                "url": "https://api.github.com/repos/catfan/Medoo/zipball/1aa25a4001e0cfb739ba2996f00f4a3d2a7fdf07",
+                "reference": "1aa25a4001e0cfb739ba2996f00f4a3d2a7fdf07",
                 "shasum": ""
             },
             "require": {
@@ -32,7 +32,7 @@
                 "ext-pdo_oci8": "For Oracle version 8 database",
                 "ext-pdo_pqsql": "For PostgreSQL database",
                 "ext-pdo_sqlite": "For SQLite database",
-                "ext-pdo_sqlsrv": "For MSSQL database on Windows platform"
+                "ext-pdo_sqlsrv": "For MSSQL database"
             },
             "type": "framework",
             "autoload": {
@@ -64,7 +64,7 @@
                 "sql",
                 "sqlite"
             ],
-            "time": "2017-06-24 14:43:07"
+            "time": "2017-12-25 17:02:41"
         },
         {
             "name": "guzzlehttp/guzzle",
