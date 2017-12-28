@@ -110,7 +110,7 @@ if (checkLoginServer()) {
                             <img class="img-responsive banner-image" src="static/img/logo.png" />
                         <?php } ?>
                     </div>
-                    <div class="panel panel-teal">
+                    <div class="panel panel-green">
                         <div class="panel-heading">
                             <h3 class="panel-title"><?php lang("sign in"); ?></h3>
                         </div>
