@@ -82,7 +82,7 @@ function sendError($error) {
             . "<h1>A fatal application error has occurred.</h1>"
             . "<i>(This isn't your fault.)</i>"
             . "<h2>Details:</h2>"
-            . "<p>". htmlspecialchars($error) . "</p>");
+            . "<p>" . htmlspecialchars($error) . "</p>");
 }
 
 date_default_timezone_set(TIMEZONE);
