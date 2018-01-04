@@ -104,7 +104,7 @@ if (!is_empty($_GET['page'])) {
                                             <?php
                                             if (isset($pg['icon'])) {
                                                 ?>
-                                                <i class="fa fa-<?php echo $pg['icon']; ?> fa-fw"></i> 
+                                                <i class="fa fa-<?php echo $pg['icon']; ?> fa-fw"></i>
                                             <?php } ?>
                                             <?php lang($pg['title']) ?>
                                         </a>
@@ -115,8 +115,8 @@ if (!is_empty($_GET['page'])) {
                             ?>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="<?php echo PORTAL_URL; ?>"><i class="fa fa-user fa-fw"></i> <?php echo $_SESSION['realname'] ?></a></li>
-                            <li><a href="action.php?action=signout"><i class="fa fa-sign-out fa-fw"></i> <?php lang("sign out") ?></a></li>
+                            <li><a href="<?php echo PORTAL_URL; ?>"><i class="fa fa-user fa-fw"></i> <span class="hidden-sm"><?php echo $_SESSION['realname'] ?></span></a></li>
+                            <li><a href="action.php?action=signout"><i class="fa fa-sign-out fa-fw"></i> <span class="hidden-sm"><?php lang("sign out") ?></span></a></li>
                         </ul>
                     </div>
                 </div>
