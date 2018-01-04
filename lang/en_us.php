@@ -32,6 +32,7 @@ define("STRINGS", [
     "captcha error" => "There was a problem with the CAPTCHA (robot test).  Try again.",
     "no edit permission" => "You do not have permission to modify records.",
     "home" => "Home",
+    "more" => "More",
     "invalid itemid" => "The item ID is invalid.",
     "invalid category" => "The category is invalid.",
     "invalid location" => "The location does not exist.",

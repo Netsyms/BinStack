@@ -1,5 +1,4 @@
 <?php
-
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -92,33 +91,55 @@ if (!is_empty($_GET['page'])) {
                     <div class="collapse navbar-collapse" id="navbar-collapse">
                         <ul class="nav navbar-nav">
                             <?php
+                            $counter = 0;
+                            $more = "";
+                            $curpagefound = false;
                             foreach (PAGES as $id => $pg) {
                                 if ($pg['navbar'] === TRUE) {
-                                    if ($pageid == $id) {
-                                        ?>
-                                        <li class="active">
-                                            <?php
-                                        } else {
+                                    $counter++;
+                                    if ($counter > ($curpagefound ? 4 : 3) && $pageid != $id) {
+                                        $item = '<a href="app.php?page=' . $id . '">';
+                                        if (isset($pg['icon'])) {
+                                            $item .= '<i class="fa fa-' . $pg['icon'] . ' fa-fw"></i>';
+                                        }
+                                        $item .= lang($pg['title'], false) . '</a>';
+                                        echo '<li class="hidden-sm hidden-md">' . $item . "</li>";
+                                        $more .= '<li>' . $item . "</li>";
+                                    } else {
+                                        if ($pageid == $id) {
+                                            $curpagefound = true;
                                             ?>
-                                        <li>
-                                        <?php } ?>
-                                        <a href="app.php?page=<?php echo $id; ?>">
-                                            <?php
-                                            if (isset($pg['icon'])) {
+                                            <li class="active">
+                                                <?php
+                                            } else {
                                                 ?>
-                                                <i class="fa fa-<?php echo $pg['icon']; ?> fa-fw"></i> 
+                                            <li>
                                             <?php } ?>
-                                            <?php lang($pg['title']) ?>
-                                        </a>
-                                    </li>
-                                    <?php
+                                            <a href="app.php?page=<?php echo $id; ?>">
+                                                <?php
+                                                if (isset($pg['icon'])) {
+                                                    ?>
+                                                    <i class="fa fa-<?php echo $pg['icon']; ?> fa-fw"></i>
+                                                <?php } ?>
+                                                <?php lang($pg['title']) ?>
+                                            </a>
+                                        </li>
+                                        <?php
+                                    }
                                 }
                             }
-                            ?>
+
+                            if ($counter > 4) {
+                                ?>
+                                <li class="dropdown hidden-lg hidden-xs">
+                                    <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-ellipsis-v fa-fw"></i> <?php lang("more"); ?></a>
+                                    <ul class="dropdown-menu"><?php echo $more; ?></ul>
+                                </li>
+                            <?php } ?>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="<?php echo PORTAL_URL; ?>"><i class="fa fa-user fa-fw"></i> <?php echo $_SESSION['realname'] ?></a></li>
-                            <li><a href="action.php?action=signout"><i class="fa fa-sign-out fa-fw"></i> <?php lang("sign out") ?></a></li>
+                            <li><a href="<?php echo PORTAL_URL; ?>"><i class="fa fa-user fa-fw"></i> <span class="hidden-sm hidden-md"><?php echo $_SESSION['realname'] ?></span></a></li>
+                            <li><a href="action.php?action=signout"><i class="fa fa-sign-out fa-fw"></i> <span class="hidden-sm hidden-md"><?php lang("sign out") ?></span></a></li>
                         </ul>
                     </div>
                 </div>
