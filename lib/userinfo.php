@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Get user info for the given username.
  * @param int $u username
@@ -85,10 +86,10 @@ function isManagerOf($m, $e) {
 
     $resp = json_decode($response->getBody(), TRUE);
     if ($resp['status'] == "OK") {
-        return $resp['managerof'];
+        return $resp['managerof'] === true;
     } else {
         // this shouldn't happen, but in case it does just fake it.
-        return ["name" => $u, "username" => $u, "uid" => $u];
+        return false;
     }
 }
 
