@@ -98,7 +98,7 @@ END;
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand py-0 mr-auto" href="app.php">
-                <img src="static/img/logo.svg" alt="" class="d-inline brand-img py-0" />
+                <img src="static/img/logo.svg" alt="" class="d-none d-<?php echo $navbar_breakpoint; ?>-inline brand-img py-0" />
                 <?php echo SITE_TITLE; ?>
             </a>
 
