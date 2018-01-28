@@ -28,13 +28,14 @@ body {
 }
 
 #main-content {
-    padding-top: 3rem;
+    padding-top: 1rem;
 }
 
 #msg-alert-box {
     position: fixed;
     left: 0;
     right: 0;
+    top: 4rem;
     z-index: 999999;
     padding: 0px 5px;
 }

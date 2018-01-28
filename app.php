@@ -74,7 +74,7 @@ if (!is_empty($_GET['page'])) {
             }
             echo <<<END
             <div class="row justify-content-center" id="msg-alert-box">
-                <div class="col-11 col-xs-6 col-md-6 col-lg-6 col-xl-4">
+                <div class="col-11 col-sm-6 col-md-5 col-lg-4 col-xl-4">
                     <div class="alert alert-dismissible alert-$alerttype">
                         <button type="button" class="close">&times;</button>
                         <i class="fas fa-$alerticon"></i> $alertmsg
