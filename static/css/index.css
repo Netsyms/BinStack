@@ -1,0 +1,11 @@
+.banner-image {
+    max-height: 100px;
+    margin: 2em auto;
+    border: 1px solid grey;
+    border-radius: 15%;
+}
+
+.footer {
+    margin-top: 10em;
+    text-align: center;
+}

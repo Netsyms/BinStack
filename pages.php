@@ -5,7 +5,7 @@ define("PAGES", [
     "home" => [
         "title" => "home",
         "navbar" => true,
-        "icon" => "home"
+        "icon" => "fas fa-home"
     ],
     "404" => [
         "title" => "404 error"
