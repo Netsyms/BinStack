@@ -16,6 +16,11 @@ body {
     padding-right: 1.5rem;
 }
 
+.navbar-toggler-icon {
+    padding: 0px;
+    margin: 0px;
+}
+
 .navbar-brand {
     font-size: 120%;
     padding-right: 1rem;

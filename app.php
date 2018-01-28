@@ -88,23 +88,21 @@ END;
         <?php
         // Adjust as needed
         $navbar_breakpoint = "sm";
+
+        // For mobile app
+        echo "<script nonce=\"$SECURE_NONCE\">var navbar_breakpoint = \"$navbar_breakpoint\";</script>"
         ?>
         <nav class="navbar navbar-expand-<?php echo $navbar_breakpoint; ?> navbar-dark bg-dark fixed-top">
-            <button class="navbar-toggler my-0 py-0" type="button" data-toggle="collapse" data-target="#collapse" aria-controls="collapse" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
+            <button class="navbar-toggler my-0 py-0" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <!--<i class="fas fa-bars"></i>-->
+                <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand py-0 mr-auto" href="app.php">
-                <?php
-                $src = "static/img/logo.png";
-                if ($pageid != "home") {
-                    $src = "static/img/up-arrow-white.png";
-                }
-                ?>
-                <img src="<?php echo $src; ?>" alt="" class="d-inline brand-img py-0" />
+                <img src="static/img/logo.svg" alt="" class="d-inline brand-img py-0" />
                 <?php echo SITE_TITLE; ?>
             </a>
 
-            <div class="collapse navbar-collapse py-0" id="collapse">
+            <div class="collapse navbar-collapse py-0" id="navbar-collapse">
                 <div class="navbar-nav mr-auto py-0">
                     <?php
                     $curpagefound = false;
@@ -135,7 +133,7 @@ END;
                         }
                         ?>
                 </div>
-                <div class="navbar-nav ml-auto py-0">
+                <div class="navbar-nav ml-auto py-0" id="navbar-right">
                     <span class="nav-item py-<?php echo $navbar_breakpoint; ?>-0">
                         <a class="nav-link py-<?php echo $navbar_breakpoint; ?>-0" href="<?php echo PORTAL_URL; ?>">
                             <i class="fas fa-user fa-fw"></i><span>&nbsp;<?php echo $_SESSION['realname'] ?></span>
