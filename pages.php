@@ -10,12 +10,12 @@ define("PAGES", [
     "home" => [
         "title" => "home",
         "navbar" => true,
-        "icon" => "home"
+        "icon" => "fas fa-home"
     ],
     "items" => [
         "title" => "items",
         "navbar" => true,
-        "icon" => "cubes",
+        "icon" => "fas fa-cubes",
         "styles" => [
             "static/css/datatables.min.css",
             "static/css/tables.css"
@@ -28,7 +28,7 @@ define("PAGES", [
     "locations" => [
         "title" => "locations",
         "navbar" => true,
-        "icon" => "map-marker",
+        "icon" => "fas fa-map-marker",
         "styles" => [
             "static/css/datatables.min.css",
             "static/css/tables.css"
@@ -41,7 +41,7 @@ define("PAGES", [
     "categories" => [
         "title" => "categories",
         "navbar" => true,
-        "icon" => "archive",
+        "icon" => "fas fa-archive",
         "styles" => [
             "static/css/datatables.min.css",
             "static/css/tables.css"
@@ -79,7 +79,7 @@ define("PAGES", [
     "export" => [
         "title" => "report export",
         "navbar" => true,
-        "icon" => "download",
+        "icon" => "fas fa-download",
         "scripts" => [
             "static/js/export.js"
         ]

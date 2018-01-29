@@ -1,5 +1,4 @@
 <?php
-
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -32,25 +31,23 @@ if (!is_empty($VARS['id'])) {
 ?>
 
 <form role="form" action="action.php" method="POST">
-    <div class="panel panel-blue">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                <?php
-                if ($editing) {
-                    ?>
-                    <i class="fa fa-pencil-square-o"></i> <?php lang2("editing category", ['cat' => "<span id=\"name_title\">" . htmlspecialchars($catdata['catname']) . "</span>"]); ?>
-                    <?php
-                } else {
-                    ?>
-                    <i class="fa fa-pencil-square-o"></i> <?php lang("adding category"); ?>
-                    <?php
-                }
+    <div class="card border-green">
+        <h3 class="card-header text-green">
+            <?php
+            if ($editing) {
                 ?>
-            </h3>
-        </div>
-        <div class="panel-body">
+                <i class="fas fa-edit"></i> <?php lang2("editing category", ['cat' => "<span id=\"name_title\">" . htmlspecialchars($catdata['catname']) . "</span>"]); ?>
+                <?php
+            } else {
+                ?>
+                <i class="fas fa-edit"></i> <?php lang("adding category"); ?>
+                <?php
+            }
+            ?>
+        </h3>
+        <div class="card-body">
             <div class="form-group">
-                <label for="name"><i class="fa fa-archive"></i> <?php lang("name"); ?></label>
+                <label for="name"><i class="fas fa-archive"></i> <?php lang("name"); ?></label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="Foo Bar" required="required" value="<?php echo htmlspecialchars($catdata['catname']); ?>" />
             </div>
         </div>
@@ -59,12 +56,12 @@ if (!is_empty($VARS['id'])) {
         <input type="hidden" name="action" value="editcat" />
         <input type="hidden" name="source" value="categories" />
 
-        <div class="panel-footer">
-            <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> <?php lang("save"); ?></button>
+        <div class="card-footer d-flex">
+            <button type="submit" class="btn btn-success mr-auto"><i class="fas fa-save"></i> <?php lang("save"); ?></button>
             <?php
             if ($editing) {
                 ?>
-                <a href="action.php?action=deletecat&source=categories&catid=<?php echo htmlspecialchars($VARS['id']); ?>" class="btn btn-danger btn-xs pull-right mgn-top-8px"><i class="fa fa-times"></i> <?php lang('delete'); ?></a>
+                <a href="action.php?action=deletecat&source=categories&catid=<?php echo htmlspecialchars($VARS['id']); ?>" class="btn btn-danger ml-auto"><i class="fas fa-times"></i> <?php lang('delete'); ?></a>
                 <?php
             }
             ?>

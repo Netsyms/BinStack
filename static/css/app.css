@@ -2,37 +2,46 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-.banner-image {
-    max-height: 100px;
-    margin: 2em auto;
+body {
+    padding-top: 4rem;
+}
+
+.brand-img {
     border: 1px solid grey;
-    border-radius: 12px;
+    border-radius: 12%;
+    margin-top: -2px;
+    margin-right: 5px;
+    margin-bottom: 3px;
+    height: 25px;
+}
+
+.navbar-toggler {
+    border: none;
+    padding-right: 1.5rem;
+}
+
+.navbar-toggler-icon {
+    padding: 0px;
+    margin: 0px;
 }
 
 .navbar-brand {
-    font-size: 110%;
+    font-size: 120%;
+    padding-right: 1rem;
+    margin-top: 0.2rem;
 }
 
-.navbar-brand img {
-    height: 35px;
-    padding-bottom: 12px;
-    padding-left: 5px;
+#main-content {
+    padding-top: 1rem;
 }
 
-.pad-75px {
-    height: 75px;
-}
-
-.mgn-btm-10px {
-    margin-bottom: 10px;
-}
-
-.mgn-top-8px {
-    margin-top: 8px;
-}
-
-.black-text {
-    color: black;
+#msg-alert-box {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 4rem;
+    z-index: 999999;
+    padding: 0px 5px;
 }
 
 .footer {
@@ -40,62 +49,14 @@
     text-align: center;
 }
 
-/*
-==============================
-            THEMING
-==============================
-
-Changing the .navbar-inverse background should be enough on modern browsers.
-If this app is to be used on IE < 9 (not supported), also set a background-color
-to replace the rgba()s.
-*/
-
-/* navbar background */
-/*.navbar-inverse {
-    background-color: #4caf50;
-}*/
-
-/* Selected page background */
-/*
-.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
-    background: rgba(0,0,0,.2);
+#peoplelist-panel {
+    max-height: 700px;
+    overflow-y: scroll;
 }
 
-.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-    border-color: rgba(0,0,0,.2);
-}
-
-.navbar-inverse .navbar-toggle .icon-bar {
-    background-color: white;
-}
-
-.navbar-inverse .navbar-brand {
-    color: white;
-}
-
-.navbar-inverse .navbar-nav > li > a {
-    color: white;
-}
-
-.navbar-inverse .navbar-link {
-    color: white;
-}*/
-
-
-
-@media screen and (max-width: 767px) {
-    button.navbar-toggle[data-toggle="collapse"] {
-        float: left;
-        margin-left: 15px;
-    }
-
-    .navbar-header .navbar-brand {
-        margin-left: -20px;
-    }
-
-    .navbar-header .navbar-brand img {
-        display: none;
-    }
+.footer {
+    margin-top: 10em;
+    text-align: center;
 }
 
 .mobile-app-show {

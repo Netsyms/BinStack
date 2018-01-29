@@ -1,15 +1,10 @@
 <?php
-
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-
 require_once __DIR__ . "/required.php";
 
 require_once __DIR__ . "/lib/login.php";
 
 // if we're logged in, we don't need to be here.
-if ($_SESSION['loggedin'] && account_has_permission($_SESSION['username'], "INV_VIEW")) {
+if ($_SESSION['loggedin']) {
     header('Location: app.php');
 }
 
@@ -39,17 +34,13 @@ if (checkLoginServer()) {
                         break;
                 }
                 if ($userpass_ok) {
-                    if (account_has_permission($VARS['username'], "INV_VIEW") == FALSE) {
-                        $alert = lang("no permission", false);
+                    $_SESSION['passok'] = true; // stop logins using only username and authcode
+                    if (userHasTOTP($VARS['username'])) {
+                        $multiauth = true;
                     } else {
-                        $_SESSION['passok'] = true; // stop logins using only username and authcode
-                        if (userHasTOTP($VARS['username'])) {
-                            $multiauth = true;
-                        } else {
-                            doLoginUser($VARS['username'], $VARS['password']);
-                            header('Location: app.php');
-                            die("Logged in, go to app.php");
-                        }
+                        doLoginUser($VARS['username'], $VARS['password']);
+                        header('Location: app.php');
+                        die("Logged in, go to app.php");
                     }
                 }
             } else {
@@ -92,74 +83,66 @@ if (checkLoginServer()) {
         <title><?php echo SITE_TITLE; ?></title>
 
         <link href="static/css/bootstrap.min.css" rel="stylesheet">
-        <link href="static/css/font-awesome.min.css" rel="stylesheet">
         <link href="static/css/material-color/material-color.min.css" rel="stylesheet">
-        <link href="static/css/app.css" rel="stylesheet">
+        <link href="static/css/index.css" rel="stylesheet">
         <?php if (RECAPTCHA_ENABLED) { ?>
             <script src='https://www.google.com/recaptcha/api.js'></script>
         <?php } ?>
     </head>
     <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-sm-offset-3 col-md-offset-4 col-lg-offset-4">
-                    <div>
-                        <?php
-                        if (SHOW_ICON == "both" || SHOW_ICON == "index") {
-                            ?>
-                            <img class="img-responsive banner-image" src="static/img/logo.png" />
-                        <?php } ?>
-                    </div>
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><?php lang("sign in"); ?></h3>
-                        </div>
-                        <div class="panel-body">
-                            <form action="" method="POST">
-                                <?php
-                                if (!is_empty($alert)) {
-                                    ?>
-                                    <div class="alert alert-danger">
-                                        <i class="fa fa-fw fa-exclamation-triangle"></i> <?php echo $alert; ?>
-                                    </div>
-                                    <?php
-                                }
-
-                                if ($multiauth != true) {
-                                    ?>
-                                    <input type="text" class="form-control" name="username" placeholder="<?php lang("username"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus /><br />
-                                    <input type="password" class="form-control" name="password" placeholder="<?php lang("password"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" /><br />
-                                    <?php if (RECAPTCHA_ENABLED) { ?>
-                                        <div class="g-recaptcha" data-sitekey="<?php echo RECAPTCHA_SITE_KEY; ?>"></div>
-                                        <br />
-                                    <?php } ?>
-                                    <input type="hidden" name="progress" value="1" />
-                                    <?php
-                                } else if ($multiauth) {
-                                    ?>
-                                    <div class="alert alert-info">
-                                        <?php lang("2fa prompt"); ?>
-                                    </div>
-                                    <input type="text" class="form-control" name="authcode" placeholder="<?php lang("authcode"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus /><br />
-                                    <input type="hidden" name="progress" value="2" />
-                                    <input type="hidden" name="username" value="<?php echo $VARS['username']; ?>" />
-                                    <?php
-                                }
-                                ?>
-                                <button type="submit" class="btn btn-primary">
-                                    <?php lang("continue"); ?>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer">
-                <?php echo FOOTER_TEXT; ?><br />
-                Copyright &copy; <?php echo date('Y'); ?> <?php echo COPYRIGHT_NAME; ?>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <img class="banner-image" src="static/img/logo.png" />
             </div>
         </div>
-        <script src="static/js/jquery-3.2.1.min.js"></script>
-        <script src="static/js/bootstrap.min.js"></script>
-    </body>
+        <div class="row justify-content-center">
+            <div class="card col-11 col-xs-11 col-sm-8 col-md-6 col-lg-4">
+                <div class="card-body">
+                    <h5 class="card-title"><?php lang("sign in"); ?></h5>
+                    <form action="" method="POST">
+                        <?php
+                        if (!is_empty($alert)) {
+                            ?>
+                            <div class="alert alert-danger">
+                                <i class="fa fa-fw fa-exclamation-triangle"></i> <?php echo $alert; ?>
+                            </div>
+                            <?php
+                        }
+
+                        if ($multiauth != true) {
+                            ?>
+                            <input type="text" class="form-control" name="username" placeholder="<?php lang("username"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus /><br />
+                            <input type="password" class="form-control" name="password" placeholder="<?php lang("password"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" /><br />
+                            <?php if (RECAPTCHA_ENABLED) { ?>
+                                <div class="g-recaptcha" data-sitekey="<?php echo RECAPTCHA_SITE_KEY; ?>"></div>
+                                <br />
+                            <?php } ?>
+                            <input type="hidden" name="progress" value="1" />
+                            <?php
+                        } else if ($multiauth) {
+                            ?>
+                            <div class="alert alert-info">
+                                <?php lang("2fa prompt"); ?>
+                            </div>
+                            <input type="text" class="form-control" name="authcode" placeholder="<?php lang("authcode"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus /><br />
+                            <input type="hidden" name="progress" value="2" />
+                            <input type="hidden" name="username" value="<?php echo $VARS['username']; ?>" />
+                            <?php
+                        }
+                        ?>
+                        <button type="submit" class="btn btn-primary">
+                            <?php lang("continue"); ?>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <?php echo FOOTER_TEXT; ?><br />
+            Copyright &copy; <?php echo date('Y'); ?> <?php echo COPYRIGHT_NAME; ?>
+        </div>
+    </div>
+    <script src="static/js/jquery-3.3.1.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+</body>
 </html>

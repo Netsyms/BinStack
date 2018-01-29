@@ -11,14 +11,14 @@ redirectifnotloggedin();
 <div class="btn-group mgn-btm-10px">
     <a href="app.php?page=editloc" class="btn btn-success"><i class="fa fa-plus"></i> <?php lang("new location"); ?></a>
 </div>
-<table id="loctable" class="table table-bordered table-striped">
+<table id="loctable" class="table table-bordered table-hover table-sm">
     <thead>
         <tr>
             <th data-priority="0"></th>
             <th data-priority="1"><?php lang('actions'); ?></th>
-            <th data-priority="1"><i class="fa fa-map-marker hidden-xs"></i> <?php lang('location'); ?></th>
-            <th data-priority="2"><i class="fa fa-barcode hidden-xs"></i> <?php lang('code'); ?></th>
-            <th data-priority="3"><i class="fa fa-hashtag hidden-xs"></i> <?php lang('item count'); ?></th>
+            <th data-priority="1"><i class="fas fa-map-marker hidden-sm"></i> <?php lang('location'); ?></th>
+            <th data-priority="2"><i class="fas fa-barcode hidden-sm"></i> <?php lang('code'); ?></th>
+            <th data-priority="3"><i class="fas fa-hashtag hidden-sm"></i> <?php lang('item count'); ?></th>
         </tr>
     </thead>
     <tbody>
@@ -34,7 +34,7 @@ redirectifnotloggedin();
             <tr>
                 <td></td>
                 <td>
-                    <a class="btn btn-primary btn-xs" href="app.php?page=editloc&id=<?php echo $loc['locid']; ?>"><i class="fa fa-pencil-square-o"></i> <?php lang("edit"); ?></a>
+                    <a class="btn btn-primary btn-sm" href="app.php?page=editloc&id=<?php echo $loc['locid']; ?>"><i class="fas fa-edit"></i> <?php lang("edit"); ?></a>
                 </td>
                 <td><?php echo $loc['locname']; ?></td>
                 <td><?php echo $loc['loccode']; ?></td>
@@ -48,9 +48,9 @@ redirectifnotloggedin();
         <tr>
             <th data-priority="0"></th>
             <th data-priority="1"><?php lang('actions'); ?></th>
-            <th data-priority="1"><i class="fa fa-map-marker hidden-xs"></i> <?php lang('location'); ?></th>
-            <th data-priority="2"><i class="fa fa-barcode hidden-xs"></i> <?php lang('code'); ?></th>
-            <th data-priority="3"><i class="fa fa-hashtag hidden-xs"></i> <?php lang('item count'); ?></th>
+            <th data-priority="1"><i class="fas fa-map-marker hidden-sm"></i> <?php lang('location'); ?></th>
+            <th data-priority="2"><i class="fas fa-barcode hidden-sm"></i> <?php lang('code'); ?></th>
+            <th data-priority="3"><i class="fas fa-hashtag hidden-sm"></i> <?php lang('item count'); ?></th>
         </tr>
     </tfoot>
 </table>

@@ -9,8 +9,8 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
     top: 10px;
     left: initial;
     right: 15px;
-    height: auto;
-    width: auto;
+    height: 16px;
+    width: 16px;
     color: initial;
     border: initial;
     border-radius: initial;
@@ -21,8 +21,10 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
     background-color: initial;
     display: block;
     position: absolute;
-    font-family: "FontAwesome";
-    content: '\f00e';
+    background-image: url(../img/search-plus.svg);
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    content: '';
 }
 table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child.dataTables_empty:before,
 table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child.dataTables_empty:before {
@@ -31,8 +33,10 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child.dataTables_em
 table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child:before,
 table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before {
     background-color: initial;
-    font-family: "FontAwesome";
-    content: '\f146';
+    background-image: url(../img/minus-square.svg);
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    content: '';
 }
 table.dataTable.dtr-inline.collapsed > tbody > tr.child td:before {
     display: none;
@@ -60,14 +64,16 @@ table.dataTable.dtr-column > tbody > tr > td.control:before,
 table.dataTable.dtr-column > tbody > tr > th.control:before {
     top: initial;
     left: initial;
-    height: auto;
-    width: auto;
+    height: 16px;
+    width: 16px;
     margin-top: auto;
     margin-left: auto;
     display: block;
     position: absolute;
-    font-family: "FontAwesome";
-    content: '\f00e';
+    background-image: url(../img/search-plus.svg);
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    content: '';
     color: initial;
     border: initial;
     border-radius: initial;
@@ -80,8 +86,10 @@ table.dataTable.dtr-column > tbody > tr > th.control:before {
 table.dataTable.dtr-column > tbody > tr.parent td.control:before,
 table.dataTable.dtr-column > tbody > tr.parent th.control:before {
     background-color: initial;
-    font-family: "FontAwesome";
-    content: '\f146';
+    background-image: url(../img/minus-square.svg);
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    content: '';
 }
 table.dataTable > tbody > tr.child {
     padding: 0.5em 1em;

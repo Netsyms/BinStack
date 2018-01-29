@@ -37,40 +37,38 @@ if (!is_empty($VARS['id'])) {
 ?>
 
 <form role="form" action="action.php" method="POST">
-    <div class="panel panel-blue">
-        <div class="panel-heading">
-            <h3 class="panel-title">
+    <div class="card border-green">
+            <h3 class="card-header text-green">
                 <?php
                 if ($editing) {
                     ?>
-                    <i class="fa fa-pencil-square-o"></i> <?php lang2("editing location", ['loc' => "<span id=\"name_title\">" . htmlspecialchars($locdata['locname']) . "</span>"]); ?>
+                    <i class="fas fa-edit"></i> <?php lang2("editing location", ['loc' => "<span id=\"name_title\">" . htmlspecialchars($locdata['locname']) . "</span>"]); ?>
                     <?php
                 } else {
                     ?>
-                    <i class="fa fa-pencil-square-o"></i> <?php lang("adding location"); ?>
+                    <i class="fas fa-edit"></i> <?php lang("adding location"); ?>
                     <?php
                 }
                 ?>
             </h3>
-        </div>
-        <div class="panel-body">
+        <div class="card-body">
             <div class="row">
-                <div class="col-xs-12 col-md-6">
+                <div class="col-12 col-md-6">
                     <div class="form-group">
-                        <label for="name"><i class="fa fa-map-marker"></i> <?php lang("name"); ?></label>
+                        <label for="name"><i class="fas fa-map-marker"></i> <?php lang("name"); ?></label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="<?php lang("placeholder location name"); ?>" required="required" value="<?php echo htmlspecialchars($locdata['locname']); ?>" />
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-6">
+                <div class="col-12 col-md-6">
                     <div class="form-group">
-                        <label for="code"><i class="fa fa-barcode"></i> <?php lang("code"); ?></label>
+                        <label for="code"><i class="fas fa-barcode"></i> <?php lang("code"); ?></label>
                         <input type="text" class="form-control" id="code" name="code" placeholder="123456789" value="<?php echo htmlspecialchars($locdata['loccode']); ?>" />
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="info"><i class="fa fa-info"></i> <?php lang("description"); ?></label>
+                <label for="info"><i class="fas fa-info"></i> <?php lang("description"); ?></label>
                 <textarea class="form-control" id="info" name="info"><?php echo htmlspecialchars($locdata['locinfo']); ?></textarea>
             </div>
         </div>
@@ -79,12 +77,12 @@ if (!is_empty($VARS['id'])) {
         <input type="hidden" name="action" value="editloc" />
         <input type="hidden" name="source" value="locations" />
 
-        <div class="panel-footer">
-            <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> <?php lang("save"); ?></button>
+        <div class="card-footer d-flex">
+            <button type="submit" class="btn btn-success mr-auto"><i class="fas fa-save"></i> <?php lang("save"); ?></button>
             <?php
             if ($editing) {
                 ?>
-                <a href="action.php?action=deleteloc&source=locations&locid=<?php echo htmlspecialchars($VARS['id']); ?>" class="btn btn-danger btn-xs pull-right mgn-top-8px"><i class="fa fa-times"></i> <?php lang('delete'); ?></a>
+                <a href="action.php?action=deleteloc&source=locations&locid=<?php echo htmlspecialchars($VARS['id']); ?>" class="btn btn-danger ml-auto"><i class="fas fa-times"></i> <?php lang('delete'); ?></a>
                 <?php
             }
             ?>

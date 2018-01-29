@@ -21,19 +21,19 @@ redirectifnotloggedin();
     echo "<script nonce=\"$SECURE_NONCE\">var filter = null;</script>\n";
 }
 ?>
-<table id="itemtable" class="table table-bordered table-striped">
+<table id="itemtable" class="table table-bordered table-hover table-sm">
     <thead>
         <tr>
             <th data-priority="0"></th>
             <th data-priority="1"><?php lang('actions'); ?></th>
-            <th data-priority="1"><i class="fa fa-fw fa-cube hidden-xs"></i> <?php lang('name'); ?></th>
-            <th data-priority="4"><i class="fa fa-fw fa-archive hidden-xs"></i> <?php lang('category'); ?></th>
-            <th data-priority="2"><i class="fa fa-fw fa-map-marker hidden-xs"></i> <?php lang('location'); ?></th>
-            <th data-priority="3"><i class="fa fa-fw fa-barcode hidden-xs"></i> <?php lang('code 1'); ?></th>
-            <th data-priority="4"><i class="fa fa-fw fa-qrcode hidden-xs"></i> <?php lang('code 2'); ?></th>
-            <th data-priority="3"><i class="fa fa-fw fa-hashtag hidden-xs"></i> <?php lang('qty'); ?></th>
-            <th data-priority="4"><i class="fa fa-fw fa-hashtag hidden-xs"></i> <?php lang('want'); ?></th>
-            <th data-priority="3"><i class="fa fa-fw fa-user hidden-xs"></i> <?php lang('assigned to'); ?></th>
+            <th data-priority="1"><i class="fas fa-fw fa-cube hidden-xs"></i> <?php lang('name'); ?></th>
+            <th data-priority="4"><i class="fas fa-fw fa-archive hidden-xs"></i> <?php lang('category'); ?></th>
+            <th data-priority="2"><i class="fas fa-fw fa-map-marker hidden-xs"></i> <?php lang('location'); ?></th>
+            <th data-priority="3"><i class="fas fa-fw fa-barcode hidden-xs"></i> <?php lang('code 1'); ?></th>
+            <th data-priority="4"><i class="fas fa-fw fa-qrcode hidden-xs"></i> <?php lang('code 2'); ?></th>
+            <th data-priority="3"><i class="fas fa-fw fa-hashtag hidden-xs"></i> <?php lang('qty'); ?></th>
+            <th data-priority="4"><i class="fas fa-fw fa-hashtag hidden-xs"></i> <?php lang('want'); ?></th>
+            <th data-priority="3"><i class="fas fa-fw fa-user hidden-xs"></i> <?php lang('assigned to'); ?></th>
         </tr>
     </thead>
     <tbody>
@@ -42,14 +42,14 @@ redirectifnotloggedin();
         <tr>
             <th data-priority="0"></th>
             <th data-priority="1"><?php lang('actions'); ?></th>
-            <th data-priority="1"><i class="fa fa-fw fa-cube hidden-xs"></i> <?php lang('name'); ?></th>
-            <th data-priority="4"><i class="fa fa-fw fa-archive hidden-xs"></i> <?php lang('category'); ?></th>
-            <th data-priority="2"><i class="fa fa-fw fa-map-marker hidden-xs"></i> <?php lang('location'); ?></th>
-            <th data-priority="3"><i class="fa fa-fw fa-barcode hidden-xs"></i> <?php lang('code 1'); ?></th>
-            <th data-priority="4"><i class="fa fa-fw fa-qrcode hidden-xs"></i> <?php lang('code 2'); ?></th>
-            <th data-priority="3"><i class="fa fa-fw fa-hashtag hidden-xs"></i> <?php lang('qty'); ?></th>
-            <th data-priority="4"><i class="fa fa-fw fa-hashtag hidden-xs"></i> <?php lang('want'); ?></th>
-            <th data-priority="3"><i class="fa fa-fw fa-user hidden-xs"></i> <?php lang('assigned to'); ?></th>
+            <th data-priority="1"><i class="fas fa-fw fa-cube hidden-xs"></i> <?php lang('name'); ?></th>
+            <th data-priority="4"><i class="fas fa-fw fa-archive hidden-xs"></i> <?php lang('category'); ?></th>
+            <th data-priority="2"><i class="fas fa-fw fa-map-marker hidden-xs"></i> <?php lang('location'); ?></th>
+            <th data-priority="3"><i class="fas fa-fw fa-barcode hidden-xs"></i> <?php lang('code 1'); ?></th>
+            <th data-priority="4"><i class="fas fa-fw fa-qrcode hidden-xs"></i> <?php lang('code 2'); ?></th>
+            <th data-priority="3"><i class="fas fa-fw fa-hashtag hidden-xs"></i> <?php lang('qty'); ?></th>
+            <th data-priority="4"><i class="fas fa-fw fa-hashtag hidden-xs"></i> <?php lang('want'); ?></th>
+            <th data-priority="3"><i class="fas fa-fw fa-user hidden-xs"></i> <?php lang('assigned to'); ?></th>
         </tr>
     </tfoot>
 </table>
