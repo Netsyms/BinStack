@@ -8,7 +8,7 @@ var itemtable = $('#itemtable').DataTable({
             display: $.fn.dataTable.Responsive.display.modal({
                 header: function (row) {
                     var data = row.data();
-                    return "<i class=\"fa fa-cube fa-fw\"></i> " + data[2];
+                    return "<i class=\"fas fa-cube fa-fw\"></i> " + data[2];
                 }
             }),
             renderer: $.fn.dataTable.Responsive.renderer.tableAll({
@@ -49,7 +49,7 @@ var itemtable = $('#itemtable').DataTable({
             json.items.forEach(function (row) {
                 json.data.push([
                     "",
-                    row.editbtn + " " + row.clonebtn,
+                    "<span class='btn-group'>" + row.editbtn + " " + row.clonebtn + "</span>",
                     row.name,
                     row.catname,
                     row.locname + " (" + row.loccode + ")",
@@ -65,7 +65,7 @@ var itemtable = $('#itemtable').DataTable({
     }
 });
 
-$('#itemtable_filter').append("<span class=\"btn btn-default btn-sm mobile-app-show mobile-app-display\" onclick=\"scancode('#itemtable_filter label input');\"><i class=\"fa fa-barcode fa-fw\"></i></span>");
+$('#itemtable_filter').append("<span class=\"btn btn-default btn-sm mobile-app-show mobile-app-display\" onclick=\"scancode('#itemtable_filter label input');\"><i class=\"fas fa-barcode fa-fw\"></i></span>");
 
 $(document).ready(function () {
     if (search_preload_content !== false) {
