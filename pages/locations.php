@@ -16,9 +16,9 @@ redirectifnotloggedin();
         <tr>
             <th data-priority="0"></th>
             <th data-priority="1"><?php lang('actions'); ?></th>
-            <th data-priority="1"><i class="fas fa-map-marker hidden-sm"></i> <?php lang('location'); ?></th>
-            <th data-priority="2"><i class="fas fa-barcode hidden-sm"></i> <?php lang('code'); ?></th>
-            <th data-priority="3"><i class="fas fa-hashtag hidden-sm"></i> <?php lang('item count'); ?></th>
+            <th data-priority="1"><i class="fas fa-map-marker"></i> <?php lang('location'); ?></th>
+            <th data-priority="2"><i class="fas fa-barcode"></i> <?php lang('code'); ?></th>
+            <th data-priority="3"><i class="fas fa-hashtag"></i> <?php lang('item count'); ?></th>
         </tr>
     </thead>
     <tbody>
@@ -48,9 +48,9 @@ redirectifnotloggedin();
         <tr>
             <th data-priority="0"></th>
             <th data-priority="1"><?php lang('actions'); ?></th>
-            <th data-priority="1"><i class="fas fa-map-marker hidden-sm"></i> <?php lang('location'); ?></th>
-            <th data-priority="2"><i class="fas fa-barcode hidden-sm"></i> <?php lang('code'); ?></th>
-            <th data-priority="3"><i class="fas fa-hashtag hidden-sm"></i> <?php lang('item count'); ?></th>
+            <th data-priority="1"><i class="fas fa-map-marker"></i> <?php lang('location'); ?></th>
+            <th data-priority="2"><i class="fas fa-barcode"></i> <?php lang('code'); ?></th>
+            <th data-priority="3"><i class="fas fa-hashtag"></i> <?php lang('item count'); ?></th>
         </tr>
     </tfoot>
 </table>
