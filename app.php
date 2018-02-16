@@ -28,6 +28,8 @@ if (!is_empty($_GET['page'])) {
 
         <title><?php echo SITE_TITLE; ?></title>
 
+        <link rel="icon" href="static/img/logo.svg">
+
         <link href="static/css/bootstrap.min.css" rel="stylesheet">
         <link href="static/css/material-color/material-color.min.css" rel="stylesheet">
         <link href="static/css/app.css" rel="stylesheet">

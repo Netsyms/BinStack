@@ -82,6 +82,8 @@ if (checkLoginServer()) {
 
         <title><?php echo SITE_TITLE; ?></title>
 
+        <link rel="icon" href="static/img/logo.svg">
+
         <link href="static/css/bootstrap.min.css" rel="stylesheet">
         <link href="static/css/material-color/material-color.min.css" rel="stylesheet">
         <link href="static/css/index.css" rel="stylesheet">
