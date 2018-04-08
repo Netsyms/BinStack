@@ -18,6 +18,12 @@ if (!is_empty($_GET['page'])) {
         $pageid = "404";
     }
 }
+
+header("Link: <static/css/bootstrap.min.css>; rel=preload; as=style", false);
+header("Link: <static/css/material-color/material-color.min.css>; rel=preload; as=style", false);
+header("Link: <static/css/app.css>; rel=preload; as=style", false);
+header("Link: <static/js/jquery-3.3.1.min.js>; rel=preload; as=script", false);
+header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,6 +49,7 @@ if (!is_empty($_GET['page'])) {
         if (isset(PAGES[$pageid]['styles'])) {
             foreach (PAGES[$pageid]['styles'] as $style) {
                 echo "<link href=\"$style\" rel=\"stylesheet\">\n";
+                header("Link: <$style>; rel=preload; as=style", false);
             }
         }
         ?>
@@ -169,6 +176,7 @@ END;
         if (isset(PAGES[$pageid]['scripts'])) {
             foreach (PAGES[$pageid]['scripts'] as $script) {
                 echo "<script src=\"$script\"></script>\n";
+                header("Link: <$script>; rel=preload; as=script", false);
             }
         }
         ?>
