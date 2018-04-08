@@ -1,7 +1,7 @@
 BinStack
 ========
 
-BinStack is the easy way to keep track of your business assets. 
+BinStack is the easy way to keep track of your business assets.
 Never wander in search of the stapler again.
 
 https://netsyms.biz/apps/binstack
@@ -9,20 +9,20 @@ https://netsyms.biz/apps/binstack
 Features
 --------
 
-**Asset Tracking**  
-Easily manage locations, tag numbers, assigned users, and other important item 
+**Asset Tracking**
+Easily manage locations, tag numbers, assigned users, and other important item
 properties.
 
-**Fully Searchable**  
-Start typing in the search box to instantly filter hundreds of results down to 
+**Fully Searchable**
+Start typing in the search box to instantly filter hundreds of results down to
 only a few. Sorting also built in.
 
-**Autofill**  
-You don't need to remember category codes or usernames. Just start typing and 
+**Autofill**
+You don't need to remember category codes or usernames. Just start typing and
 BinStack will figure out what you're looking for.
 
-**Mobile-ready**  
-Take inventory or find what you need on the go. BinStack looks and works 
+**Mobile-ready**
+Take inventory or find what you need on the go. BinStack looks and works
 great on modern smartphones and tablets.
 
 Installing

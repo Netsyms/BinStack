@@ -12,10 +12,12 @@ ob_start(); // allow sending headers after content
 // Unicode, solves almost all stupid encoding problems
 header('Content-Type: text/html; charset=utf-8');
 
-// l33t $ecurity h4x
+// Strip PHP version
+header('X-Powered-By: PHP');
+
+// Security
 header('X-Content-Type-Options: nosniff');
 header('X-XSS-Protection: 1; mode=block');
-header('X-Powered-By: PHP'); // no versions makes it harder to find vulns
 header('X-Frame-Options: "DENY"');
 header('Referrer-Policy: "no-referrer, strict-origin-when-cross-origin"');
 $SECURE_NONCE = base64_encode(random_bytes(8));
@@ -142,6 +144,7 @@ function lang($key, $echo = true) {
     if (array_key_exists($key, STRINGS)) {
         $str = STRINGS[$key];
     } else {
+        trigger_error("Language key \"$key\" does not exist in " . LANGUAGE, E_USER_WARNING);
         $str = $key;
     }
 
@@ -164,6 +167,7 @@ function lang2($key, $replace, $echo = true) {
     if (array_key_exists($key, STRINGS)) {
         $str = STRINGS[$key];
     } else {
+        trigger_error("Language key \"$key\" does not exist in " . LANGUAGE, E_USER_WARNING);
         $str = $key;
     }
 

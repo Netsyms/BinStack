@@ -1,13 +1,12 @@
 <?php
 
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-
-
 /*
  * Mobile app API
  */
+
+// The name of the permission needed to log in.
+// Set to null if you don't need it.
+$access_permission = "INV_VIEW";
 
 require __DIR__ . "/../required.php";
 
@@ -93,7 +92,7 @@ switch ($VARS['action']) {
         if (user_exists($VARS['username'])) {
             if (get_account_status($VARS['username']) == "NORMAL") {
                 if (authenticate_user($VARS['username'], $VARS['password'], $autherror)) {
-                    if (account_has_permission($VARS['username'], "INV_VIEW")) {
+                    if (is_null($access_permission) || account_has_permission($VARS['username'], $access_permission)) {
                         doLoginUser($VARS['username'], $VARS['password']);
                         $_SESSION['mobile'] = true;
                         exit(json_encode(["status" => "OK"]));

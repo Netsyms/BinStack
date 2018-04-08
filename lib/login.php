@@ -40,6 +40,33 @@ function checkLoginServer() {
     }
 }
 
+/**
+ * Checks if the given AccountHub API key is valid by attempting to 
+ * access the API with it.
+ * @param String $key The API key to check
+ * @return boolean TRUE if the key is valid, FALSE if invalid or something went wrong
+ */
+function checkAPIKey($key) {
+    try {
+        $client = new GuzzleHttp\Client();
+
+        $response = $client
+                ->request('POST', PORTAL_API, [
+            'form_params' => [
+                'key' => $key,
+                'action' => "ping"
+            ]
+        ]);
+
+        if ($response->getStatusCode() === 200) {
+            return true;
+        }
+        return false;
+    } catch (Exception $e) {
+        return false;
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 //                           Account handling                                 //
 ////////////////////////////////////////////////////////////////////////////////
