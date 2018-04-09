@@ -22,6 +22,8 @@ if (!is_empty($_GET['page'])) {
 header("Link: <static/css/bootstrap.min.css>; rel=preload; as=style", false);
 header("Link: <static/css/material-color/material-color.min.css>; rel=preload; as=style", false);
 header("Link: <static/css/app.css>; rel=preload; as=style", false);
+header("Link: <static/css/fa-svg-with-js.css>; rel=preload; as=style", false);
+header("Link: <static/js/fontawesome-all.min.js>; rel=preload; as=script", false);
 header("Link: <static/js/jquery-3.3.1.min.js>; rel=preload; as=script", false);
 header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
 ?>
