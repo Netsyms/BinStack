@@ -59,7 +59,7 @@ Program Structure
 *lang/en_us.php
    Language data for US English.
 *lib/login.php
-   Functions for logging in users and stuff like that.  Most functions transparently makes requests to the Portal API and return the results.
+   Functions for logging in users and stuff like that.  Most functions transparently makes requests to the AccountHub API and return the results.
 *lib/userinfo.php
    Functions for getting user data, like real names and managed employees.
 *static/css/app.css
