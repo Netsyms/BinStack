@@ -106,5 +106,9 @@ define("STRINGS", [
     "ods file" => "ODS spreadsheet",
     "html file" => "HTML web page",
     "itemid" => "Item ID",
-    "id" => "ID"
+    "id" => "ID",
+    "item cost" => "Item cost",
+    "sale price" => "Sale price",
+    "cost" => "Cost",
+    "price" => "Price"
 ]);

@@ -79,6 +79,16 @@ switch ($VARS['action']) {
         } else if (!is_numeric($VARS['want'])) {
             returnToSender('field_nan');
         }
+        if (is_empty($VARS['cost'])) {
+            $VARS['cost'] = null;
+        } else if (!is_numeric($VARS['cost'])) {
+            returnToSender('field_nan');
+        }
+        if (is_empty($VARS['price'])) {
+            $VARS['price'] = null;
+        } else if (!is_numeric($VARS['price'])) {
+            returnToSender('field_nan');
+        }
         if (!$database->has('categories', ['catid' => $VARS['cat']])) {
             returnToSender('invalid_category');
         }
@@ -103,6 +113,8 @@ switch ($VARS['action']) {
             'locid' => $VARS['loc'],
             'qty' => $VARS['qty'],
             'want' => $VARS['want'],
+            'cost' => $VARS['cost'],
+            'price' => $VARS['price'],
             'userid' => $userid
         ];
 

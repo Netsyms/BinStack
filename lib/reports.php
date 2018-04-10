@@ -71,7 +71,9 @@ function getItemReport($filter = []) {
         "userid",
         "text1",
         "text2",
-        "text3"
+        "text3",
+        "cost",
+        "price"
             ], $filter
     );
     $header = [
@@ -83,6 +85,8 @@ function getItemReport($filter = []) {
         lang("code 2", false),
         lang("quantity", false),
         lang("want", false),
+        lang("cost", false),
+        lang("price", false),
         lang("assigned to", false),
         lang("description", false),
         lang("notes", false),
@@ -105,6 +109,8 @@ function getItemReport($filter = []) {
             $items[$i]["code2"],
             $items[$i]["qty"],
             $items[$i]["want"],
+            $items[$i]["cost"],
+            $items[$i]["price"],
             $user,
             $items[$i]["text1"],
             $items[$i]["text2"],

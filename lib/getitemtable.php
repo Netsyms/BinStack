@@ -70,7 +70,9 @@ if (!is_empty($VARS['search']['value'])) {
         "catname[~]" => $VARS['search']['value'],
         "locname[~]" => $VARS['search']['value'],
         "code1[~]" => $VARS['search']['value'],
-        "code2[~]" => $VARS['search']['value']
+        "code2[~]" => $VARS['search']['value'],
+        "cost[~]" => $VARS['search']['value'],
+        "price[~]" => $VARS['search']['value'],
     ];
     $where = $wherenolimit;
     $where["LIMIT"] = [$VARS['start'], $VARS['length']];

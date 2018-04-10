@@ -1,5 +1,4 @@
 <?php
-
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -29,6 +28,8 @@ $itemdata = [
     'text3' => '',
     'qty' => 1,
     'want' => 0,
+    'cost' => 0.0,
+    'price' => 0.0,
     'userid' => ''];
 
 $editing = false;
@@ -62,6 +63,8 @@ if (!is_empty($VARS['id'])) {
                     'loccode',
                     'qty',
                     'want',
+                    'cost',
+                    'price',
                     'userid'
                         ], [
                     'itemid' => $VARS['id']
@@ -76,23 +79,23 @@ if (!is_empty($VARS['id'])) {
 
 <form role="form" action="action.php" method="POST">
     <div class="card border-green">
-            <h3 class="card-header text-green">
-                <?php
-                if ($cloning) {
-                    ?>
-                    <i class="fas fa-edit"></i> <?php lang2("cloning item", ['oitem' => htmlspecialchars($itemdata['name']), 'nitem' => "<span id=\"name_title\">" . htmlspecialchars($itemdata['name']) . "</span>"]); ?>
-                    <?php
-                } else if ($editing) {
-                    ?>
-                    <i class="fas fa-edit"></i> <?php lang2("editing item", ['item' => "<span id=\"name_title\">" . htmlspecialchars($itemdata['name']) . "</span>"]); ?>
-                    <?php
-                } else {
-                    ?>
-                    <i class="fas fa-edit"></i> <?php lang("adding item"); ?>
-                    <?php
-                }
+        <h3 class="card-header text-green">
+            <?php
+            if ($cloning) {
                 ?>
-            </h3>
+                <i class="fas fa-edit"></i> <?php lang2("cloning item", ['oitem' => htmlspecialchars($itemdata['name']), 'nitem' => "<span id=\"name_title\">" . htmlspecialchars($itemdata['name']) . "</span>"]); ?>
+                <?php
+            } else if ($editing) {
+                ?>
+                <i class="fas fa-edit"></i> <?php lang2("editing item", ['item' => "<span id=\"name_title\">" . htmlspecialchars($itemdata['name']) . "</span>"]); ?>
+                <?php
+            } else {
+                ?>
+                <i class="fas fa-edit"></i> <?php lang("adding item"); ?>
+                <?php
+            }
+            ?>
+        </h3>
         <div class="card-body">
             <div class="form-group">
                 <label for="name"><i class="fas fa-cube"></i> <?php lang("name"); ?></label>
@@ -167,19 +170,34 @@ if (!is_empty($VARS['id'])) {
             </div>
 
             <div class="row">
-                <div class="col-12 col-sm-12 col-md-4">
+                <div class="col-12 col-md-3">
+                    <div class="form-group">
+                        <label for="cost"><i class="far fa-money-bill-alt"></i> <?php lang('item cost'); ?></label>
+                        <input type="number" class="form-control" id="cost" name="cost" placeholder="0.00" step="0.01" value="<?php echo $itemdata['cost']; ?>" />
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="form-group">
+                        <label for="price"><i class="fas fa-shopping-cart"></i> <?php lang('sale price'); ?></label>
+                        <input type="number" class="form-control" id="price" name="price" placeholder="0.00" step="0.01" value="<?php echo $itemdata['price']; ?>" />
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label for="info1"><i class="fas fa-info"></i> <?php lang("description"); ?></label>
                         <textarea class="form-control" id="info1" name="text1"><?php echo htmlspecialchars($itemdata['text1']); ?></textarea>
                     </div>
                 </div>
-                <div class="col-12 col-sm-12 col-md-4">
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6">
                     <div class="form-group">
                         <label for="info2"><i class="fas fa-sticky-note"></i> <?php lang("notes"); ?></label>
                         <textarea class="form-control" id="info2" name="text2"><?php echo htmlspecialchars($itemdata['text2']); ?></textarea>
                     </div>
                 </div>
-                <div class="col-12 col-sm-12 col-md-4">
+                <div class="col-12 col-sm-12 col-md-6">
                     <div class="form-group">
                         <label for="info3"><i class="fas fa-comments"></i> <?php lang("comments"); ?></label>
                         <textarea class="form-control" id="info3" name="text3"><?php echo htmlspecialchars($itemdata['text3']); ?></textarea>
