@@ -1,5 +1,9 @@
 <?php
 
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 /**
  * Check if a given ipv4 address is in a given cidr
  * @param  string $ip    IP to check in IPV4 format eg. 127.0.0.1

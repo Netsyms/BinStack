@@ -1,5 +1,9 @@
 <?php
 
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 /**
  * Authentication and account functions.  Connects to an AccountHub instance.
  */
@@ -36,7 +40,7 @@ function checkLoginServer() {
 }
 
 /**
- * Checks if the given AccountHub API key is valid by attempting to 
+ * Checks if the given AccountHub API key is valid by attempting to
  * access the API with it.
  * @param String $key The API key to check
  * @return boolean TRUE if the key is valid, FALSE if invalid or something went wrong

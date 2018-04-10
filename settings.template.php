@@ -1,5 +1,9 @@
 <?php
 
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 // Whether to show debugging data in output.
 // DO NOT SET TO TRUE IN PRODUCTION!!!
 define("DEBUG", false);
@@ -48,5 +52,5 @@ define('RECAPTCHA_SECRET_KEY', '');
 define('LANGUAGE', "en_us");
 
 
-define("FOOTER_TEXT", "<b>Free Software: MIT License</b>");
+define("FOOTER_TEXT", "");
 define("COPYRIGHT_NAME", "Netsyms Technologies");

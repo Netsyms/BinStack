@@ -1,8 +1,12 @@
 <?php
 
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 /**
  * Simple JSON API to allow other apps to access data from this app.
- * 
+ *
  * Requests can be sent via either GET or POST requests.  POST is recommended
  * as it has a lower chance of being logged on the server, exposing unencrypted
  * user passwords.
