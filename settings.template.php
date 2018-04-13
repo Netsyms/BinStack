@@ -54,4 +54,3 @@ define('LANGUAGE', "en_us");
 
 define("FOOTER_TEXT", "");
 define("COPYRIGHT_NAME", "Netsyms Technologies");
-//////////////////////////////////////////////////////////////
