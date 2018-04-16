@@ -308,29 +308,26 @@ function simLogin($username, $password) {
     }
 }
 
-function verifyReCaptcha($code) {
-    try {
-        $client = new GuzzleHttp\Client();
-
-        $response = $client
-                ->request('POST', "https://www.google.com/recaptcha/api/siteverify", [
-            'form_params' => [
-                'secret' => RECAPTCHA_SECRET_KEY,
-                'response' => $code
-            ]
-        ]);
-
-        if ($response->getStatusCode() != 200) {
-            return false;
-        }
-
-        $resp = json_decode($response->getBody(), TRUE);
-        if ($resp['success'] === true) {
-            return true;
-        }
+function verifyCaptcheck($session, $answer, $url) {
+    $data = [
+        'session_id' => $session,
+        'answer_id' => $answer,
+        'action' => "verify"
+    ];
+    $options = [
+        'http' => [
+            'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+            'method' => 'POST',
+            'content' => http_build_query($data)
+        ]
+    ];
+    $context = stream_context_create($options);
+    $result = file_get_contents($url, false, $context);
+    $resp = json_decode($result, TRUE);
+    if (!$resp['result']) {
         return false;
-    } catch (Exception $e) {
-        return false;
+    } else {
+        return true;
     }
 }
 
