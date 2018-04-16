@@ -18,7 +18,7 @@ $userpass_ok = false;
 $multiauth = false;
 if (checkLoginServer()) {
     if ($VARS['progress'] == "1") {
-        if (!RECAPTCHA_ENABLED || (RECAPTCHA_ENABLED && verifyReCaptcha($VARS['g-recaptcha-response']))) {
+        if (!CAPTCHA_ENABLED || (CAPTCHA_ENABLED && verifyCaptcheck($VARS['captcheck_session_code'], $VARS['captcheck_selected_answer'], CAPTCHA_SERVER . "/api.php"))) {
             $errmsg = "";
             if (authenticate_user($VARS['username'], $VARS['password'], $errmsg)) {
                 switch (get_account_status($VARS['username'])) {
@@ -97,8 +97,8 @@ header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
         <link href="static/css/bootstrap.min.css" rel="stylesheet">
         <link href="static/css/material-color/material-color.min.css" rel="stylesheet">
         <link href="static/css/index.css" rel="stylesheet">
-        <?php if (RECAPTCHA_ENABLED) { ?>
-            <script src='https://www.google.com/recaptcha/api.js'></script>
+        <?php if (CAPTCHA_ENABLED) { ?>
+            <script src="<?php echo CAPTCHA_SERVER ?>/captcheck.js"></script>
         <?php } ?>
     </head>
     <body>
@@ -125,8 +125,8 @@ header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
                             ?>
                             <input type="text" class="form-control" name="username" placeholder="<?php lang("username"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus /><br />
                             <input type="password" class="form-control" name="password" placeholder="<?php lang("password"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" /><br />
-                            <?php if (RECAPTCHA_ENABLED) { ?>
-                                <div class="g-recaptcha" data-sitekey="<?php echo RECAPTCHA_SITE_KEY; ?>"></div>
+                            <?php if (CAPTCHA_ENABLED) { ?>
+                                <div class="captcheck_container" data-stylenonce="<?php echo $SECURE_NONCE; ?>"></div>
                                 <br />
                             <?php } ?>
                             <input type="hidden" name="progress" value="1" />
