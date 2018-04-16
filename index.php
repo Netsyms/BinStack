@@ -98,7 +98,7 @@ header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
         <link href="static/css/material-color/material-color.min.css" rel="stylesheet">
         <link href="static/css/index.css" rel="stylesheet">
         <?php if (CAPTCHA_ENABLED) { ?>
-            <script src="<?php echo CAPTCHA_SERVER ?>/captcheck.js"></script>
+            <script src="<?php echo CAPTCHA_SERVER ?>/captcheck.dist.js"></script>
         <?php } ?>
     </head>
     <body>
