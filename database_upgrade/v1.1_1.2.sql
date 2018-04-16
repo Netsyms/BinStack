@@ -6,3 +6,18 @@
 ALTER TABLE `items`
 ADD COLUMN `cost` DECIMAL(10,2) NULL DEFAULT NULL AFTER `userid`,
 ADD COLUMN `price` DECIMAL(10,2) NULL DEFAULT NULL AFTER `cost`;
+
+CREATE TABLE IF NOT EXISTS `images` (
+  `imageid` INT(11) NOT NULL AUTO_INCREMENT,
+  `itemid` INT(11) NOT NULL,
+  `imagename` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`imageid`, `itemid`),
+  UNIQUE INDEX `imageid_UNIQUE` (`imageid` ASC),
+  INDEX `fk_images_items1_idx` (`itemid` ASC),
+  CONSTRAINT `fk_images_items1`
+    FOREIGN KEY (`itemid`)
+    REFERENCES `inventory`.`items` (`itemid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
