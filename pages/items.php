@@ -27,13 +27,13 @@ redirectifnotloggedin();
             <th data-priority="0"></th>
             <th data-priority="1"><?php lang('actions'); ?></th>
             <th data-priority="1"><i class="fas fa-fw fa-box d-none d-md-inline"></i> <?php lang('name'); ?></th>
-            <th data-priority="4"><i class="fas fa-fw fa-pallet d-none d-md-inline"></i> <?php lang('category'); ?></th>
-            <th data-priority="2"><i class="fas fa-fw fa-map-marker d-none d-md-inline"></i> <?php lang('location'); ?></th>
-            <th data-priority="3"><i class="fas fa-fw fa-barcode d-none d-md-inline"></i> <?php lang('code 1'); ?></th>
-            <th data-priority="4"><i class="fas fa-fw fa-qrcode d-none d-md-inline"></i> <?php lang('code 2'); ?></th>
+            <th data-priority="7"><i class="fas fa-fw fa-pallet d-none d-md-inline"></i> <?php lang('category'); ?></th>
+            <th data-priority="4"><i class="fas fa-fw fa-map-marker d-none d-md-inline"></i> <?php lang('location'); ?></th>
+            <th data-priority="2"><i class="fas fa-fw fa-barcode d-none d-md-inline"></i> <?php lang('code 1'); ?></th>
+            <th data-priority="5"><i class="fas fa-fw fa-qrcode d-none d-md-inline"></i> <?php lang('code 2'); ?></th>
             <th data-priority="3"><i class="fas fa-fw fa-hashtag d-none d-md-inline"></i> <?php lang('qty'); ?></th>
-            <th data-priority="4"><i class="fas fa-fw fa-hashtag d-none d-md-inline"></i> <?php lang('want'); ?></th>
-            <th data-priority="3"><i class="fas fa-fw fa-user d-none d-md-inline"></i> <?php lang('assigned to'); ?></th>
+            <th data-priority="6"><i class="fas fa-fw fa-hashtag d-none d-md-inline"></i> <?php lang('want'); ?></th>
+            <th data-priority="8"><i class="fas fa-fw fa-user d-none d-md-inline"></i> <?php lang('assigned to'); ?></th>
         </tr>
     </thead>
     <tbody>
@@ -43,13 +43,13 @@ redirectifnotloggedin();
             <th data-priority="0"></th>
             <th data-priority="1"><?php lang('actions'); ?></th>
             <th data-priority="1"><i class="fas fa-fw fa-box d-none d-md-inline"></i> <?php lang('name'); ?></th>
-            <th data-priority="4"><i class="fas fa-fw fa-pallet d-none d-md-inline"></i> <?php lang('category'); ?></th>
-            <th data-priority="2"><i class="fas fa-fw fa-map-marker d-none d-md-inline"></i> <?php lang('location'); ?></th>
-            <th data-priority="3"><i class="fas fa-fw fa-barcode d-none d-md-inline"></i> <?php lang('code 1'); ?></th>
-            <th data-priority="4"><i class="fas fa-fw fa-qrcode d-none d-md-inline"></i> <?php lang('code 2'); ?></th>
+            <th data-priority="7"><i class="fas fa-fw fa-pallet d-none d-md-inline"></i> <?php lang('category'); ?></th>
+            <th data-priority="4"><i class="fas fa-fw fa-map-marker d-none d-md-inline"></i> <?php lang('location'); ?></th>
+            <th data-priority="2"><i class="fas fa-fw fa-barcode d-none d-md-inline"></i> <?php lang('code 1'); ?></th>
+            <th data-priority="5"><i class="fas fa-fw fa-qrcode d-none d-md-inline"></i> <?php lang('code 2'); ?></th>
             <th data-priority="3"><i class="fas fa-fw fa-hashtag d-none d-md-inline"></i> <?php lang('qty'); ?></th>
-            <th data-priority="4"><i class="fas fa-fw fa-hashtag d-none d-md-inline"></i> <?php lang('want'); ?></th>
-            <th data-priority="3"><i class="fas fa-fw fa-user d-none d-md-inline"></i> <?php lang('assigned to'); ?></th>
+            <th data-priority="6"><i class="fas fa-fw fa-hashtag d-none d-md-inline"></i> <?php lang('want'); ?></th>
+            <th data-priority="8"><i class="fas fa-fw fa-user d-none d-md-inline"></i> <?php lang('assigned to'); ?></th>
         </tr>
     </tfoot>
 </table>
