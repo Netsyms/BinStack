@@ -34,7 +34,7 @@ redirectifnotloggedin();
     <div class="card bg-teal text-light">
         <div class="card-body">
             <h4 class="card-title"><?php lang("total items") ?></h4>
-            <h1><i class="fas fa-fw fa-cubes"></i> <?php echo $database->count('items'); ?></h1>
+            <h1><i class="fas fa-fw fa-boxes"></i> <?php echo $database->count('items'); ?></h1>
         </div>
         <div class="card-footer">
             <a href="app.php?page=items" class="text-light"><i class="fas fa-arrow-right"></i> <?php lang("view items"); ?></a>

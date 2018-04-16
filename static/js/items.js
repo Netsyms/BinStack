@@ -8,7 +8,7 @@ var itemtable = $('#itemtable').DataTable({
             display: $.fn.dataTable.Responsive.display.modal({
                 header: function (row) {
                     var data = row.data();
-                    return "<i class=\"fas fa-cube fa-fw\"></i> " + data[2];
+                    return "<i class=\"fas fa-box fa-fw\"></i> " + data[2];
                 }
             }),
             renderer: $.fn.dataTable.Responsive.renderer.tableAll({

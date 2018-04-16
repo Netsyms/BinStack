@@ -26,8 +26,8 @@ redirectifnotloggedin();
         <tr>
             <th data-priority="0"></th>
             <th data-priority="1"><?php lang('actions'); ?></th>
-            <th data-priority="1"><i class="fas fa-fw fa-cube d-none d-md-inline"></i> <?php lang('name'); ?></th>
-            <th data-priority="4"><i class="fas fa-fw fa-archive d-none d-md-inline"></i> <?php lang('category'); ?></th>
+            <th data-priority="1"><i class="fas fa-fw fa-box d-none d-md-inline"></i> <?php lang('name'); ?></th>
+            <th data-priority="4"><i class="fas fa-fw fa-pallet d-none d-md-inline"></i> <?php lang('category'); ?></th>
             <th data-priority="2"><i class="fas fa-fw fa-map-marker d-none d-md-inline"></i> <?php lang('location'); ?></th>
             <th data-priority="3"><i class="fas fa-fw fa-barcode d-none d-md-inline"></i> <?php lang('code 1'); ?></th>
             <th data-priority="4"><i class="fas fa-fw fa-qrcode d-none d-md-inline"></i> <?php lang('code 2'); ?></th>
@@ -42,8 +42,8 @@ redirectifnotloggedin();
         <tr>
             <th data-priority="0"></th>
             <th data-priority="1"><?php lang('actions'); ?></th>
-            <th data-priority="1"><i class="fas fa-fw fa-cube d-none d-md-inline"></i> <?php lang('name'); ?></th>
-            <th data-priority="4"><i class="fas fa-fw fa-archive d-none d-md-inline"></i> <?php lang('category'); ?></th>
+            <th data-priority="1"><i class="fas fa-fw fa-box d-none d-md-inline"></i> <?php lang('name'); ?></th>
+            <th data-priority="4"><i class="fas fa-fw fa-pallet d-none d-md-inline"></i> <?php lang('category'); ?></th>
             <th data-priority="2"><i class="fas fa-fw fa-map-marker d-none d-md-inline"></i> <?php lang('location'); ?></th>
             <th data-priority="3"><i class="fas fa-fw fa-barcode d-none d-md-inline"></i> <?php lang('code 1'); ?></th>
             <th data-priority="4"><i class="fas fa-fw fa-qrcode d-none d-md-inline"></i> <?php lang('code 2'); ?></th>

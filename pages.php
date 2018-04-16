@@ -14,7 +14,7 @@ define("PAGES", [
     "items" => [
         "title" => "items",
         "navbar" => true,
-        "icon" => "fas fa-cubes",
+        "icon" => "fas fa-boxes",
         "styles" => [
             "static/css/datatables.min.css",
             "static/css/tables.css"
@@ -40,7 +40,7 @@ define("PAGES", [
     "categories" => [
         "title" => "categories",
         "navbar" => true,
-        "icon" => "fas fa-archive",
+        "icon" => "fas fa-pallet",
         "styles" => [
             "static/css/datatables.min.css",
             "static/css/tables.css"

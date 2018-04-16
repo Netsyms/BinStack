@@ -15,7 +15,7 @@ redirectifnotloggedin();
         <tr>
             <th data-priority="0"></th>
             <th data-priority="1"><?php lang('actions'); ?></th>
-            <th data-priority="1"><i class="fas fa-archive hidden-sm"></i> <?php lang('category'); ?></th>
+            <th data-priority="1"><i class="fas fa-pallet hidden-sm"></i> <?php lang('category'); ?></th>
             <th data-priority="2"><i class="fas fa-hashtag hidden-sm"></i> <?php lang('item count'); ?></th>
         </tr>
     </thead>
@@ -44,7 +44,7 @@ redirectifnotloggedin();
         <tr>
             <th data-priority="0"></th>
             <th data-priority="1"><?php lang('actions'); ?></th>
-            <th data-priority="1"><i class="fas fa-archive hidden-sm"></i> <?php lang('category'); ?></th>
+            <th data-priority="1"><i class="fas fa-pallet hidden-sm"></i> <?php lang('category'); ?></th>
             <th data-priority="2"><i class="fas fa-hashtag hidden-sm"></i> <?php lang('item count'); ?></th>
         </tr>
     </tfoot>
