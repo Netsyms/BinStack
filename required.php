@@ -24,12 +24,13 @@ header('X-Frame-Options: "DENY"');
 header('Referrer-Policy: "no-referrer, strict-origin-when-cross-origin"');
 $SECURE_NONCE = base64_encode(random_bytes(8));
 
-$session_length = 60 * 60; // 1 hour
+$session_length = 60 * 60 * 2; // 2 hours
+ini_set('session.gc_maxlifetime', $session_length);
 session_set_cookie_params($session_length, "/", null, false, false);
 
 session_start(); // stick some cookies in it
 // renew session cookie
-setcookie(session_name(), session_id(), time() + $session_length);
+//setcookie(session_name(), session_id(), time() + $session_length);
 
 $captcha_server = (CAPTCHA_ENABLED === true ? preg_replace("/http(s)?:\/\//", "", CAPTCHA_SERVER) : "");
 if ($_SESSION['mobile'] === TRUE) {
