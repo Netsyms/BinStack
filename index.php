@@ -104,7 +104,7 @@ header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
     <body>
         <div class="row justify-content-center">
             <div class="col-auto">
-                <img class="banner-image" src="static/img/logo.png" />
+                <img class="banner-image" src="static/img/logo.svg" />
             </div>
         </div>
         <div class="row justify-content-center">

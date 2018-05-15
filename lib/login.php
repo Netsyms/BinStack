@@ -247,6 +247,11 @@ function doLoginUser($username) {
     
     if ($resp['status'] == "OK") {
         $userinfo = $resp['data'];
+        session_regenerate_id(true);
+        $newSession = session_id();
+        session_write_close();
+        session_id($newSession);
+        session_start();
         $_SESSION['username'] = $username;
         $_SESSION['uid'] = $userinfo['uid'];
         $_SESSION['email'] = $userinfo['email'];
