@@ -14,7 +14,7 @@ if ($_SESSION['loggedin'] != true) {
 require_once __DIR__ . "/pages.php";
 
 $pageid = "home";
-if (!is_empty($_GET['page'])) {
+if (isset($_GET['page']) && !is_empty($_GET['page'])) {
     $pg = strtolower($_GET['page']);
     $pg = preg_replace('/[^0-9a-z_]/', "", $pg);
     if (array_key_exists($pg, PAGES) && file_exists(__DIR__ . "/pages/" . $pg . ".php")) {
@@ -65,9 +65,9 @@ header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
 
         <?php
 // Alert messages
-        if (!is_empty($_GET['msg']) && array_key_exists($_GET['msg'], MESSAGES)) {
+        if (isset($_GET['msg']) && !is_empty($_GET['msg']) && array_key_exists($_GET['msg'], MESSAGES)) {
             // optional string generation argument
-            if (is_empty($_GET['arg'])) {
+            if (!isset($_GET['arg']) || is_empty($_GET['arg'])) {
                 $alertmsg = lang(MESSAGES[$_GET['msg']]['string'], false);
             } else {
                 $alertmsg = lang2(MESSAGES[$_GET['msg']]['string'], ["arg" => strip_tags($_GET['arg'])], false);
@@ -123,7 +123,7 @@ END;
                     <?php
                     $curpagefound = false;
                     foreach (PAGES as $id => $pg) {
-                        if ($pg['navbar'] === TRUE) {
+                        if (isset($pg['navbar']) && $pg['navbar'] === TRUE) {
                             if ($pageid == $id) {
                                 $curpagefound = true;
                                 ?>
