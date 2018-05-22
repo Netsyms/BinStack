@@ -24,6 +24,7 @@ if (isset($_GET['page']) && !is_empty($_GET['page'])) {
     }
 }
 
+header("Link: <static/fonts/Roboto.css>; rel=preload; as=style", false);
 header("Link: <static/css/bootstrap.min.css>; rel=preload; as=style", false);
 header("Link: <static/css/material-color/material-color.min.css>; rel=preload; as=style", false);
 header("Link: <static/css/app.css>; rel=preload; as=style", false);
