@@ -77,6 +77,7 @@ if (checkLoginServer()) {
 } else {
     $alert = lang("login server unavailable", false);
 }
+header("Link: <static/fonts/Roboto.css>; rel=preload; as=style", false);
 header("Link: <static/css/bootstrap.min.css>; rel=preload; as=style", false);
 header("Link: <static/css/material-color/material-color.min.css>; rel=preload; as=style", false);
 header("Link: <static/css/index.css>; rel=preload; as=style", false);
