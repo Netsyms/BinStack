@@ -13,7 +13,7 @@ if ($_SESSION['loggedin'] && !isset($_GET['permissionerror'])) {
 }
 
 if (isset($_GET['permissionerror'])) {
-    $alert = lang("no permission", false);
+    $alert = lang("no access permission", false);
 }
 
 /* Authenticate user */

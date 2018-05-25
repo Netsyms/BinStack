@@ -30,6 +30,7 @@ define("STRINGS", [
     "login server user data error" => "The login server refused to provide account information.  Try again or contact technical support.",
     "captcha error" => "There was a problem with the CAPTCHA (robot test).  Try again.",
     "no edit permission" => "You do not have permission to modify records.",
+    "no access permission" => "You do not have permission to access this system.",
     "home" => "Home",
     "more" => "More",
     "invalid itemid" => "The item ID is invalid.",
