@@ -250,7 +250,7 @@ function redirectIfNotLoggedIn() {
     }
     require_once __DIR__ . "/lib/login.php";
     if (account_has_permission($_SESSION['username'], "INV_VIEW") == FALSE) {
-        header('Location: ./index.php');
+        header('Location: ./index.php?permissionerror');
         die("You don't have permission to be here.");
     }
 }
