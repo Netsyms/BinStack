@@ -28,7 +28,7 @@ define("STRINGS", [
     "login server error" => "The login server returned an error: {arg}",
     "login server user data error" => "The login server refused to provide account information.  Try again or contact technical support.",
     "captcha error" => "There was a problem with the CAPTCHA (robot test).  Try again.",
-    "no permission" => "You don't have permission to do that.",
+    "no access permission" => "You do not have permission to access this system.",
     "home" => "Home",
     "more" => "More",
     "test" => "Test"
