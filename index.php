@@ -1,5 +1,4 @@
 <?php
-
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -9,8 +8,12 @@ require_once __DIR__ . "/required.php";
 require_once __DIR__ . "/lib/login.php";
 
 // if we're logged in, we don't need to be here.
-if ($_SESSION['loggedin']) {
+if ($_SESSION['loggedin'] && !isset($_GET['permissionerror'])) {
     header('Location: app.php');
+}
+
+if (isset($_GET['permissionerror'])) {
+    $alert = lang("no permission", false);
 }
 
 /* Authenticate user */
