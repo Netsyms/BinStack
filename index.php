@@ -8,7 +8,7 @@ require_once __DIR__ . "/required.php";
 require_once __DIR__ . "/lib/login.php";
 
 // if we're logged in, we don't need to be here.
-if ($_SESSION['loggedin'] && !isset($_GET['permissionerror'])) {
+if (!empty($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && !isset($_GET['permissionerror'])) {
     header('Location: app.php');
 }
 
@@ -20,7 +20,7 @@ if (isset($_GET['permissionerror'])) {
 $userpass_ok = false;
 $multiauth = false;
 if (checkLoginServer()) {
-    if ($VARS['progress'] == "1") {
+    if (!empty($VARS['progress']) && $VARS['progress'] == "1") {
         if (!CAPTCHA_ENABLED || (CAPTCHA_ENABLED && verifyCaptcheck($VARS['captcheck_session_code'], $VARS['captcheck_selected_answer'], CAPTCHA_SERVER . "/api.php"))) {
             $errmsg = "";
             if (authenticate_user($VARS['username'], $VARS['password'], $errmsg)) {
@@ -61,7 +61,7 @@ if (checkLoginServer()) {
         } else {
             $alert = lang("captcha error", false);
         }
-    } else if ($VARS['progress'] == "2") {
+    } else if (!empty($VARS['progress']) && $VARS['progress'] == "2") {
         if ($_SESSION['passok'] !== true) {
             // stop logins using only username and authcode
             sendError("Password integrity check failed!");
@@ -117,7 +117,7 @@ header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
                     <h5 class="card-title"><?php lang("sign in"); ?></h5>
                     <form action="" method="POST">
                         <?php
-                        if (!is_empty($alert)) {
+                        if (!empty($alert)) {
                             ?>
                             <div class="alert alert-danger">
                                 <i class="fa fa-fw fa-exclamation-triangle"></i> <?php echo $alert; ?>
