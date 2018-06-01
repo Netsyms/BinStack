@@ -47,9 +47,12 @@ $(document).ready(function () {
                 $("#msg-alert-box .alert").fadeTo(1000, 0.5);
             }
             if (msginteractiontick >= gone) {
-                $("#msg-alert-box .alert").fadeOut("slow", function () {
-                });
-                window.clearInterval(msgticker);
+                setTimeout(function () {
+                    if (msginteractiontick >= gone) {
+                        $("#msg-alert-box .alert").fadeOut("slow");
+                        window.clearInterval(msgticker);
+                    }
+                }, 1000);
             }
         }, 1000 * 1);
 
