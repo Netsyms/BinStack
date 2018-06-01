@@ -92,9 +92,14 @@ header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
             echo <<<END
             <div class="row justify-content-center" id="msg-alert-box">
                 <div class="col-11 col-sm-6 col-md-5 col-lg-4 col-xl-4">
-                    <div class="alert alert-dismissible alert-$alerttype">
-                        <button type="button" class="close">&times;</button>
-                        <i class="fas fa-$alerticon"></i> $alertmsg
+                    <div class="alert alert-dismissible alert-$alerttype mt-2 p-0 border-0 shadow">
+                        <div class="p-2 pl-3">
+                            <button type="button" class="close">&times;</button>
+                            <i class="fas fa-$alerticon"></i> $alertmsg
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar bg-$alerttype w-0" id="msg-alert-timeout-bar"></div>
+                        </div>
                     </div>
                 </div>
             </div>
