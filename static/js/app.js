@@ -3,9 +3,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 $(document).ready(function () {
-    /* Fade out alerts */
-    $(".alert .close").click(function (e) {
-        $(this).parent().fadeOut("slow");
+    $("#msg-alert-box").on("click", ".close", function (e) {
+        $("#msg-alert-box").fadeOut("slow");
     });
 
     if ($("#msg-alert-box").length) {
@@ -41,15 +40,15 @@ $(document).ready(function () {
             }
 
             if (msginteractiontick < fifty) {
-                $("#msg-alert-box .alert").css("opacity", "1");
+                $("#msg-alert-box").css("opacity", "1");
             }
             if (msginteractiontick == fifty) {
-                $("#msg-alert-box .alert").fadeTo(1000, 0.5);
+                $("#msg-alert-box").fadeTo(1000, 0.5);
             }
             if (msginteractiontick >= gone) {
                 setTimeout(function () {
                     if (msginteractiontick >= gone) {
-                        $("#msg-alert-box .alert").fadeOut("slow");
+                        $("#msg-alert-box").fadeOut("slow");
                         window.clearInterval(msgticker);
                     }
                 }, 1000);
@@ -57,7 +56,7 @@ $(document).ready(function () {
         }, 1000 * 1);
 
         $("#msg-alert-box").on("mouseenter", function () {
-            $("#msg-alert-box .alert").css("opacity", "1");
+            $("#msg-alert-box").css("opacity", "1");
             msginteractiontick = 0;
             console.log("👈😎👈 zoop");
         });
