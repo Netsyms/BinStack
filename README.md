@@ -35,4 +35,5 @@ Installing
 4. Set the location of the AccountHub API in `settings.php` (see "PORTAL_API") and enter an API key ("PORTAL_KEY")
 5. Set the location of the AccountHub home page ("PORTAL_URL")
 6. Set the URL of this app ("URL")
-7. Run `composer install` (or `composer.phar install`) to install dependency libraries.
+7. Run `composer install` (or `composer.phar install`) to install dependency libraries
+8. Run `git submodule init` and `git submodule update` to install other dependencies via git.
