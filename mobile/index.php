@@ -14,8 +14,6 @@ $access_permission = null;
 
 require __DIR__ . "/../required.php";
 
-require __DIR__ . "/../lib/login.php";
-
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
@@ -73,7 +71,7 @@ function mobile_valid($username, $code) {
 }
 
 if (mobile_enabled() !== TRUE) {
-    exit(json_encode(["status" => "ERROR", "msg" => lang("mobile login disabled", false)]));
+    exit(json_encode(["status" => "ERROR", "msg" => $Strings->get("mobile login disabled", false)]));
 }
 
 // Make sure we have a username and access key
@@ -93,20 +91,21 @@ if (!mobile_valid($VARS['username'], $VARS['key'])) {
 switch ($VARS['action']) {
     case "start_session":
         // Do a web login.
-        if (user_exists($VARS['username'])) {
-            if (get_account_status($VARS['username']) == "NORMAL") {
-                if (authenticate_user($VARS['username'], $VARS['password'], $autherror)) {
-                    if (is_null($access_permission) || account_has_permission($VARS['username'], $access_permission)) {
-                        doLoginUser($VARS['username'], $VARS['password']);
+        $user = User::byUsername($VARS['username']);
+        if ($user->exists()) {
+            if ($user->getStatus()->getString() == "NORMAL") {
+                if ($user->checkPassword($VARS['password'])) {
+                    if (is_null($access_permission) || $user->hasPermission($access_permission)) {
+                        Session::start($user);
                         $_SESSION['mobile'] = true;
                         exit(json_encode(["status" => "OK"]));
                     } else {
-                        exit(json_encode(["status" => "ERROR", "msg" => lang("no admin permission", false)]));
+                        exit(json_encode(["status" => "ERROR", "msg" => $Strings->get("no admin permission", false)]));
                     }
                 }
             }
         }
-        exit(json_encode(["status" => "ERROR", "msg" => lang("login incorrect", false)]));
+        exit(json_encode(["status" => "ERROR", "msg" => $Strings->get("login incorrect", false)]));
     default:
         http_response_code(404);
         die(json_encode(["status" => "ERROR", "msg" => "The requested action is not available."]));

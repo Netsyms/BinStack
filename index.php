@@ -5,80 +5,91 @@
 
 require_once __DIR__ . "/required.php";
 
-require_once __DIR__ . "/lib/login.php";
-
 // if we're logged in, we don't need to be here.
 if (!empty($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && !isset($_GET['permissionerror'])) {
     header('Location: app.php');
 }
 
 if (isset($_GET['permissionerror'])) {
-    $alert = lang("no access permission", false);
+    $alert = $Strings->get("no access permission", false);
 }
 
 /* Authenticate user */
 $userpass_ok = false;
 $multiauth = false;
-if (checkLoginServer()) {
-    if (!empty($VARS['progress']) && $VARS['progress'] == "1") {
-        if (!CAPTCHA_ENABLED || (CAPTCHA_ENABLED && verifyCaptcheck($VARS['captcheck_session_code'], $VARS['captcheck_selected_answer'], CAPTCHA_SERVER . "/api.php"))) {
-            $errmsg = "";
-            if (authenticate_user($VARS['username'], $VARS['password'], $errmsg)) {
-                switch (get_account_status($VARS['username'])) {
+if (Login::checkLoginServer()) {
+    if (empty($VARS['progress'])) {
+        // Easy way to remove "undefined" warnings.
+    } else if ($VARS['progress'] == "1") {
+        if (!CAPTCHA_ENABLED || (CAPTCHA_ENABLED && Login::verifyCaptcha($VARS['captcheck_session_code'], $VARS['captcheck_selected_answer'], CAPTCHA_SERVER . "/api.php"))) {
+            $autherror = "";
+            $user = User::byUsername($VARS['username']);
+            if ($user->exists()) {
+                $status = $user->getStatus()->getString();
+                switch ($status) {
                     case "LOCKED_OR_DISABLED":
-                        $alert = lang("account locked", false);
+                        $alert = $Strings->get("account locked", false);
                         break;
                     case "TERMINATED":
-                        $alert = lang("account terminated", false);
+                        $alert = $Strings->get("account terminated", false);
                         break;
                     case "CHANGE_PASSWORD":
-                        $alert = lang("password expired", false);
+                        $alert = $Strings->get("password expired", false);
+                        break;
                     case "NORMAL":
-                        $userpass_ok = true;
+                        $username_ok = true;
                         break;
                     case "ALERT_ON_ACCESS":
-                        sendLoginAlertEmail($VARS['username']);
-                        $userpass_ok = true;
+                        $mail_resp = $user->sendAlertEmail();
+                        if (DEBUG) {
+                            var_dump($mail_resp);
+                        }
+                        $username_ok = true;
+                        break;
+                    default:
+                        if (!is_empty($error)) {
+                            $alert = $error;
+                        } else {
+                            $alert = $Strings->get("login error", false);
+                        }
                         break;
                 }
-                if ($userpass_ok) {
-                    $_SESSION['passok'] = true; // stop logins using only username and authcode
-                    if (userHasTOTP($VARS['username'])) {
-                        $multiauth = true;
+                if ($username_ok) {
+                    if ($user->checkPassword($VARS['password'])) {
+                        $_SESSION['passok'] = true; // stop logins using only username and authcode
+                        if ($user->has2fa()) {
+                            $multiauth = true;
+                        } else {
+                            Session::start($user);
+                            header('Location: app.php');
+                            die("Logged in, go to app.php");
+                        }
                     } else {
-                        doLoginUser($VARS['username'], $VARS['password']);
-                        header('Location: app.php');
-                        die("Logged in, go to app.php");
+                        $alert = $Strings->get("login incorrect", false);
                     }
                 }
-            } else {
-                if (!is_empty($errmsg)) {
-                    $alert = lang2("login server error", ['arg' => $errmsg], false);
-                } else {
-                    $alert = lang("login incorrect", false);
-                }
+            } else { // User does not exist anywhere
+                $alert = $Strings->get("login incorrect", false);
             }
         } else {
-            $alert = lang("captcha error", false);
+            $alert = $Strings->get("captcha error", false);
         }
-    } else if (!empty($VARS['progress']) && $VARS['progress'] == "2") {
+    } else if ($VARS['progress'] == "2") {
+        $user = User::byUsername($VARS['username']);
         if ($_SESSION['passok'] !== true) {
             // stop logins using only username and authcode
             sendError("Password integrity check failed!");
         }
-        if (verifyTOTP($VARS['username'], $VARS['authcode'])) {
-            if (doLoginUser($VARS['username'])) {
-                header('Location: app.php');
-                die("Logged in, go to app.php");
-            } else {
-                $alert = lang("login server user data error", false);
-            }
+        if ($user->check2fa($VARS['authcode'])) {
+            Session::start($user);
+            header('Location: app.php');
+            die("Logged in, go to app.php");
         } else {
-            $alert = lang("2fa incorrect", false);
+            $alert = $Strings->get("2fa incorrect", false);
         }
     }
 } else {
-    $alert = lang("login server unavailable", false);
+    $alert = $Strings->get("login server unavailable", false);
 }
 header("Link: <static/fonts/Roboto.css>; rel=preload; as=style", false);
 header("Link: <static/css/bootstrap.min.css>; rel=preload; as=style", false);
@@ -114,7 +125,7 @@ header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
         <div class="row justify-content-center">
             <div class="card col-11 col-xs-11 col-sm-8 col-md-6 col-lg-4">
                 <div class="card-body">
-                    <h5 class="card-title"><?php lang("sign in"); ?></h5>
+                    <h5 class="card-title"><?php $Strings->get("sign in"); ?></h5>
                     <form action="" method="POST">
                         <?php
                         if (!empty($alert)) {
@@ -127,8 +138,8 @@ header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
 
                         if ($multiauth != true) {
                             ?>
-                            <input type="text" class="form-control" name="username" placeholder="<?php lang("username"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus /><br />
-                            <input type="password" class="form-control" name="password" placeholder="<?php lang("password"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" /><br />
+                            <input type="text" class="form-control" name="username" placeholder="<?php $Strings->get("username"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus /><br />
+                            <input type="password" class="form-control" name="password" placeholder="<?php $Strings->get("password"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" /><br />
                             <?php if (CAPTCHA_ENABLED) { ?>
                                 <div class="captcheck_container" data-stylenonce="<?php echo $SECURE_NONCE; ?>"></div>
                                 <br />
@@ -138,16 +149,16 @@ header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
                         } else if ($multiauth) {
                             ?>
                             <div class="alert alert-info">
-                                <?php lang("2fa prompt"); ?>
+                                <?php $Strings->get("2fa prompt"); ?>
                             </div>
-                            <input type="text" class="form-control" name="authcode" placeholder="<?php lang("authcode"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus /><br />
+                            <input type="text" class="form-control" name="authcode" placeholder="<?php $Strings->get("authcode"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus /><br />
                             <input type="hidden" name="progress" value="2" />
                             <input type="hidden" name="username" value="<?php echo $VARS['username']; ?>" />
                             <?php
                         }
                         ?>
                         <button type="submit" class="btn btn-primary">
-                            <?php lang("continue"); ?>
+                            <?php $Strings->get("continue"); ?>
                         </button>
                     </form>
                 </div>

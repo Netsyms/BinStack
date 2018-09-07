@@ -69,9 +69,9 @@ header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
         if (isset($_GET['msg']) && !is_empty($_GET['msg']) && array_key_exists($_GET['msg'], MESSAGES)) {
             // optional string generation argument
             if (!isset($_GET['arg']) || is_empty($_GET['arg'])) {
-                $alertmsg = lang(MESSAGES[$_GET['msg']]['string'], false);
+                $alertmsg = $Strings->get(MESSAGES[$_GET['msg']]['string'], false);
             } else {
-                $alertmsg = lang2(MESSAGES[$_GET['msg']]['string'], ["arg" => strip_tags($_GET['arg'])], false);
+                $alertmsg = $Strings->build(MESSAGES[$_GET['msg']]['string'], ["arg" => strip_tags($_GET['arg'])], false);
             }
             $alerttype = MESSAGES[$_GET['msg']]['type'];
             $alerticon = "square-o";
@@ -146,7 +146,7 @@ END;
                                         if (isset($pg['icon'])) {
                                             ?><i class="<?php echo $pg['icon']; ?> fa-fw"></i> <?php
                                         }
-                                        lang($pg['title']);
+                                        $Strings->get($pg['title']);
                                         ?>
                                     </a>
                                 </span>
@@ -163,7 +163,7 @@ END;
                     </span>
                     <span class="nav-item mr-auto py-<?php echo $navbar_breakpoint; ?>-0">
                         <a class="nav-link py-<?php echo $navbar_breakpoint; ?>-0" href="action.php?action=signout">
-                            <i class="fas fa-sign-out-alt fa-fw"></i><span>&nbsp;<?php lang("sign out") ?></span>
+                            <i class="fas fa-sign-out-alt fa-fw"></i><span>&nbsp;<?php $Strings->get("sign out") ?></span>
                         </a>
                     </span>
                 </div>
