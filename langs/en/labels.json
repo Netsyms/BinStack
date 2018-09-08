@@ -1,0 +1,22 @@
+{
+    "actions": "Actions",
+    "name": "Name",
+    "location": "Location",
+    "category": "Category",
+    "code": "Code",
+    "code 1": "Code 1",
+    "code 2": "Code 2",
+    "qty": "Qty",
+    "want": "Need",
+    "assigned to": "Assigned To",
+    "quantity": "Quantity",
+    "minwant": "Minimum On Hand",
+    "item count": "Item count",
+    "Item cost": "Item cost",
+    "Sale price": "Sale price",
+    "Description": "Description",
+    "Notes": "Notes",
+    "Comments": "Comments",
+    "Cost": "Cost",
+    "Price": "Price"
+}

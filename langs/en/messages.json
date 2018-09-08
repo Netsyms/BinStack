@@ -1,0 +1,21 @@
+{
+    "item saved": "Item saved.",
+    "item deleted": "Item deleted.",
+    "invalid itemid": "The item ID is invalid.",
+    "invalid category": "The category is invalid.",
+    "invalid location": "The location does not exist.",
+    "invalid catid": "Invalid category ID.",
+    "category deleted": "Category deleted.",
+    "category in use": "Cannot delete category because there is at least one item still in it.",
+    "category saved": "Category saved.",
+    "adding location": "Adding new location",
+    "invalid locid": "Invalid location ID.",
+    "location deleted": "Location deleted.",
+    "location in use": "Cannot delete location because there is at least one item still in it.",
+    "location saved": "Location saved.",
+    "field not a number": "You entered something that isn't a number when a number was expected.",
+    "only showing understocked": "Only showing understocked items.",
+    "missing name": "You need to enter a name.",
+    "use the dropdowns": "Whoops, you need to use the category and location autocomplete boxes.",
+    "make categories and locations": "Please create at least one category and location before adding an item."
+}

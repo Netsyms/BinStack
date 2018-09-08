@@ -1,0 +1,9 @@
+{
+    "report type": "Report type",
+    "format": "Format",
+    "generate report": "Generate report",
+    "choose an option": "Choose an option",
+    "csv file": "CSV text file",
+    "ods file": "ODS spreadsheet",
+    "html file": "HTML web page"
+}
