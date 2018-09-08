@@ -9,9 +9,6 @@
  */
 require_once __DIR__ . "/required.php";
 
-require_once __DIR__ . "/lib/login.php";
-require_once __DIR__ . "/lib/userinfo.php";
-
 if ($VARS['action'] !== "signout") {
     dieifnotloggedin();
 }
@@ -32,7 +29,7 @@ function returnToSender($msg, $arg = "") {
     die();
 }
 
-if ($VARS['action'] != "signout" && !account_has_permission($_SESSION['username'], "INV_EDIT")) {
+if ($VARS['action'] != "signout" && !(new User($_SESSION['uid']))->hasPermission("INV_EDIT")) {
     returnToSender("no_edit_permission");
 }
 
@@ -95,10 +92,12 @@ switch ($VARS['action']) {
             returnToSender('invalid_location');
         }
 
-        if (!is_empty($VARS['assignedto']) && user_exists($VARS['assignedto'])) {
-            $userid = getUserByUsername($VARS['assignedto'])['uid'];
-        } else {
-            $userid = null;
+        $userid = null;
+        if (!empty($VARS['assignedto'])) {
+            $assigneduser = User::byUsername($VARS['assignedto']);
+            if ($assigneduser->exists()) {
+                $userid = $assigneduser->getUID();
+            }
         }
 
         $data = [

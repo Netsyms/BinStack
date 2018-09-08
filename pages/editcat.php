@@ -13,7 +13,7 @@ $catdata = [
 
 $editing = false;
 
-if (!is_empty($VARS['id'])) {
+if (!empty($VARS['id'])) {
     if ($database->has('categories', ['catid' => $VARS['id']])) {
         $editing = true;
         $catdata = $database->select(
@@ -36,32 +36,32 @@ if (!is_empty($VARS['id'])) {
             <?php
             if ($editing) {
                 ?>
-                <i class="fas fa-edit"></i> <?php lang2("editing category", ['cat' => "<span id=\"name_title\">" . htmlspecialchars($catdata['catname']) . "</span>"]); ?>
+                <i class="fas fa-edit"></i> <?php $Strings->build("editing category", ['cat' => "<span id=\"name_title\">" . htmlspecialchars($catdata['catname']) . "</span>"]); ?>
                 <?php
             } else {
                 ?>
-                <i class="fas fa-edit"></i> <?php lang("adding category"); ?>
+                <i class="fas fa-edit"></i> <?php $Strings->get("Adding new category"); ?>
                 <?php
             }
             ?>
         </h3>
         <div class="card-body">
             <div class="form-group">
-                <label for="name"><i class="fas fa-archive"></i> <?php lang("name"); ?></label>
+                <label for="name"><i class="fas fa-archive"></i> <?php $Strings->get("name"); ?></label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="Foo Bar" required="required" value="<?php echo htmlspecialchars($catdata['catname']); ?>" />
             </div>
         </div>
 
-        <input type="hidden" name="catid" value="<?php echo htmlspecialchars($VARS['id']); ?>" />
+        <input type="hidden" name="catid" value="<?php echo isset($VARS['id']) ? htmlspecialchars($VARS['id']) : ""; ?>" />
         <input type="hidden" name="action" value="editcat" />
         <input type="hidden" name="source" value="categories" />
 
         <div class="card-footer d-flex">
-            <button type="submit" class="btn btn-success mr-auto"><i class="fas fa-save"></i> <?php lang("save"); ?></button>
+            <button type="submit" class="btn btn-success mr-auto"><i class="fas fa-save"></i> <?php $Strings->get("save"); ?></button>
             <?php
             if ($editing) {
                 ?>
-                <a href="action.php?action=deletecat&source=categories&catid=<?php echo htmlspecialchars($VARS['id']); ?>" class="btn btn-danger ml-auto"><i class="fas fa-times"></i> <?php lang('delete'); ?></a>
+                <a href="action.php?action=deletecat&source=categories&catid=<?php echo htmlspecialchars($VARS['id']); ?>" class="btn btn-danger ml-auto"><i class="fas fa-times"></i> <?php $Strings->get('delete'); ?></a>
                 <?php
             }
             ?>

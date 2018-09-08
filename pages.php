@@ -7,12 +7,12 @@
 // List of pages and metadata
 define("PAGES", [
     "home" => [
-        "title" => "home",
+        "title" => "Home",
         "navbar" => true,
         "icon" => "fas fa-home"
     ],
     "items" => [
-        "title" => "items",
+        "title" => "Items",
         "navbar" => true,
         "icon" => "fas fa-boxes",
         "styles" => [
@@ -25,7 +25,7 @@ define("PAGES", [
         ],
     ],
     "locations" => [
-        "title" => "locations",
+        "title" => "Locations",
         "navbar" => true,
         "icon" => "fas fa-map-marker",
         "styles" => [
@@ -38,7 +38,7 @@ define("PAGES", [
         ],
     ],
     "categories" => [
-        "title" => "categories",
+        "title" => "Categories",
         "navbar" => true,
         "icon" => "fas fa-pallet",
         "styles" => [
@@ -51,7 +51,7 @@ define("PAGES", [
         ],
     ],
     "edititem" => [
-        "title" => "edit item",
+        "title" => "Edit item",
         "navbar" => false,
         "styles" => [
             "static/css/easy-autocomplete.min.css"
@@ -62,21 +62,21 @@ define("PAGES", [
         ],
     ],
     "editcat" => [
-        "title" => "edit category",
+        "title" => "Edit category",
         "navbar" => false,
         "scripts" => [
             "static/js/editcat.js"
         ],
     ],
     "editloc" => [
-        "title" => "edit location",
+        "title" => "Edit location",
         "navbar" => false,
         "scripts" => [
             "static/js/editloc.js"
         ],
     ],
     "export" => [
-        "title" => "report export",
+        "title" => "Reports/Export",
         "navbar" => true,
         "icon" => "fas fa-download",
         "scripts" => [

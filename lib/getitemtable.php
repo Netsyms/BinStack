@@ -9,11 +9,9 @@ require_once __DIR__ . '/../required.php';
 
 dieifnotloggedin();
 
-require_once __DIR__ . '/userinfo.php';
-
 header("Content-Type: application/json");
 
-$showwant = ($VARS['show_want'] == 1);
+$showwant = (isset($VARS['show_want']) && $VARS['show_want'] == 1);
 
 $out = [];
 
@@ -117,15 +115,15 @@ $out['recordsFiltered'] = $recordsFiltered;
 
 $usercache = [];
 for ($i = 0; $i < count($items); $i++) {
-    $items[$i]["editbtn"] = '<a class="btn btn-primary" href="app.php?page=edititem&id=' . $items[$i]['itemid'] . '"><i class="fas fa-edit"></i> ' . lang("edit", false) . '</a>';
-    $items[$i]["clonebtn"] = '<a class="btn btn-success" href="app.php?page=edititem&id=' . $items[$i]['itemid'] . '&clone=1"><i class="fas fa-clone"></i> ' . lang("clone", false) . '</a>';
+    $items[$i]["editbtn"] = '<a class="btn btn-primary" href="app.php?page=edititem&id=' . $items[$i]['itemid'] . '"><i class="fas fa-edit"></i> ' . $Strings->get("edit", false) . '</a>';
+    $items[$i]["clonebtn"] = '<a class="btn btn-success" href="app.php?page=edititem&id=' . $items[$i]['itemid'] . '&clone=1"><i class="fas fa-clone"></i> ' . $Strings->get("clone", false) . '</a>';
     if (is_null($items[$i]['userid'])) {
         $items[$i]["username"] = "";
     } else {
         if (!isset($usercache[$items[$i]['userid']])) {
-            $usercache[$items[$i]['userid']] = getUserByID($items[$i]['userid']);
+            $usercache[$items[$i]['userid']] = new User($items[$i]['userid']);
         }
-        $items[$i]["username"] = $usercache[$items[$i]['userid']]['name'];
+        $items[$i]["username"] = $usercache[$items[$i]['userid']]->getName() . " (" . $usercache[$items[$i]['userid']]->getUsername() . ")";
     }
 }
 $out['items'] = $items;

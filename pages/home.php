@@ -12,10 +12,10 @@ redirectifnotloggedin();
         <form action="app.php" method="get">
             <input type="hidden" name="page" value="items" />
             <div class="input-group">
-                <input type="text" class="form-control" name="q" id="quicklookup_box" placeholder="<?php lang("search"); ?>"/>
+                <input type="text" class="form-control" name="q" id="quicklookup_box" placeholder="<?php $Strings->get("Search"); ?>"/>
                 <div class="input-group-append">
                     <?php
-                    if ($_SESSION['mobile']) {
+                    if (isset($_SESSION['mobile']) && $_SESSION['mobile']) {
                         ?>
                         <span class="btn btn-default" onclick="scancode('#quicklookup_box');">
                             <i class="fas fa-barcode fa-fw"></i>
@@ -33,11 +33,11 @@ redirectifnotloggedin();
 <div class="card-deck">
     <div class="card bg-teal text-light">
         <div class="card-body">
-            <h4 class="card-title"><?php lang("total items") ?></h4>
+            <h4 class="card-title"><?php $Strings->get("Total Items") ?></h4>
             <h1><i class="fas fa-fw fa-boxes"></i> <?php echo $database->count('items'); ?></h1>
         </div>
         <div class="card-footer">
-            <a href="app.php?page=items" class="text-light"><i class="fas fa-arrow-right"></i> <?php lang("view items"); ?></a>
+            <a href="app.php?page=items" class="text-light"><i class="fas fa-arrow-right"></i> <?php $Strings->get("View Items"); ?></a>
         </div>
     </div>
     <?php
@@ -45,11 +45,11 @@ redirectifnotloggedin();
     ?>
     <div class="card bg-<?php echo ($lowcnt > 0 ? "deep-orange" : "green"); ?> text-light">
         <div class="card-body">
-            <h4 class="card-title"><?php lang("understocked items") ?></h4>
+            <h4 class="card-title"><?php $Strings->get("Understocked Items") ?></h4>
             <h1><i class="fas fa-fw fa-tachometer-alt"></i> <?php echo $lowcnt; ?></h1>
         </div>
         <div class="card-footer">
-            <a href="app.php?page=items&filter=stock" class="text-light"><i class="fas fa-arrow-right"></i> <?php lang("view understocked"); ?></a>
+            <a href="app.php?page=items&filter=stock" class="text-light"><i class="fas fa-arrow-right"></i> <?php $Strings->get("View Understocked"); ?></a>
         </div>
     </div>
 </div>

@@ -42,7 +42,7 @@ if (LOADED) {
         generateReport($VARS['type'], $VARS['format']);
         die();
     } else {
-        lang("invalid parameters");
+        $Strings->get("invalid parameters");
         die();
     }
 }
@@ -54,7 +54,7 @@ if (LOADED) {
  * @return string
  */
 function getItemReport($filter = []) {
-    global $database;
+    global $database, $Strings;
     $items = $database->select(
             "items", [
         "[>]locations" => ["locid"],
@@ -77,28 +77,27 @@ function getItemReport($filter = []) {
             ], $filter
     );
     $header = [
-        lang("itemid", false),
-        lang("name", false),
-        lang("category", false),
-        lang("location", false),
-        lang("code 1", false),
-        lang("code 2", false),
-        lang("quantity", false),
-        lang("want", false),
-        lang("cost", false),
-        lang("price", false),
-        lang("assigned to", false),
-        lang("description", false),
-        lang("notes", false),
-        lang("comments", false)
+        $Strings->get("itemid", false),
+        $Strings->get("name", false),
+        $Strings->get("category", false),
+        $Strings->get("location", false),
+        $Strings->get("code 1", false),
+        $Strings->get("code 2", false),
+        $Strings->get("quantity", false),
+        $Strings->get("want", false),
+        $Strings->get("Cost", false),
+        $Strings->get("Price", false),
+        $Strings->get("assigned to", false),
+        $Strings->get("Description", false),
+        $Strings->get("Notes", false),
+        $Strings->get("Comments", false)
     ];
     $out = [$header];
     for ($i = 0; $i < count($items); $i++) {
         $user = "";
         if (!is_null($items[$i]["userid"])) {
-            require_once __DIR__ . "/userinfo.php";
-            $u = getUserByID($items[$i]["userid"]);
-            $user = $u['name'] . " (" . $u['username'] . ')';
+            $u = new User($items[$i]["userid"]);
+            $user = $u->getName() . " (" . $u->getUsername() . ')';
         }
         $out[] = [
             $items[$i]["itemid"],
@@ -121,12 +120,12 @@ function getItemReport($filter = []) {
 }
 
 function getCategoryReport() {
-    global $database;
+    global $database, $Strings;
     $cats = $database->select('categories', [
         'catid',
         'catname'
     ]);
-    $header = [lang("id", false), lang("category", false), lang("item count", false)];
+    $header = [$Strings->get("id", false), $Strings->get("category", false), $Strings->get("item count", false)];
     $out = [$header];
     for ($i = 0; $i < count($cats); $i++) {
         $itemcount = $database->count('items', ['catid' => $cats[$i]['catid']]);
@@ -140,14 +139,14 @@ function getCategoryReport() {
 }
 
 function getLocationReport() {
-    global $database;
+    global $database, $Strings;
     $locs = $database->select('locations', [
         'locid',
         'locname',
         'loccode',
         'locinfo'
     ]);
-    $header = [lang("id", false), lang("location", false), lang("code", false), lang("item count", false), lang("description", false)];
+    $header = [$Strings->get("id", false), $Strings->get("location", false), $Strings->get("code", false), $Strings->get("item count", false), $Strings->get("Description", false)];
     $out = [$header];
     for ($i = 0; $i < count($locs); $i++) {
         $itemcount = $database->count('items', ['locid' => $locs[$i]['locid']]);
@@ -216,7 +215,10 @@ function dataToODS($data, $name = "report") {
         $rowid++;
     }
     $ods->addTable($table);
-    $ods->downloadOdsFile($name . "_" . date("Y-m-d_Hi") . ".ods");
+    // The @ is a workaround to silence the tempnam notice,
+    // which breaks the file.  This is apparently the intended behavior:
+    // https://bugs.php.net/bug.php?id=69489
+    @$ods->downloadOdsFile($name . "_" . date("Y-m-d_Hi") . ".ods");
 }
 
 function dataToHTML($data, $name = "report") {

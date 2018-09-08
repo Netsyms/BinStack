@@ -62,9 +62,14 @@ if ($_SESSION['mobile'] === TRUE) {
 require __DIR__ . '/vendor/autoload.php';
 
 // List of alert messages
-require __DIR__ . '/lang/messages.php';
-// text strings (i18n)
-require __DIR__ . '/lang/' . LANGUAGE . ".php";
+require __DIR__ . '/langs/messages.php';
+
+$libs = glob(__DIR__ . "/lib/*.lib.php");
+foreach ($libs as $lib) {
+    require_once $lib;
+}
+
+$Strings = new Strings(LANGUAGE);
 
 /**
  * Kill off the running process and spit out an error message
@@ -136,60 +141,13 @@ function is_empty($str) {
     return (is_null($str) || !isset($str) || $str == '');
 }
 
-/**
- * I18N string getter.  If the key doesn't exist, outputs the key itself.
- * @param string $key I18N string key
- * @param boolean $echo whether to echo the result or return it (default echo)
- */
-function lang($key, $echo = true) {
-    if (array_key_exists($key, STRINGS)) {
-        $str = STRINGS[$key];
-    } else {
-        trigger_error("Language key \"$key\" does not exist in " . LANGUAGE, E_USER_WARNING);
-        $str = $key;
-    }
-
-    if ($echo) {
-        echo $str;
-    } else {
-        return $str;
-    }
-}
-
-/**
- * I18N string getter (with builder).    If the key doesn't exist, outputs the key itself.
- * @param string $key I18N string key
- * @param array $replace key-value array of replacements.
- * If the string value is "hello {abc}" and you give ["abc" => "123"], the
- * result will be "hello 123".
- * @param boolean $echo whether to echo the result or return it (default echo)
- */
-function lang2($key, $replace, $echo = true) {
-    if (array_key_exists($key, STRINGS)) {
-        $str = STRINGS[$key];
-    } else {
-        trigger_error("Language key \"$key\" does not exist in " . LANGUAGE, E_USER_WARNING);
-        $str = $key;
-    }
-
-    foreach ($replace as $find => $repl) {
-        $str = str_replace("{" . $find . "}", $repl, $str);
-    }
-
-    if ($echo) {
-        echo $str;
-    } else {
-        return $str;
-    }
-}
 
 function dieifnotloggedin() {
     if ($_SESSION['loggedin'] != true) {
         sendError("Session expired.  Please log out and log in again.");
         die();
     }
-    require_once __DIR__ . "/lib/login.php";
-    if (account_has_permission($_SESSION['username'], "INV_VIEW") == FALSE) {
+    if ((new User($_SESSION['uid']))->hasPermission("INV_VIEW") == FALSE) {
         die("You don't have permission to be here.");
     }
 }
@@ -248,8 +206,7 @@ function redirectIfNotLoggedIn() {
         header('Location: ./index.php');
         die();
     }
-    require_once __DIR__ . "/lib/login.php";
-    if (account_has_permission($_SESSION['username'], "INV_VIEW") == FALSE) {
+    if ((new User($_SESSION['uid']))->hasPermission("INV_VIEW") == FALSE) {
         header('Location: ./index.php?permissionerror');
         die("You don't have permission to be here.");
     }

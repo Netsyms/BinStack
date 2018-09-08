@@ -12,17 +12,15 @@
  * user passwords.
  */
 require __DIR__ . '/required.php';
-require_once __DIR__ . '/lib/login.php';
-require_once __DIR__ . '/lib/userinfo.php';
 header("Content-Type: application/json");
 
 $username = $VARS['username'];
 $password = $VARS['password'];
-if (user_exists($username) !== true || authenticate_user($username, $password, $errmsg) !== true) {
+$user = User::byUsername($username);
+if ($user->exists() !== true || Login::auth($username, $password) !== Login::LOGIN_OK) {
     header("HTTP/1.1 403 Unauthorized");
     die("\"403 Unauthorized\"");
 }
-$userinfo = getUserByUsername($username);
 
 // query max results
 $max = 20;

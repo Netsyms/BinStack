@@ -8,15 +8,15 @@ require_once __DIR__ . '/../required.php';
 redirectifnotloggedin();
 ?>
 <div class="btn-group">
-    <a href="app.php?page=editcat" class="btn btn-success"><i class="fas fa-plus"></i> <?php lang("new category"); ?></a>
+    <a href="app.php?page=editcat" class="btn btn-success"><i class="fas fa-plus"></i> <?php $Strings->get("New Category"); ?></a>
 </div>
 <table id="cattable" class="table table-bordered table-hover table-sm">
     <thead>
         <tr>
             <th data-priority="0"></th>
-            <th data-priority="1"><?php lang('actions'); ?></th>
-            <th data-priority="1"><i class="fas fa-pallet hidden-sm"></i> <?php lang('category'); ?></th>
-            <th data-priority="2"><i class="fas fa-hashtag hidden-sm"></i> <?php lang('item count'); ?></th>
+            <th data-priority="1"><?php $Strings->get('actions'); ?></th>
+            <th data-priority="1"><i class="fas fa-pallet hidden-sm"></i> <?php $Strings->get('category'); ?></th>
+            <th data-priority="2"><i class="fas fa-hashtag hidden-sm"></i> <?php $Strings->get('item count'); ?></th>
         </tr>
     </thead>
     <tbody>
@@ -31,7 +31,7 @@ redirectifnotloggedin();
             <tr>
                 <td></td>
                 <td>
-                    <a class="btn btn-primary btn-sm" href="app.php?page=editcat&id=<?php echo $cat['catid']; ?>"><i class="fas fa-edit"></i> <?php lang("edit"); ?></a>
+                    <a class="btn btn-primary btn-sm" href="app.php?page=editcat&id=<?php echo $cat['catid']; ?>"><i class="fas fa-edit"></i> <?php $Strings->get("edit"); ?></a>
                 </td>
                 <td><?php echo $cat['catname']; ?></td>
                 <td><?php echo $itemcount; ?></td>
@@ -43,9 +43,9 @@ redirectifnotloggedin();
     <tfoot>
         <tr>
             <th data-priority="0"></th>
-            <th data-priority="1"><?php lang('actions'); ?></th>
-            <th data-priority="1"><i class="fas fa-pallet hidden-sm"></i> <?php lang('category'); ?></th>
-            <th data-priority="2"><i class="fas fa-hashtag hidden-sm"></i> <?php lang('item count'); ?></th>
+            <th data-priority="1"><?php $Strings->get('actions'); ?></th>
+            <th data-priority="1"><i class="fas fa-pallet hidden-sm"></i> <?php $Strings->get('category'); ?></th>
+            <th data-priority="2"><i class="fas fa-hashtag hidden-sm"></i> <?php $Strings->get('item count'); ?></th>
         </tr>
     </tfoot>
 </table>

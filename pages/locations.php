@@ -9,16 +9,16 @@ require_once __DIR__ . '/../required.php';
 redirectifnotloggedin();
 ?>
 <div class="btn-group mgn-btm-10px">
-    <a href="app.php?page=editloc" class="btn btn-success"><i class="fa fa-plus"></i> <?php lang("new location"); ?></a>
+    <a href="app.php?page=editloc" class="btn btn-success"><i class="fa fa-plus"></i> <?php $Strings->get("new location"); ?></a>
 </div>
 <table id="loctable" class="table table-bordered table-hover table-sm">
     <thead>
         <tr>
             <th data-priority="0"></th>
-            <th data-priority="1"><?php lang('actions'); ?></th>
-            <th data-priority="1"><i class="fas fa-map-marker"></i> <?php lang('location'); ?></th>
-            <th data-priority="2"><i class="fas fa-barcode"></i> <?php lang('code'); ?></th>
-            <th data-priority="3"><i class="fas fa-hashtag"></i> <?php lang('item count'); ?></th>
+            <th data-priority="1"><?php $Strings->get('actions'); ?></th>
+            <th data-priority="1"><i class="fas fa-map-marker"></i> <?php $Strings->get('location'); ?></th>
+            <th data-priority="2"><i class="fas fa-barcode"></i> <?php $Strings->get('code'); ?></th>
+            <th data-priority="3"><i class="fas fa-hashtag"></i> <?php $Strings->get('item count'); ?></th>
         </tr>
     </thead>
     <tbody>
@@ -34,7 +34,7 @@ redirectifnotloggedin();
             <tr>
                 <td></td>
                 <td>
-                    <a class="btn btn-primary btn-sm" href="app.php?page=editloc&id=<?php echo $loc['locid']; ?>"><i class="fas fa-edit"></i> <?php lang("edit"); ?></a>
+                    <a class="btn btn-primary btn-sm" href="app.php?page=editloc&id=<?php echo $loc['locid']; ?>"><i class="fas fa-edit"></i> <?php $Strings->get("edit"); ?></a>
                 </td>
                 <td><?php echo $loc['locname']; ?></td>
                 <td><?php echo $loc['loccode']; ?></td>
@@ -47,10 +47,10 @@ redirectifnotloggedin();
     <tfoot>
         <tr>
             <th data-priority="0"></th>
-            <th data-priority="1"><?php lang('actions'); ?></th>
-            <th data-priority="1"><i class="fas fa-map-marker"></i> <?php lang('location'); ?></th>
-            <th data-priority="2"><i class="fas fa-barcode"></i> <?php lang('code'); ?></th>
-            <th data-priority="3"><i class="fas fa-hashtag"></i> <?php lang('item count'); ?></th>
+            <th data-priority="1"><?php $Strings->get('actions'); ?></th>
+            <th data-priority="1"><i class="fas fa-map-marker"></i> <?php $Strings->get('location'); ?></th>
+            <th data-priority="2"><i class="fas fa-barcode"></i> <?php $Strings->get('code'); ?></th>
+            <th data-priority="3"><i class="fas fa-hashtag"></i> <?php $Strings->get('item count'); ?></th>
         </tr>
     </tfoot>
 </table>

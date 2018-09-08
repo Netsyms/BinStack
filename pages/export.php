@@ -14,23 +14,23 @@ redirectifnotloggedin();
             <div class="row">
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
-                        <label for="type"><?php lang("report type"); ?></label>
+                        <label for="type"><?php $Strings->get("report type"); ?></label>
                         <select name="type" class="form-control" required>
-                            <option value="item"><?php lang("items") ?></option>
-                            <option value="category"><?php lang("categories") ?></option>
-                            <option value="location"><?php lang("locations") ?></option>
-                            <option value="itemstock"><?php lang("understocked items") ?></option>
+                            <option value="item"><?php $Strings->get("Items") ?></option>
+                            <option value="category"><?php $Strings->get("Categories") ?></option>
+                            <option value="location"><?php $Strings->get("Locations") ?></option>
+                            <option value="itemstock"><?php $Strings->get("Understocked Items") ?></option>
                         </select>
                     </div>
                 </div>
 
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
-                        <label for="type"><?php lang("format"); ?></label>
+                        <label for="type"><?php $Strings->get("format"); ?></label>
                         <select name="format" class="form-control" required>
-                            <option value="csv"><?php lang("csv file") ?></option>
-                            <option value="ods"><?php lang("ods file") ?></option>
-                            <option value="html"><?php lang("html file") ?></option>
+                            <option value="csv"><?php $Strings->get("csv file") ?></option>
+                            <option value="ods"><?php $Strings->get("ods file") ?></option>
+                            <option value="html"><?php $Strings->get("html file") ?></option>
                         </select>
                     </div>
                 </div>
@@ -43,7 +43,7 @@ redirectifnotloggedin();
         <input type="hidden" name="code" value="<?php echo $code; ?>" />
 
         <div class="card-footer d-flex">
-            <button type="submit" class="btn btn-success ml-auto" id="genrptbtn"><i class="fas fa-download"></i> <?php lang("generate report"); ?></button>
+            <button type="submit" class="btn btn-success ml-auto" id="genrptbtn"><i class="fas fa-download"></i> <?php $Strings->get("generate report"); ?></button>
         </div>
     </form>
 </div>
