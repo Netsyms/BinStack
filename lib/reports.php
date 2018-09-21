@@ -14,16 +14,6 @@ if (count(get_included_files()) == 1) {
 
 require_once __DIR__ . "/../required.php";
 
-use League\Csv\Writer;
-use League\Csv\HTMLConverter;
-use odsPhpGenerator\ods;
-use odsPhpGenerator\odsTable;
-use odsPhpGenerator\odsTableRow;
-use odsPhpGenerator\odsTableColumn;
-use odsPhpGenerator\odsTableCellString;
-use odsPhpGenerator\odsStyleTableColumn;
-use odsPhpGenerator\odsStyleTableCell;
-
 // Allow access with a download code, for mobile app and stuff
 $date = date("Y-m-d H:i:s");
 if (isset($VARS['code']) && LOADED) {
@@ -53,7 +43,7 @@ if (LOADED) {
  * @param array $filter Medoo WHERE clause.
  * @return string
  */
-function getItemReport($filter = []) {
+function getItemReport($filter = []): Report {
     global $database, $Strings;
     $items = $database->select(
             "items", [
@@ -76,7 +66,8 @@ function getItemReport($filter = []) {
         "price"
             ], $filter
     );
-    $header = [
+    $report = new Report($Strings->get("Items", false));
+    $report->setHeader([
         $Strings->get("itemid", false),
         $Strings->get("name", false),
         $Strings->get("category", false),
@@ -91,15 +82,14 @@ function getItemReport($filter = []) {
         $Strings->get("Description", false),
         $Strings->get("Notes", false),
         $Strings->get("Comments", false)
-    ];
-    $out = [$header];
+    ]);
     for ($i = 0; $i < count($items); $i++) {
         $user = "";
         if (!is_null($items[$i]["userid"])) {
             $u = new User($items[$i]["userid"]);
             $user = $u->getName() . " (" . $u->getUsername() . ')';
         }
-        $out[] = [
+        $report->addDataRow([
             $items[$i]["itemid"],
             $items[$i]["name"],
             $items[$i]["catname"],
@@ -114,31 +104,31 @@ function getItemReport($filter = []) {
             $items[$i]["text1"],
             $items[$i]["text2"],
             $items[$i]["text3"]
-        ];
+        ]);
     }
-    return $out;
+    return $report;
 }
 
-function getCategoryReport() {
+function getCategoryReport(): Report {
     global $database, $Strings;
     $cats = $database->select('categories', [
         'catid',
         'catname'
     ]);
-    $header = [$Strings->get("id", false), $Strings->get("category", false), $Strings->get("item count", false)];
-    $out = [$header];
+    $report = new Report($Strings->get("Categories", false));
+    $report->setHeader([$Strings->get("id", false), $Strings->get("category", false), $Strings->get("item count", false)]);
     for ($i = 0; $i < count($cats); $i++) {
         $itemcount = $database->count('items', ['catid' => $cats[$i]['catid']]);
-        $out[] = [
+        $report->addDataRow([
             $cats[$i]["catid"],
             $cats[$i]["catname"],
             $itemcount . ""
-        ];
+        ]);
     }
-    return $out;
+    return $report;
 }
 
-function getLocationReport() {
+function getLocationReport(): Report {
     global $database, $Strings;
     $locs = $database->select('locations', [
         'locid',
@@ -146,23 +136,23 @@ function getLocationReport() {
         'loccode',
         'locinfo'
     ]);
-    $header = [$Strings->get("id", false), $Strings->get("location", false), $Strings->get("code", false), $Strings->get("item count", false), $Strings->get("Description", false)];
-    $out = [$header];
+    $report = new Report($Strings->get("Locations", false));
+    $report->setHeader([$Strings->get("id", false), $Strings->get("location", false), $Strings->get("code", false), $Strings->get("item count", false), $Strings->get("Description", false)]);
     for ($i = 0; $i < count($locs); $i++) {
         $itemcount = $database->count('items', ['locid' => $locs[$i]['locid']]);
-        $out[] = [
+        $report->addDataRow([
             $locs[$i]["locid"],
             $locs[$i]["locname"],
             $locs[$i]["loccode"],
             $itemcount . "",
             $locs[$i]["locinfo"]
-        ];
+        ]);
     }
-    return $out;
+    return $report;
 }
 
-function getReportData($type) {
-    switch ($type) {
+function getReport($type): Report {
+        switch ($type) {
         case "item":
             return getItemReport();
             break;
@@ -176,96 +166,11 @@ function getReportData($type) {
             return getItemReport(["AND" => ["qty[<]want", "want[>]" => 0]]);
             break;
         default:
-            return [["error"]];
+            return new Report("error", ["ERROR"], ["Invalid report type."]);
     }
-}
-
-function dataToCSV($data, $name = "report") {
-    $csv = Writer::createFromString('');
-    $csv->insertAll($data);
-    header('Content-type: text/csv');
-    header('Content-Disposition: attachment; filename="' . $name . "_" . date("Y-m-d_Hi") . ".csv" . '"');
-    echo $csv;
-    die();
-}
-
-function dataToODS($data, $name = "report") {
-    $ods = new ods();
-    $styleColumn = new odsStyleTableColumn();
-    $styleColumn->setUseOptimalColumnWidth(true);
-    $headerstyle = new odsStyleTableCell();
-    $headerstyle->setFontWeight("bold");
-    $table = new odsTable($name);
-
-    for ($i = 0; $i < count($data[0]); $i++) {
-        $table->addTableColumn(new odsTableColumn($styleColumn));
-    }
-
-    $rowid = 0;
-    foreach ($data as $datarow) {
-        $row = new odsTableRow();
-        foreach ($datarow as $cell) {
-            if ($rowid == 0) {
-                $row->addCell(new odsTableCellString($cell, $headerstyle));
-            } else {
-                $row->addCell(new odsTableCellString($cell));
-            }
-        }
-        $table->addRow($row);
-        $rowid++;
-    }
-    $ods->addTable($table);
-    // The @ is a workaround to silence the tempnam notice,
-    // which breaks the file.  This is apparently the intended behavior:
-    // https://bugs.php.net/bug.php?id=69489
-    @$ods->downloadOdsFile($name . "_" . date("Y-m-d_Hi") . ".ods");
-}
-
-function dataToHTML($data, $name = "report") {
-    global $SECURE_NONCE;
-    // HTML exporter doesn't like null values
-    for ($i = 0; $i < count($data); $i++) {
-        for ($j = 0; $j < count($data[$i]); $j++) {
-            if (is_null($data[$i][$j])) {
-                $data[$i][$j] = '';
-            }
-        }
-    }
-    header('Content-type: text/html');
-    $converter = new HTMLConverter();
-    $out = "<!DOCTYPE html>\n"
-            . "<meta charset=\"utf-8\">\n"
-            . "<meta name=\"viewport\" content=\"width=device-width\">\n"
-            . "<title>" . $name . "_" . date("Y-m-d_Hi") . "</title>\n"
-            . <<<STYLE
-<style nonce="$SECURE_NONCE">
-    .table-csv-data {
-        border-collapse: collapse;
-    }
-    .table-csv-data tr:first-child {
-        font-weight: bold;
-    }
-    .table-csv-data tr td {
-        border: 1px solid black;
-    }
-</style>
-STYLE
-            . $converter->convert($data);
-    echo $out;
 }
 
 function generateReport($type, $format) {
-    $data = getReportData($type);
-    switch ($format) {
-        case "ods":
-            dataToODS($data, $type);
-            break;
-        case "html":
-            dataToHTML($data, $type);
-            break;
-        case "csv":
-        default:
-            echo dataToCSV($data, $type);
-            break;
-    }
+    $report = getReport($type);
+    $report->output($format);
 }
