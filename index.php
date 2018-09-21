@@ -96,7 +96,7 @@ header("Link: <static/css/bootstrap.min.css>; rel=preload; as=style", false);
 header("Link: <static/css/material-color/material-color.min.css>; rel=preload; as=style", false);
 header("Link: <static/css/index.css>; rel=preload; as=style", false);
 header("Link: <static/js/jquery-3.3.1.min.js>; rel=preload; as=script", false);
-header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
+header("Link: <static/js/bootstrap.bundle.min.js>; rel=preload; as=script", false);
 ?>
 <!DOCTYPE html>
 <html>
@@ -170,6 +170,6 @@ header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
         </div>
     </div>
     <script src="static/js/jquery-3.3.1.min.js"></script>
-    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

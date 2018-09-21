@@ -28,10 +28,10 @@ header("Link: <static/fonts/Roboto.css>; rel=preload; as=style", false);
 header("Link: <static/css/bootstrap.min.css>; rel=preload; as=style", false);
 header("Link: <static/css/material-color/material-color.min.css>; rel=preload; as=style", false);
 header("Link: <static/css/app.css>; rel=preload; as=style", false);
-header("Link: <static/css/fa-svg-with-js.css>; rel=preload; as=style", false);
+header("Link: <static/css/svg-with-js.min.css>; rel=preload; as=style", false);
 header("Link: <static/js/fontawesome-all.min.js>; rel=preload; as=script", false);
 header("Link: <static/js/jquery-3.3.1.min.js>; rel=preload; as=script", false);
-header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
+header("Link: <static/js/bootstrap.bundle.min.js>; rel=preload; as=script", false);
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,7 +47,7 @@ header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
         <link href="static/css/bootstrap.min.css" rel="stylesheet">
         <link href="static/css/material-color/material-color.min.css" rel="stylesheet">
         <link href="static/css/app.css" rel="stylesheet">
-        <link href="static/css/fa-svg-with-js.css" rel="stylesheet">
+        <link href="static/css/svg-with-js.min.css" rel="stylesheet">
         <script nonce="<?php echo $SECURE_NONCE; ?>">
             FontAwesomeConfig = {autoAddCss: false}
         </script>
@@ -182,7 +182,7 @@ END;
             </div>
         </div>
         <script src="static/js/jquery-3.3.1.min.js"></script>
-        <script src="static/js/bootstrap.min.js"></script>
+        <script src="static/js/bootstrap.bundle.min.js"></script>
         <script src="static/js/app.js"></script>
         <?php
 // custom page scripts
