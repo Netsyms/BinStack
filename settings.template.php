@@ -34,6 +34,11 @@ define("TIMEZONE", "America/Denver");
 // Base URL for site links.
 define('URL', '.');
 
+// Folder for item images
+// If in the webroot, verify that the contents of the folder are not accessible
+// from a client (web browser).
+define('FILE_UPLOAD_PATH', __DIR__ . '/images');
+
 // Use Captcheck on login screen
 // https://captcheck.netsyms.com
 define("CAPTCHA_ENABLED", FALSE);

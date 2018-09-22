@@ -61,6 +61,16 @@ define("PAGES", [
             "static/js/edititem.js"
         ],
     ],
+    "editimages" => [
+        "title" => "Edit item images",
+        "navbar" => false,
+        "styles" => [
+            "static/css/files.css"
+        ],
+        "scripts" => [
+            "static/js/files.js"
+        ]
+    ],
     "editcat" => [
         "title" => "Edit category",
         "navbar" => false,

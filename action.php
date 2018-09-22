@@ -229,6 +229,129 @@ switch ($VARS['action']) {
             exit("[]");
         }
         break;
+    case "imageupload":
+        $destpath = FILE_UPLOAD_PATH;
+        if (!is_writable($destpath)) {
+            returnToSender("unwritable_folder", "&id=$VARS[itemid]");
+        }
+
+        if (empty($VARS['itemid']) || !$database->has('items', ['itemid' => $VARS['itemid']])) {
+            returnToSender("invalid_itemid", "&id=$VARS[itemid]");
+        }
+
+        $files = [];
+        foreach ($_FILES['files'] as $key => $all) {
+            foreach ($all as $i => $val) {
+                $files[$i][$key] = $val;
+            }
+        }
+
+        $errors = [];
+        foreach ($files as $f) {
+            if ($f['error'] !== UPLOAD_ERR_OK) {
+                $err = "could not be uploaded.";
+                switch ($f['error']) {
+                    case UPLOAD_ERR_INI_SIZE:
+                    case UPLOAD_ERR_FORM_SIZE:
+                        $err = "is too big.";
+                        break;
+                    case UPLOAD_ERR_CANT_WRITE:
+                        $err = "could not be saved to disk.";
+                        break;
+                    case UPLOAD_ERR_NO_FILE:
+                        $err = "was not actually sent.";
+                        break;
+                    case UPLOAD_ERR_PARTIAL:
+                        $err = "was only partially sent.";
+                        break;
+                    default:
+                        $err = "could not be uploaded.";
+                }
+                $errors[] = htmlspecialchars($f['name']) . " $err";
+                continue;
+            }
+
+            if (filesize($f['tmp_name']) > 11) {
+                $imagetype = exif_imagetype($f['tmp_name']);
+            } else {
+                $imagetype = false;
+            }
+
+            switch ($imagetype) {
+                case IMAGETYPE_JPEG:
+                case IMAGETYPE_GIF:
+                case IMAGETYPE_PNG:
+                case IMAGETYPE_WEBP:
+                    $imagevalid = true;
+                    break;
+                default:
+                    $imagevalid = false;
+            }
+
+            if (!$imagevalid) {
+                $errors[] = htmlspecialchars($f['name']) . " is not a supported image type (JPEG, GIF, PNG, WEBP).";
+                continue;
+            }
+
+            $filename = basename($f['name']);
+            $filename = preg_replace("/[^a-z0-9\._\-]/", "_", strtolower($filename));
+            $n = 1;
+            if (file_exists($destpath . "/" . $filename)) {
+                while (file_exists($destpath . '/' . $n . '_' . $filename)) {
+                    $n++;
+                }
+                $filename = $n . '_' . $filename;
+            }
+
+            $finalpath = $destpath . "/" . $filename;
+
+            if (move_uploaded_file($f['tmp_name'], $finalpath)) {
+                $primary = false;
+                if (!$database->has('images', ['AND' => ['itemid' => $VARS['itemid'], 'primary' => true]])) {
+                    $primary = true;
+                }
+                $database->insert('images', ['itemid' => $VARS['itemid'], 'imagename' => $filename, 'primary' => $primary]);
+            } else {
+                $errors[] = htmlspecialchars($f['name']) . " could not be uploaded.";
+            }
+        }
+
+        if (count($errors) > 0) {
+            returnToSender("upload_warning", implode("<br>", $errors) . "&id=$VARS[itemid]");
+        }
+        returnToSender("upload_success", "&id=$VARS[itemid]");
+        break;
+    case "promoteimage":
+        if (empty($VARS['itemid']) || !$database->has('items', ['itemid' => $VARS['itemid']])) {
+            returnToSender("invalid_itemid", "&id=$VARS[itemid]");
+        }
+        if (empty($VARS['imageid']) || !$database->has('images', ['AND' => ['itemid' => $VARS['itemid'], 'imageid' => $VARS['imageid']]])) {
+            returnToSender("invalid_imageid", "&id=$VARS[itemid]");
+        }
+
+        $database->update('images', ['primary' => false], ['itemid' => $VARS['itemid']]);
+        $database->update('images', ['primary' => true], ['AND' => ['itemid' => $VARS['itemid'], 'imageid' => $VARS['imageid']]]);
+        returnToSender("image_promoted", "&id=$VARS[itemid]");
+        break;
+    case "deleteimage":
+        if (empty($VARS['itemid']) || !$database->has('items', ['itemid' => $VARS['itemid']])) {
+            returnToSender("invalid_itemid", "&id=$VARS[itemid]");
+        }
+        if (empty($VARS['imageid']) || !$database->has('images', ['AND' => ['itemid' => $VARS['itemid'], 'imageid' => $VARS['imageid']]])) {
+            returnToSender("invalid_imageid", "&id=$VARS[itemid]");
+        }
+
+        $imagename = $database->get('images', 'imagename', ['imageid' => $VARS['imageid']]);
+        if ($database->count('images', ['imagename' => $imagename]) <= 1) {
+            unlink(FILE_UPLOAD_PATH . "/" . $imagename);
+        }
+        $database->delete('images', ['AND' => ['itemid' => $VARS['itemid'], 'imageid' => $VARS['imageid']]]);
+
+        if (!$database->has('images', ['AND' => ['itemid' => $VARS['itemid'], 'primary' => true]])) {
+            $database->update('images', ['primary' => true], ['itemid' => $VARS['itemid'], 'LIMIT' => 1]);
+        }
+
+        returnToSender("image_deleted", "&id=$VARS[itemid]");
     case "signout":
         session_destroy();
         header('Location: index.php');

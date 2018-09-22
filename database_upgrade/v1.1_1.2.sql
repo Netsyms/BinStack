@@ -5,12 +5,18 @@
  */
 ALTER TABLE `items`
 ADD COLUMN `cost` DECIMAL(10,2) NULL DEFAULT NULL AFTER `userid`,
-ADD COLUMN `price` DECIMAL(10,2) NULL DEFAULT NULL AFTER `cost`;
+ADD COLUMN `price` DECIMAL(10,2) NULL DEFAULT NULL AFTER `cost`;\
+
+ALTER TABLE `items`
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (`itemid`);
+
 
 CREATE TABLE IF NOT EXISTS `images` (
   `imageid` INT(11) NOT NULL AUTO_INCREMENT,
   `itemid` INT(11) NOT NULL,
   `imagename` VARCHAR(255) NOT NULL,
+  `primary` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`imageid`, `itemid`),
   UNIQUE INDEX `imageid_UNIQUE` (`imageid` ASC),
   INDEX `fk_images_items1_idx` (`itemid` ASC),
