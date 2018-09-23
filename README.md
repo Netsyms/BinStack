@@ -11,12 +11,12 @@ Program Structure
 -----------------
 
 ### Folders
-* lang
+* langs
    Translations and alert messages.
-   The language file that is loaded depends on the value of `LANGUAGE` in `settings.php`.
-   Translate the values (but not the keys) in `en_us.php` into other languages and save in appropriately named files to add languages.
+   The language files that are loaded depends on the value of `LANGUAGE` in `settings.php`.
+   All .json files in a language folder are parsed and loaded into the dictionary (use via `$Strings->get('some key')`).
 * lib
-   A good place to put helper functions that you don't want "in the way".
+   A good place to put helper functions that you don't want "in the way".  All files that end with `.lib.php` are automatically loaded.
 * pages
    What it looks like.  If you go into `pages.php` and define a page with the name `foo`, there should be a `foo.php` in here.
    The app checks before loading, so it will give a friendly 404 error if it doesn't find your page.
@@ -29,13 +29,18 @@ Program Structure
 ### Files
 * settings.template.php
    App configuration.  Copy to `settings.php` and customize.  Documented with inline comments.
+* app.php
+   Handles the web part of the app.  If you have problems with too many items on the navbar, change `$navbar_breakpoint`.
+   To change the navbar colors, find and edit `<nav class="navbar ...`, changing `navbar-dark bg-blue` to suit.
+* static/img/logo.svg
+   The app logo.  Should be a square, we don't test any other sizes.
 * required.php
    The "duct tape" that holds the app together.  Use `require_once __DIR__."/required.php"` at the top of every file.
-   It loads Composer dependencies, app settings, language data, and creates `$database` for accessing the database.
-   It also has some utility functions, including `dieifnotloggedin()`, `is_empty($var)`, and `lang('key')`.
-   Read through it to see what those functions do.
+   It loads Composer dependencies, library files, app settings, language data, and creates `$database` for accessing the database.
+   It also has some utility functions, including `dieifnotloggedin()`.
+   Read through it to see exactly what it does.
 * action.php
-   A good place to post forms to.  By default it only handles logging out, but is easily expanded.
+   A good place to put form handling code.  By default it only handles logging out, but is easily expanded.
 * api.php
    Similar to action.php, but designed for user/pass authenticated JSON responses.
 * index.php
@@ -52,15 +57,14 @@ Program Structure
       `'icon' => '...'` will show an icon from FontAwesome in the menu bar.  Setting this to `home` will show the icon `fa-home`.
       `'styles' => ["file.css"]` will inject the listed CSS files into the page header (after all other CSS, like Bootstrap).
       `'scripts' => ["file.js"]` will inject the listed JavaScript files into the page footer (after jQuery and other builtin scripts).
-* lang/messages.php
+* langs/messages.php
    Array of alert messages.
    `"string"` is the language string for the message, `"type"` is one of `success`, `info`, `warning`, or `danger` (i.e. Bootstrap alert classes).
    Changing the type changes the icon and color of the alert box.
-*lang/en_us.php
-   Language data for US English.
-*lib/login.php
-   Functions for logging in users and stuff like that.  Most functions transparently makes requests to the AccountHub API and return the results.
-*lib/userinfo.php
-   Functions for getting user data, like real names and managed employees.
-*static/css/app.css
-   Custom styles for the app.  See the comments inside for instructions on theming the app.
+
+
+Setup Tips
+----------
+
+* Run composer install (or composer.phar install) to install dependency libraries
+* If you don't have any color in the navbar, run `git submodule init` and `git submodule update`.
