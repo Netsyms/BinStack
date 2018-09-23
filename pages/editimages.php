@@ -45,7 +45,7 @@ if (!empty($VARS['id']) && $database->has('items', ['itemid' => $VARS['id']])) {
             foreach ($images as $i) {
                 ?>
                 <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
-                    <div class="card">
+                    <div class="card m-2">
                         <img class="card-img" src="image.php?i=<?php echo $i['imagename']; ?>" alt="">
                         <div class="card-img-overlay text-right">
                             <?php
