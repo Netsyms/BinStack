@@ -20,13 +20,11 @@ if (!empty($VARS['id']) && $database->has('items', ['itemid' => $VARS['id']])) {
 ?>
 
 <div class="card border-green">
-    <h3 class="card-header text-green">
-        <i class="fas fa-images"></i> <?php $Strings->build("Editing images for item", ['item' => "<span id=\"name_title\">" . htmlspecialchars($database->get('items', 'name', ['itemid' => $VARS['id']])) . "</span>"]); ?>
-    </h3>
-    <div class="card-body">
+    <div class="card-header d-flex justify-content-between flex-wrap">
+        <h3 class="text-green my-auto"><i class="fas fa-images"></i> <?php $Strings->build("Editing images for item", ['item' => "<span id=\"name_title\">" . htmlspecialchars($database->get('items', 'name', ['itemid' => $VARS['id']])) . "</span>"]); ?></h3>
         <div class="ml-auto my-auto">
             <form action="action.php" method="POST" enctype="multipart/form-data">
-                <div class="input-group">
+                <div class="input-group input-group-sm">
                     <input type="text" id="uploadstatus" class="form-control" readonly />
                     <div class="input-group-append">
                         <span class="btn btn-primary btn-file">
@@ -40,18 +38,20 @@ if (!empty($VARS['id']) && $database->has('items', ['itemid' => $VARS['id']])) {
                 <input type="hidden" name="itemid" value="<?php echo htmlspecialchars($VARS['id']); ?>" />
             </form>
         </div>
+    </div>
+    <div class="card-body">
         <div class="row">
             <?php
             foreach ($images as $i) {
                 ?>
                 <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
                     <div class="card m-2">
-                        <img class="card-img" src="image.php?i=<?php echo $i['imagename']; ?>" alt="">
+                        <img class="card-img" src="image.php?i=<?php echo $i['imagename']; ?>" alt="<?php echo $i['imagename']; ?>">
                         <div class="card-img-overlay text-right">
                             <?php
                             if ($i['primary']) {
                                 ?>
-                                <span class="btn btn-green btn-sm" data-toggle="tooltip" data-placement="bottom" title=""><i class="fas fa-check"></i> <?php $Strings->get("Promoted"); ?></span>
+                                <span class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom" title=""><i class="fas fa-check"></i> <?php $Strings->get("Promoted"); ?></span>
                                 <?php
                             } else {
                                 ?>
