@@ -7,7 +7,6 @@
     "Adding Item": "Adding new item",
     "editing item": "Editing {item}",
     "cloning item": "Copying {oitem} <i class=\"fa fa-angle-right\"></i> {nitem}",
-    "item saved": "Item Saved",
     "itemid": "Item ID",
     "id": "ID"
 }

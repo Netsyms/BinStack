@@ -104,15 +104,33 @@ if (!empty($VARS['id'])) {
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label for="cat"><i class="fas fa-archive"></i> <?php $Strings->get("category"); ?></label>
-                        <input type="text" name="catstr" class="form-control" id="cat" placeholder="<?php $Strings->get("placeholder category name"); ?>" value="<?php echo htmlspecialchars($itemdata['catname']); ?>" />
-                        <input type="hidden" id="realcat" name="cat" value="<?php echo $itemdata['catid']; ?>" required="required" />
+                        <select class="form-control" name="cat" id="cat" required="required">
+                            <option value=""><?php $Strings->get("Choose a category"); ?></option>
+                            <?php
+                            $categories = $database->select('categories', ['catid (id)', 'catname (name)']);
+                            foreach ($categories as $cat) {
+                                ?>
+                            <option value="<?php echo $cat['id']; ?>" <?php echo $itemdata['catid'] == $cat['id'] ? "selected" : ""; ?>><?php echo $cat['name']; ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label for="loc"><i class="fas fa-map-marker"></i> <?php $Strings->get("location"); ?></label>
-                        <input type="text" name="locstr" class="form-control" id="loc" placeholder="<?php $Strings->get("placeholder location name"); ?>" value="<?php echo htmlspecialchars($itemdata['locname']); ?>" />
-                        <input type="hidden" id="realloc" name="loc" value="<?php echo $itemdata['locid']; ?>" required="required" />
+                        <select class="form-control" name="loc" id="loc" required="required">
+                            <option value=""><?php $Strings->get("Choose a location"); ?></option>
+                            <?php
+                            $locations = $database->select('locations', ['locid (id)', 'locname (name)']);
+                            foreach ($locations as $loc) {
+                                ?>
+                            <option value="<?php echo $loc['id']; ?>" <?php echo $itemdata['locid'] == $loc['id'] ? "selected" : ""; ?>><?php echo $loc['name']; ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
                     </div>
                 </div>
             </div>

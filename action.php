@@ -202,8 +202,12 @@ switch ($VARS['action']) {
         }
         returnToSender("invalid_parameters");
     case "autocomplete_category":
-        exit(json_encode($database->select('categories', ['catid (id)', 'catname (name)'], ['catname[~]' => $VARS['q'], 'LIMIT' => 10])));
+        header("Content-Type: application/json");
+        $q = (empty($VARS['q']) ? "" : $VARS['q']);
+        exit(json_encode($database->select('categories', ['catid (id)', 'catname (name)'], ['catname[~]' => $q, 'LIMIT' => 10])));
     case "autocomplete_location":
+        header("Content-Type: application/json");
+        $q = (empty($VARS['q']) ? "" : $VARS['q']);
         exit(json_encode($database->select('locations', ['locid (id)', 'locname (name)'], ["OR" => ['locname[~]' => $VARS['q'], 'loccode' => $VARS['q']], 'LIMIT' => 10])));
     case "autocomplete_user":
         header("Content-Type: application/json");
