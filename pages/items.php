@@ -14,7 +14,7 @@ redirectifnotloggedin();
 </div>
 <?php if (isset($_GET['filter']) && $_GET['filter'] == 'stock') { ?>
     <script nonce="<?php echo $SECURE_NONCE; ?>">var filter = "stock";</script>
-    <div class="alert alert-blue-grey"><i class="fa fa-filter fa-fw"></i> <?php $Strings->get("only showing understocked"); ?> &nbsp; <a href="app.php?page=items" class="btn btn-sm btn-blue-grey"><?php $Strings->get("show all items"); ?></a></div>
+    <div class="alert alert-blue-grey mt-1"><i class="fa fa-filter fa-fw"></i> <?php $Strings->get("only showing understocked"); ?> &nbsp; <a href="app.php?page=items" class="btn btn-sm btn-blue-grey text-light"><?php $Strings->get("show all items"); ?></a></div>
     <?php
 } else {
     echo "<script nonce=\"$SECURE_NONCE\">var filter = null;</script>\n";

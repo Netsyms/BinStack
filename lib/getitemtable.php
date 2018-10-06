@@ -115,8 +115,13 @@ $out['recordsFiltered'] = $recordsFiltered;
 
 $usercache = [];
 for ($i = 0; $i < count($items); $i++) {
-    $items[$i]["editbtn"] = '<a class="btn btn-primary" href="app.php?page=edititem&id=' . $items[$i]['itemid'] . '"><i class="fas fa-edit"></i> ' . $Strings->get("edit", false) . '</a>';
-    $items[$i]["clonebtn"] = '<a class="btn btn-success" href="app.php?page=edititem&id=' . $items[$i]['itemid'] . '&clone=1"><i class="fas fa-clone"></i> ' . $Strings->get("clone", false) . '</a>';
+    $user = new User($_SESSION['uid']);
+    if ($user->hasPermission("INV_EDIT")) {
+        $items[$i]["editbtn"] = '<a class="btn btn-primary" href="app.php?page=edititem&id=' . $items[$i]['itemid'] . '"><i class="fas fa-edit"></i> ' . $Strings->get("edit", false) . '</a>';
+    } else {
+        $items[$i]["editbtn"] = '';
+    }
+    $items[$i]["viewbtn"] = '<a class="btn btn-info" href="app.php?page=item&id=' . $items[$i]['itemid'] . '"><i class="fas fa-eye"></i> ' . $Strings->get("view", false) . '</a>';
     if (is_null($items[$i]['userid'])) {
         $items[$i]["username"] = "";
     } else {

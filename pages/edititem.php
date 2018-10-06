@@ -231,7 +231,13 @@ if (!empty($VARS['id'])) {
         }
         ?>" />
         <input type="hidden" name="action" value="edititem" />
-        <input type="hidden" name="source" value="items" />
+        <?php
+        if (isset($_GET['source']) && $_GET['source'] === "item" && $editing && !$cloning) {
+            echo '<input type="hidden" name="source" value="item" />';
+        } else {
+            echo '<input type="hidden" name="source" value="items" />';
+        }
+        ?>
         <?php
         if ($cloning) {
             ?>
@@ -245,7 +251,8 @@ if (!empty($VARS['id'])) {
             if ($editing && !$cloning) {
                 ?>
                 <button type="submit" class="btn btn-success mr-1"><i class="fas fa-save"></i> <?php $Strings->get("save"); ?></button>
-                <a href="./app.php?page=editimages&id=<?php echo $_GET['id']; ?>" class="btn btn-primary mr-auto"><i class="fas fa-images"></i> <?php $Strings->get("Edit Images"); ?></a>
+                <a href="./app.php?page=editimages&id=<?php echo $_GET['id']; ?>" class="btn btn-primary mr-1"><i class="fas fa-images"></i> <?php $Strings->get("Edit Images"); ?></a>
+                <a class="btn btn-success mr-auto" href="app.php?page=edititem&id=<?php echo $VARS['id']; ?>&clone=1"><i class="fas fa-clone"></i> <?php $Strings->get("clone"); ?></a>
                 <a href="action.php?action=deleteitem&source=items&itemid=<?php echo htmlspecialchars($VARS['id']); ?>" class="btn btn-danger ml-auto"><i class="fas fa-times"></i> <?php $Strings->get('delete'); ?></a>
                 <?php
             } else {

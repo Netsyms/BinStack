@@ -122,6 +122,9 @@ switch ($VARS['action']) {
             $database->update('items', $data, ['itemid' => $VARS['itemid']]);
         }
 
+        if ($VARS['source'] == "item") {
+            returnToSender("item_saved", "&id=" . $VARS['itemid']);
+        }
         returnToSender("item_saved");
     case "editcat":
         $insert = true;

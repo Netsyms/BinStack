@@ -8,5 +8,6 @@
     "editing item": "Editing {item}",
     "cloning item": "Copying {oitem} <i class=\"fa fa-angle-right\"></i> {nitem}",
     "itemid": "Item ID",
-    "id": "ID"
+    "id": "ID",
+    "Edit Item": "Edit Item"
 }

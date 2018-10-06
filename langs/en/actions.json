@@ -2,5 +2,7 @@
     "edit": "Edit",
     "clone": "Clone",
     "save": "Save",
-    "delete": "Delete"
+    "delete": "Delete",
+    "view": "View",
+    "show all items": "Show All Items"
 }

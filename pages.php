@@ -50,6 +50,10 @@ define("PAGES", [
             "static/js/categories.js"
         ],
     ],
+    "item" => [
+        "title" => "Item",
+        "navbar" => false
+    ],
     "edititem" => [
         "title" => "Edit item",
         "navbar" => false,

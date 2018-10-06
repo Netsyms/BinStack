@@ -82,6 +82,12 @@ if (!empty($VARS['id']) && $database->has('items', ['itemid' => $VARS['id']])) {
     </div>
 
     <div class="card-footer d-flex">
-        <a href="./app.php?page=edititem&id=<?php echo $_GET['id']; ?>" class="btn btn-success mr-auto"><i class="fas fa-arrow-left"></i> <?php $Strings->get("Back"); ?></a>
+        <?php
+        $source = "edititem";
+        if ($_GET['source'] === "item") {
+            $source = "item";
+        }
+        ?>
+        <a href="./app.php?page=<?php echo $source; ?>&id=<?php echo $_GET['id']; ?>" class="btn btn-success mr-auto"><i class="fas fa-arrow-left"></i> <?php $Strings->get("Back"); ?></a>
     </div>
 </div>
