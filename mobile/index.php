@@ -75,7 +75,7 @@ if (mobile_enabled() !== TRUE) {
 }
 
 // Make sure we have a username and access key
-if (is_empty($VARS['username']) || is_empty($VARS['key'])) {
+if (empty($VARS['username']) || empty($VARS['key'])) {
     http_response_code(401);
     die(json_encode(["status" => "ERROR", "msg" => "Missing username and/or access key."]));
 }

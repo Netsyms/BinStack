@@ -47,7 +47,7 @@ if (Login::checkLoginServer()) {
                         $username_ok = true;
                         break;
                     default:
-                        if (!is_empty($error)) {
+                        if (!empty($error)) {
                             $alert = $error;
                         } else {
                             $alert = $Strings->get("login error", false);

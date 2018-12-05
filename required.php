@@ -133,6 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 /**
+ * @deprecated
  * Checks if a string or whatever is empty.
  * @param $str The thingy to check
  * @return boolean True if it's empty or whatever.
