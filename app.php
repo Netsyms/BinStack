@@ -1,5 +1,4 @@
 <?php
-
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -66,28 +65,35 @@ header("Link: <static/js/bootstrap.bundle.min.js>; rel=preload; as=script", fals
 
         <?php
 // Alert messages
-        if (isset($_GET['msg']) && !is_empty($_GET['msg']) && array_key_exists($_GET['msg'], MESSAGES)) {
-            // optional string generation argument
-            if (!isset($_GET['arg']) || is_empty($_GET['arg'])) {
-                $alertmsg = $Strings->get(MESSAGES[$_GET['msg']]['string'], false);
+        if (!empty($_GET['msg'])) {
+            if (array_key_exists($_GET['msg'], MESSAGES)) {
+                // optional string generation argument
+                if (!isset($_GET['arg']) || is_empty($_GET['arg'])) {
+                    $alertmsg = $Strings->get(MESSAGES[$_GET['msg']]['string'], false);
+                } else {
+                    $alertmsg = $Strings->build(MESSAGES[$_GET['msg']]['string'], ["arg" => strip_tags($_GET['arg'])], false);
+                }
+                $alerttype = MESSAGES[$_GET['msg']]['type'];
+                $alerticon = "square-o";
+                switch (MESSAGES[$_GET['msg']]['type']) {
+                    case "danger":
+                        $alerticon = "times";
+                        break;
+                    case "warning":
+                        $alerticon = "exclamation-triangle";
+                        break;
+                    case "info":
+                        $alerticon = "info-circle";
+                        break;
+                    case "success":
+                        $alerticon = "check";
+                        break;
+                }
             } else {
-                $alertmsg = $Strings->build(MESSAGES[$_GET['msg']]['string'], ["arg" => strip_tags($_GET['arg'])], false);
-            }
-            $alerttype = MESSAGES[$_GET['msg']]['type'];
-            $alerticon = "square-o";
-            switch (MESSAGES[$_GET['msg']]['type']) {
-                case "danger":
-                    $alerticon = "times";
-                    break;
-                case "warning":
-                    $alerticon = "exclamation-triangle";
-                    break;
-                case "info":
-                    $alerticon = "info-circle";
-                    break;
-                case "success":
-                    $alerticon = "check";
-                    break;
+                // We don't have a message for this, so just assume an error and escape stuff.
+                $alertmsg = htmlentities($Strings->get($_GET['msg'], false));
+                $alerticon = "times";
+                $alerttype = "danger";
             }
             echo <<<END
             <div class="row justify-content-center" id="msg-alert-box">
