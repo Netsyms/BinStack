@@ -74,21 +74,7 @@ class Login {
      */
     public static function checkLoginServer() {
         try {
-            $client = new GuzzleHttp\Client();
-
-            $response = $client
-                    ->request('POST', PORTAL_API, [
-                'form_params' => [
-                    'key' => PORTAL_KEY,
-                    'action' => "ping"
-                ]
-            ]);
-
-            if ($response->getStatusCode() != 200) {
-                return false;
-            }
-
-            $resp = json_decode($response->getBody(), TRUE);
+            $resp = AccountHubApi::get("ping");
             if ($resp['status'] == "OK") {
                 return true;
             } else {
@@ -107,19 +93,7 @@ class Login {
      */
     function checkAPIKey($key) {
         try {
-            $client = new GuzzleHttp\Client();
-
-            $response = $client
-                    ->request('POST', PORTAL_API, [
-                'form_params' => [
-                    'key' => $key,
-                    'action' => "ping"
-                ]
-            ]);
-
-            if ($response->getStatusCode() === 200) {
-                return true;
-            }
+            $resp = AccountHubApi::get("ping", null, true);
             return false;
         } catch (Exception $e) {
             return false;

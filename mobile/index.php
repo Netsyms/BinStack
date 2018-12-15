@@ -23,21 +23,7 @@ if ($VARS['action'] == "ping") {
 }
 
 function mobile_enabled() {
-    $client = new GuzzleHttp\Client();
-
-    $response = $client
-            ->request('POST', PORTAL_API, [
-        'form_params' => [
-            'key' => PORTAL_KEY,
-            'action' => "mobileenabled"
-        ]
-    ]);
-
-    if ($response->getStatusCode() > 299) {
-        return false;
-    }
-
-    $resp = json_decode($response->getBody(), TRUE);
+    $resp = AccountHubApi::get("mobileenabled");
     if ($resp['status'] == "OK" && $resp['mobile'] === TRUE) {
         return true;
     } else {
@@ -46,26 +32,15 @@ function mobile_enabled() {
 }
 
 function mobile_valid($username, $code) {
-    $client = new GuzzleHttp\Client();
+    try {
+        $resp = AccountHubApi::get("mobilevalid", ["code" => $code, "username" => $username], true);
 
-    $response = $client
-            ->request('POST', PORTAL_API, [
-        'form_params' => [
-            'key' => PORTAL_KEY,
-            "code" => $code,
-            "username" => $username,
-            'action' => "mobilevalid"
-        ]
-    ]);
-
-    if ($response->getStatusCode() > 299) {
-        return false;
-    }
-
-    $resp = json_decode($response->getBody(), TRUE);
-    if ($resp['status'] == "OK" && $resp['valid'] === TRUE) {
-        return true;
-    } else {
+        if ($resp['status'] == "OK" && $resp['valid'] === TRUE) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (Exception $ex) {
         return false;
     }
 }

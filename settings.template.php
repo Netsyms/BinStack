@@ -22,7 +22,7 @@ define("SITE_TITLE", "Web App Template");
 
 
 // URL of the AccountHub API endpoint
-define("PORTAL_API", "http://localhost/accounthub/api.php");
+define("PORTAL_API", "http://localhost/accounthub/api/");
 // URL of the AccountHub home page
 define("PORTAL_URL", "http://localhost/accounthub/home.php");
 // AccountHub API Key
