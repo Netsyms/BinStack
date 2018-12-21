@@ -7,11 +7,19 @@
 // List of pages and metadata
 define("PAGES", [
     "home" => [
-        "title" => "home",
+        "title" => "Home",
         "navbar" => true,
         "icon" => "fas fa-home"
     ],
     "404" => [
         "title" => "404 error"
+    ],
+    "form" => [
+        "title" => "Form",
+        "navbar" => true,
+        "icon" => "fas fa-file-alt",
+        "scripts" => [
+            "static/js/form.js"
+        ]
     ]
 ]);
