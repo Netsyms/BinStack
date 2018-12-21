@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] != "GET") {
 $requestbody = file_get_contents('php://input');
 $requestjson = json_decode($requestbody, TRUE);
 if (json_last_error() == JSON_ERROR_NONE) {
-    $requestdata = array_merge($requestdata, $requestjson);
+    $VARS = array_merge($VARS, $requestjson);
 }
 
 // If we're not using the old api.php file, allow more flexible requests
