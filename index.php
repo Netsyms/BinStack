@@ -21,7 +21,7 @@ if (Login::checkLoginServer()) {
     if (empty($VARS['progress'])) {
         // Easy way to remove "undefined" warnings.
     } else if ($VARS['progress'] == "1") {
-        if (!CAPTCHA_ENABLED || (CAPTCHA_ENABLED && Login::verifyCaptcha($VARS['captcheck_session_code'], $VARS['captcheck_selected_answer'], CAPTCHA_SERVER . "/api.php"))) {
+        if (!$SETTINGS['captcha']['enabled'] || ($SETTINGS['captcha']['enabled'] && Login::verifyCaptcha($VARS['captcheck_session_code'], $VARS['captcheck_selected_answer'], $SETTINGS['captcha']['server'] . "/api.php"))) {
             $autherror = "";
             $user = User::byUsername($VARS['username']);
             if ($user->exists()) {
@@ -41,7 +41,7 @@ if (Login::checkLoginServer()) {
                         break;
                     case "ALERT_ON_ACCESS":
                         $mail_resp = $user->sendAlertEmail();
-                        if (DEBUG) {
+                        if ($SETTINGS['debug']) {
                             var_dump($mail_resp);
                         }
                         $username_ok = true;
@@ -105,15 +105,15 @@ header("Link: <static/js/bootstrap.bundle.min.js>; rel=preload; as=script", fals
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title><?php echo SITE_TITLE; ?></title>
+        <title><?php echo $SETTINGS['site_title']; ?></title>
 
         <link rel="icon" href="static/img/logo.svg">
 
         <link href="static/css/bootstrap.min.css" rel="stylesheet">
         <link href="static/css/material-color/material-color.min.css" rel="stylesheet">
         <link href="static/css/index.css" rel="stylesheet">
-        <?php if (CAPTCHA_ENABLED) { ?>
-            <script src="<?php echo CAPTCHA_SERVER ?>/captcheck.dist.js"></script>
+        <?php if ($SETTINGS['captcha']['enabled']) { ?>
+            <script src="<?php echo $SETTINGS['captcha']['server'] ?>/captcheck.dist.js"></script>
         <?php } ?>
     </head>
     <body>
@@ -140,7 +140,7 @@ header("Link: <static/js/bootstrap.bundle.min.js>; rel=preload; as=script", fals
                             ?>
                             <input type="text" class="form-control" name="username" placeholder="<?php $Strings->get("username"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus /><br />
                             <input type="password" class="form-control" name="password" placeholder="<?php $Strings->get("password"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" /><br />
-                            <?php if (CAPTCHA_ENABLED) { ?>
+                            <?php if ($SETTINGS['captcha']['enabled']) { ?>
                                 <div class="captcheck_container" data-stylenonce="<?php echo $SECURE_NONCE; ?>"></div>
                                 <br />
                             <?php } ?>
@@ -165,8 +165,8 @@ header("Link: <static/js/bootstrap.bundle.min.js>; rel=preload; as=script", fals
             </div>
         </div>
         <div class="footer">
-            <?php echo FOOTER_TEXT; ?><br />
-            Copyright &copy; <?php echo date('Y'); ?> <?php echo COPYRIGHT_NAME; ?>
+            <?php echo $SETTINGS['footer_text']; ?><br />
+            Copyright &copy; <?php echo date('Y'); ?> <?php echo $SETTINGS['copyright']; ?>
         </div>
     </div>
     <script src="static/js/jquery-3.3.1.min.js"></script>

@@ -39,7 +39,7 @@ header("Link: <static/js/bootstrap.bundle.min.js>; rel=preload; as=script", fals
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title><?php echo SITE_TITLE; ?></title>
+        <title><?php echo $SETTINGS['site_title']; ?></title>
 
         <link rel="icon" href="static/img/logo.svg">
 
@@ -127,7 +127,7 @@ END;
             </button>
             <a class="navbar-brand py-0 mr-auto" href="app.php">
                 <img src="static/img/logo.svg" alt="" class="d-none d-<?php echo $navbar_breakpoint; ?>-inline brand-img py-0" />
-                <?php echo SITE_TITLE; ?>
+                <?php echo $SETTINGS['site_title']; ?>
             </a>
 
             <div class="collapse navbar-collapse py-0" id="navbar-collapse">
@@ -163,7 +163,7 @@ END;
                 </div>
                 <div class="navbar-nav ml-auto py-0" id="navbar-right">
                     <span class="nav-item py-<?php echo $navbar_breakpoint; ?>-0">
-                        <a class="nav-link py-<?php echo $navbar_breakpoint; ?>-0" href="<?php echo PORTAL_URL; ?>">
+                        <a class="nav-link py-<?php echo $navbar_breakpoint; ?>-0" href="<?php echo $SETTINGS['accounthub']['home']; ?>">
                             <i class="fas fa-user fa-fw"></i><span>&nbsp;<?php echo $_SESSION['realname'] ?></span>
                         </a>
                     </span>
@@ -183,8 +183,8 @@ END;
                 ?>
             </div>
             <div class="footer">
-                <?php echo FOOTER_TEXT; ?><br />
-                Copyright &copy; <?php echo date('Y'); ?> <?php echo COPYRIGHT_NAME; ?>
+                <?php echo $SETTINGS['footer_text']; ?><br />
+                Copyright &copy; <?php echo date('Y'); ?> <?php echo $SETTINGS['copyright']; ?>
             </div>
         </div>
         <script src="static/js/jquery-3.3.1.min.js"></script>

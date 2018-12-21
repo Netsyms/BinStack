@@ -32,7 +32,7 @@ session_start(); // stick some cookies in it
 // renew session cookie
 setcookie(session_name(), session_id(), time() + $session_length, "/", false, false);
 
-$captcha_server = (CAPTCHA_ENABLED === true ? preg_replace("/http(s)?:\/\//", "", CAPTCHA_SERVER) : "");
+$captcha_server = ($SETTINGS['captcha']['enabled'] === true ? preg_replace("/http(s)?:\/\//", "", $SETTINGS['captcha']['server']) : "");
 if ($_SESSION['mobile'] === TRUE) {
     header("Content-Security-Policy: "
             . "default-src 'self';"
@@ -69,7 +69,7 @@ foreach ($libs as $lib) {
     require_once $lib;
 }
 
-$Strings = new Strings(LANGUAGE);
+$Strings = new Strings($SETTINGS['language']);
 
 /**
  * Kill off the running process and spit out an error message
@@ -93,7 +93,7 @@ function sendError($error) {
             . "<p>" . htmlspecialchars($error) . "</p>");
 }
 
-date_default_timezone_set(TIMEZONE);
+date_default_timezone_set($SETTINGS['timezone']);
 
 // Database settings
 // Also inits database and stuff
@@ -102,12 +102,12 @@ use Medoo\Medoo;
 $database;
 try {
     $database = new Medoo([
-        'database_type' => DB_TYPE,
-        'database_name' => DB_NAME,
-        'server' => DB_SERVER,
-        'username' => DB_USER,
-        'password' => DB_PASS,
-        'charset' => DB_CHARSET
+        'database_type' => $SETTINGS['database']['type'],
+        'database_name' => $SETTINGS['database']['name'],
+        'server' => $SETTINGS['database']['server'],
+        'username' => $SETTINGS['database']['user'],
+        'password' => $SETTINGS['database']['password'],
+        'charset' => $SETTINGS['database']['charset']
     ]);
 } catch (Exception $ex) {
     //header('HTTP/1.1 500 Internal Server Error');
@@ -115,7 +115,7 @@ try {
 }
 
 
-if (!DEBUG) {
+if (!$SETTINGS['debug']) {
     error_reporting(0);
 } else {
     error_reporting(E_ALL);
@@ -158,7 +158,7 @@ function checkDBError($specials = []) {
 
 function redirectIfNotLoggedIn() {
     if ($_SESSION['loggedin'] !== TRUE) {
-        header('Location: ' . URL . '/index.php');
+        header('Location: ' . $SETTINGS['url'] . '/index.php');
         die();
     }
 }

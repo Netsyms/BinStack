@@ -140,8 +140,12 @@ class User {
         }
     }
 
-    function sendAlertEmail(string $appname = SITE_TITLE) {
-        $resp = AccountHubApi::get("alertemail", ['username' => $this->username, 'appname' => SITE_TITLE]);
+    function sendAlertEmail(string $appname = null) {
+        global $SETTINGS;
+        if (is_null($appname)) {
+            $appname = $SETTINGS['site_title'];
+        }
+        $resp = AccountHubApi::get("alertemail", ['username' => $this->username, 'appname' => $SETTINGS['site_title']]);
 
         if ($resp['status'] == "OK") {
             return true;

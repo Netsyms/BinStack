@@ -9,9 +9,11 @@
 class AccountHubApi {
 
     public static function get(string $action, array $data = null, bool $throwex = false) {
+        global $SETTINGS;
+
         $content = [
             "action" => $action,
-            "key" => PORTAL_KEY
+            "key" => $SETTINGS['accounthub']['key']
         ];
         if (!is_null($data)) {
             $content = array_merge($content, $data);
@@ -27,7 +29,7 @@ class AccountHubApi {
         ];
 
         $context = stream_context_create($options);
-        $result = file_get_contents(PORTAL_API, false, $context);
+        $result = file_get_contents($SETTINGS['accounthub']['api'], false, $context);
         $response = json_decode($result, true);
         if ($result === false || !AccountHubApi::checkHttpRespCode($http_response_header) || json_last_error() != JSON_ERROR_NONE) {
             if ($throwex) {
