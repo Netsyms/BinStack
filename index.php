@@ -1,7 +1,9 @@
 <?php
-/* This Source Code Form is subject to the terms of the Mozilla Public
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 
 require_once __DIR__ . "/required.php";
 
@@ -10,166 +12,85 @@ if (!empty($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && !isset($_
     header('Location: app.php');
 }
 
-if (isset($_GET['permissionerror'])) {
-    $alert = $Strings->get("no access permission", false);
-}
+if (!empty($_GET['logout'])) {
+    // Show a logout message instead of immediately redirecting to login flow
+    ?>
+    <!DOCTYPE html>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-/* Authenticate user */
-$userpass_ok = false;
-$multiauth = false;
-if (Login::checkLoginServer()) {
-    if (empty($VARS['progress'])) {
-        // Easy way to remove "undefined" warnings.
-    } else if ($VARS['progress'] == "1") {
-        if (!$SETTINGS['captcha']['enabled'] || ($SETTINGS['captcha']['enabled'] && Login::verifyCaptcha($VARS['captcheck_session_code'], $VARS['captcheck_selected_answer'], $SETTINGS['captcha']['server'] . "/api.php"))) {
-            $autherror = "";
-            $user = User::byUsername($VARS['username']);
-            if ($user->exists()) {
-                $status = $user->getStatus()->getString();
-                switch ($status) {
-                    case "LOCKED_OR_DISABLED":
-                        $alert = $Strings->get("account locked", false);
-                        break;
-                    case "TERMINATED":
-                        $alert = $Strings->get("account terminated", false);
-                        break;
-                    case "CHANGE_PASSWORD":
-                        $alert = $Strings->get("password expired", false);
-                        break;
-                    case "NORMAL":
-                        $username_ok = true;
-                        break;
-                    case "ALERT_ON_ACCESS":
-                        $mail_resp = $user->sendAlertEmail();
-                        if ($SETTINGS['debug']) {
-                            var_dump($mail_resp);
-                        }
-                        $username_ok = true;
-                        break;
-                    default:
-                        if (!empty($error)) {
-                            $alert = $error;
-                        } else {
-                            $alert = $Strings->get("login error", false);
-                        }
-                        break;
-                }
-                if ($username_ok) {
-                    if ($user->checkPassword($VARS['password'])) {
-                        $_SESSION['passok'] = true; // stop logins using only username and authcode
-                        if ($user->has2fa()) {
-                            $multiauth = true;
-                        } else {
-                            Session::start($user);
-                            header('Location: app.php');
-                            die("Logged in, go to app.php");
-                        }
-                    } else {
-                        $alert = $Strings->get("login incorrect", false);
-                    }
-                }
-            } else { // User does not exist anywhere
-                $alert = $Strings->get("login incorrect", false);
-            }
-        } else {
-            $alert = $Strings->get("captcha error", false);
+    <title><?php echo $SETTINGS['site_title']; ?></title>
+
+    <link rel="icon" href="static/img/logo.svg">
+
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/svg-with-js.min.css" rel="stylesheet">
+    <style nonce="<?php echo $SECURE_NONCE; ?>">
+        .display-5 {
+            font-size: 3rem;
+            font-weight: 300;
+            line-height: 1.2;
         }
-    } else if ($VARS['progress'] == "2") {
-        $user = User::byUsername($VARS['username']);
-        if ($_SESSION['passok'] !== true) {
-            // stop logins using only username and authcode
-            sendError("Password integrity check failed!");
-        }
-        if ($user->check2fa($VARS['authcode'])) {
-            Session::start($user);
-            header('Location: app.php');
-            die("Logged in, go to app.php");
-        } else {
-            $alert = $Strings->get("2fa incorrect", false);
-        }
-    }
-} else {
-    $alert = $Strings->get("login server unavailable", false);
-}
-header("Link: <static/fonts/Roboto.css>; rel=preload; as=style", false);
-header("Link: <static/css/bootstrap.min.css>; rel=preload; as=style", false);
-header("Link: <static/css/material-color/material-color.min.css>; rel=preload; as=style", false);
-header("Link: <static/css/index.css>; rel=preload; as=style", false);
-header("Link: <static/js/jquery-3.3.1.min.js>; rel=preload; as=script", false);
-header("Link: <static/js/bootstrap.bundle.min.js>; rel=preload; as=script", false);
-?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </style>
 
-        <title><?php echo $SETTINGS['site_title']; ?></title>
-
-        <link rel="icon" href="static/img/logo.svg">
-
-        <link href="static/css/bootstrap.min.css" rel="stylesheet">
-        <link href="static/css/material-color/material-color.min.css" rel="stylesheet">
-        <link href="static/css/index.css" rel="stylesheet">
-        <?php if ($SETTINGS['captcha']['enabled']) { ?>
-            <script src="<?php echo $SETTINGS['captcha']['server'] ?>/captcheck.dist.js"></script>
-        <?php } ?>
-    </head>
-    <body>
+    <div class="container mt-4">
         <div class="row justify-content-center">
-            <div class="col-auto">
-                <img class="banner-image" src="static/img/logo.svg" />
+            <div class="col-12 text-center">
+                <h1 class="display-5 mb-4"><?php $Strings->get("You have been logged out.") ?></h1>
             </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="card col-11 col-xs-11 col-sm-8 col-md-6 col-lg-4">
-                <div class="card-body">
-                    <h5 class="card-title"><?php $Strings->get("sign in"); ?></h5>
-                    <form action="" method="POST">
-                        <?php
-                        if (!empty($alert)) {
-                            ?>
-                            <div class="alert alert-danger">
-                                <i class="fa fa-fw fa-exclamation-triangle"></i> <?php echo $alert; ?>
-                            </div>
-                            <?php
-                        }
 
-                        if ($multiauth != true) {
-                            ?>
-                            <input type="text" class="form-control" name="username" placeholder="<?php $Strings->get("username"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus /><br />
-                            <input type="password" class="form-control" name="password" placeholder="<?php $Strings->get("password"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" /><br />
-                            <?php if ($SETTINGS['captcha']['enabled']) { ?>
-                                <div class="captcheck_container" data-stylenonce="<?php echo $SECURE_NONCE; ?>"></div>
-                                <br />
-                            <?php } ?>
-                            <input type="hidden" name="progress" value="1" />
-                            <?php
-                        } else if ($multiauth) {
-                            ?>
-                            <div class="alert alert-info">
-                                <?php $Strings->get("2fa prompt"); ?>
-                            </div>
-                            <input type="text" class="form-control" name="authcode" placeholder="<?php $Strings->get("authcode"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus /><br />
-                            <input type="hidden" name="progress" value="2" />
-                            <input type="hidden" name="username" value="<?php echo $VARS['username']; ?>" />
-                            <?php
-                        }
-                        ?>
-                        <button type="submit" class="btn btn-primary">
-                            <?php $Strings->get("continue"); ?>
-                        </button>
-                    </form>
+            <div class="col-12 col-sm-8 col-lg-6">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <a href="./index.php" class="btn btn-primary btn-block"><?php $Strings->get("Log in again"); ?></a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="footer">
-            <?php echo $SETTINGS['footer_text']; ?><br />
-            Copyright &copy; <?php echo date('Y'); ?> <?php echo $SETTINGS['copyright']; ?>
-        </div>
     </div>
-    <script src="static/js/jquery-3.3.1.min.js"></script>
-    <script src="static/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+
+    <script src="static/js/fontawesome-all.min.js"></script>
+    <?php
+    die();
+}
+
+if (empty($_SESSION["login_code"])) {
+    $redirecttologin = true;
+} else {
+    try {
+        $uidinfo = AccountHubApi::get("checkloginkey", ["code" => $_SESSION["login_code"]]);
+        if ($uidinfo["status"] == "ERROR") {
+            throw new Exception();
+        }
+        if (is_numeric($uidinfo['uid'])) {
+            $user = new User($uidinfo['uid'] * 1);
+            Session::start($user);
+            $_SESSION["login_code"] = null;
+            header('Location: app.php');
+            die("Logged in, go to app.php");
+        } else {
+            throw new Exception();
+        }
+    } catch (Exception $ex) {
+        $redirecttologin = true;
+    }
+}
+
+if ($redirecttologin) {
+    try {
+        $codedata = AccountHubApi::get("getloginkey", ["appname" => $SETTINGS["site_title"]]);
+
+        if ($codedata['status'] != "OK") {
+            throw new Exception($Strings->get("login server unavailable", false));
+        }
+
+        $redirecturl = $url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . (($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? ":" . $_SERVER['SERVER_PORT'] : "") . $_SERVER['REQUEST_URI'];
+
+        $_SESSION["login_code"] = $codedata["code"];
+
+        header("Location: " . $codedata["loginurl"] . "?code=" . htmlentities($codedata["code"]) . "&redirect=" . htmlentities($redirecturl));
+    } catch (Exception $ex) {
+        sendError($ex->getMessage());
+    }
+}
