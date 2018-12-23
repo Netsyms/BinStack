@@ -10,6 +10,7 @@ require_once __DIR__ . "/required.php";
 // if we're logged in, we don't need to be here.
 if (!empty($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && !isset($_GET['permissionerror'])) {
     header('Location: app.php');
+    die();
 }
 
 if (!empty($_GET['logout'])) {
