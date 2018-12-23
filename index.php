@@ -28,14 +28,30 @@ if (!empty($_GET['logout'])) {
     <link href="static/css/svg-with-js.min.css" rel="stylesheet">
     <style nonce="<?php echo $SECURE_NONCE; ?>">
         .display-5 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 300;
             line-height: 1.2;
+        }
+
+        .banner-image {
+            max-height: 100px;
+            margin: 2em auto;
+            border: 1px solid grey;
+            border-radius: 15%;
+        }
+
+        .blank-image {
+            height: 100px;
+            margin: 2em auto;
         }
     </style>
 
     <div class="container mt-4">
         <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <img class="banner-image" src="./static/img/logo.svg" />
+            </div>
+
             <div class="col-12 text-center">
                 <h1 class="display-5 mb-4"><?php $Strings->get("You have been logged out.") ?></h1>
             </div>
@@ -79,13 +95,15 @@ if (empty($_SESSION["login_code"])) {
 
 if ($redirecttologin) {
     try {
-        $codedata = AccountHubApi::get("getloginkey", ["appname" => $SETTINGS["site_title"]]);
+        $urlbase = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . (($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? ":" . $_SERVER['SERVER_PORT'] : "");
+        $iconurl = $urlbase . str_replace("index.php", "", $_SERVER["REQUEST_URI"]) . "static/img/logo.svg";
+        $codedata = AccountHubApi::get("getloginkey", ["appname" => $SETTINGS["site_title"], "appicon" => $iconurl]);
 
         if ($codedata['status'] != "OK") {
             throw new Exception($Strings->get("login server unavailable", false));
         }
 
-        $redirecturl = $url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . (($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? ":" . $_SERVER['SERVER_PORT'] : "") . $_SERVER['REQUEST_URI'];
+        $redirecturl = $urlbase . $_SERVER['REQUEST_URI'];
 
         $_SESSION["login_code"] = $codedata["code"];
 
