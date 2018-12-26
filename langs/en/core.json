@@ -2,14 +2,10 @@
     "You have been logged out.": "You have been logged out.",
     "Log in again": "Log in again",
     "login server unavailable": "Login server unavailable.  Try again later or contact technical support.",
-    "welcome user": "Welcome, {user}!",
     "sign out": "Sign out",
-    "settings": "Settings",
-    "options": "Options",
     "404 error": "404 Error",
     "page not found": "Page not found.",
     "invalid parameters": "Invalid request parameters.",
     "login server error": "The login server returned an error: {arg}",
-    "login server user data error": "The login server refused to provide account information.  Try again or contact technical support.",
     "no access permission": "You do not have permission to access this system."
 }
