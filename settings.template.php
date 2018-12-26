@@ -36,6 +36,9 @@ $SETTINGS = [
         // API key
         "key" => "123"
     ],
+    // List of required user permissions to access this app.
+    "permissions" => [
+    ],
     // For supported values, see http://php.net/manual/en/timezones.php
     "timezone" => "America/Denver",
     // Language to use for localization. See langs folder to add a language.

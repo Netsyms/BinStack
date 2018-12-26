@@ -82,6 +82,11 @@ if (empty($_SESSION["login_code"])) {
         }
         if (is_numeric($uidinfo['uid'])) {
             $user = new User($uidinfo['uid'] * 1);
+            foreach ($SETTINGS['permissions'] as $perm) {
+                if (!$user->hasPermission($perm)) {
+                    die($Strings->get("no access permission", false));
+                }
+            }
             Session::start($user);
             $_SESSION["login_code"] = null;
             header('Location: app.php');
