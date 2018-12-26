@@ -15,7 +15,6 @@ $SETTINGS = [
     // Turning this on in production is a security risk and can sometimes break
     // things, such as JSON output where extra content is not expected.
     "debug" => false,
-
     // Database connection settings
     // See http://medoo.in/api/new for info
     "database" => [
@@ -26,10 +25,8 @@ $SETTINGS = [
         "password" => "",
         "charset" => "utf8"
     ],
-
     // Name of the app.
     "site_title" => "Web App Template",
-
     // Settings for connecting to the AccountHub server.
     "accounthub" => [
         // URL for the API endpoint
@@ -39,26 +36,14 @@ $SETTINGS = [
         // API key
         "key" => "123"
     ],
-
     // For supported values, see http://php.net/manual/en/timezones.php
     "timezone" => "America/Denver",
-
-    // Use Captcheck on login screen to slow down bots
-    // https://captcheck.netsyms.com
-    "captcha" => [
-        "enabled" => false,
-        "server" => "https://captcheck.netsyms.com"
-    ],
-
     // Language to use for localization. See langs folder to add a language.
     "language" => "en",
-
     // Shown in the footer of all the pages.
     "footer_text" => "",
-
     // Also shown in the footer, but with "Copyright <current_year>" in front.
     "copyright" => "Netsyms Technologies",
-
     // Base URL for building links relative to the location of the app.
     // Only used when there's no good context for the path.
     // The default is almost definitely fine.

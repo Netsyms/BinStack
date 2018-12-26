@@ -32,7 +32,6 @@ session_start(); // stick some cookies in it
 // renew session cookie
 setcookie(session_name(), session_id(), time() + $session_length, "/", false, false);
 
-$captcha_server = ($SETTINGS['captcha']['enabled'] === true ? preg_replace("/http(s)?:\/\//", "", $SETTINGS['captcha']['server']) : "");
 if ($_SESSION['mobile'] === TRUE) {
     header("Content-Security-Policy: "
             . "default-src 'self';"
@@ -42,8 +41,8 @@ if ($_SESSION['mobile'] === TRUE) {
             . "frame-src 'none'; "
             . "font-src 'self'; "
             . "connect-src *; "
-            . "style-src 'self' 'unsafe-inline' $captcha_server; "
-            . "script-src 'self' 'unsafe-inline' $captcha_server");
+            . "style-src 'self' 'unsafe-inline'; "
+            . "script-src 'self' 'unsafe-inline'");
 } else {
     header("Content-Security-Policy: "
             . "default-src 'self';"
@@ -53,8 +52,8 @@ if ($_SESSION['mobile'] === TRUE) {
             . "frame-src 'none'; "
             . "font-src 'self'; "
             . "connect-src *; "
-            . "style-src 'self' 'nonce-$SECURE_NONCE' $captcha_server; "
-            . "script-src 'self' 'nonce-$SECURE_NONCE' $captcha_server");
+            . "style-src 'self' 'nonce-$SECURE_NONCE'; "
+            . "script-src 'self' 'nonce-$SECURE_NONCE'");
 }
 
 //
