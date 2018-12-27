@@ -1,11 +1,7 @@
 {
-    "You have been logged out.": "You have been logged out.",
-    "Log in again": "Log in again",
-    "login server unavailable": "Login server unavailable.  Try again later or contact technical support.",
     "sign out": "Sign out",
     "404 error": "404 Error",
     "page not found": "Page not found.",
     "invalid parameters": "Invalid request parameters.",
-    "login server error": "The login server returned an error: {arg}",
-    "no access permission": "You do not have permission to access this system."
+    "login server error": "The login server returned an error: {arg}"
 }
