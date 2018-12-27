@@ -109,11 +109,13 @@ function checkVars($vars, $or = false) {
                 continue;
             }
         }
-        $checkmethod = "is_$val";
-        if ($checkmethod($VARS[$key]) !== true) {
-            $ok[$key] = false;
+
+        if (strpos($val, "/") === 0) {
+            // regex
+            $ok[$key] = preg_match($val, $VARS[$key]) === 1;
         } else {
-            $ok[$key] = true;
+            $checkmethod = "is_$val";
+            $ok[$key] = !($checkmethod($VARS[$key]) !== true);
         }
     }
     if ($or) {
