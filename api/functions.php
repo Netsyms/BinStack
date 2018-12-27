@@ -75,6 +75,18 @@ function authenticate(): bool {
     return true;
 }
 
+/**
+ * Get the User whose credentials were used to make the request.
+ */
+function getRequestUser(): User {
+    global $VARS;
+    if (!empty($_SERVER['PHP_AUTH_USER'])) {
+        return User::byUsername($_SERVER['PHP_AUTH_USER']);
+    } else {
+        return User::byUsername($VARS['username']);
+    }
+}
+
 function checkVars($vars, $or = false) {
     global $VARS;
     $ok = [];
