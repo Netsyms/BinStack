@@ -25,13 +25,14 @@ if (json_last_error() == JSON_ERROR_NONE) {
 if (strpos($_SERVER['REQUEST_URI'], "/api.php") === FALSE) {
     $route = explode("/", substr($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'], "api/") + 4));
 
-    if (count($route) > 1) {
+    if (count($route) >= 1) {
         $VARS["action"] = $route[0];
     }
     if (count($route) >= 2 && strpos($route[1], "?") !== 0) {
-        $VARS["key"] = $route[1];
-
-        for ($i = 2; $i < count($route); $i++) {
+        for ($i = 1; $i < count($route); $i++) {
+            if (empty($route[$i]) || strpos($route[$i], "=") === false) {
+                continue;
+            }
             $key = explode("=", $route[$i], 2)[0];
             $val = explode("=", $route[$i], 2)[1];
             $VARS[$key] = $val;
@@ -49,8 +50,9 @@ if (strpos($_SERVER['REQUEST_URI'], "/api.php") === FALSE) {
 }
 
 if (!authenticate()) {
-    http_response_code(403);
-    die("403 Unauthorized");
+    header('WWW-Authenticate: Basic realm="' . $SETTINGS['site_title'] . '"');
+    header('HTTP/1.1 401 Unauthorized');
+    die("401 Unauthorized: you need to supply valid credentials.");
 }
 
 if (empty($VARS['action'])) {

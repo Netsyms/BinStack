@@ -48,20 +48,27 @@ function getCensoredKey() {
 
 /**
  * Check if the request is allowed
- * @global type $VARS
- * @global type $database
+ * @global array $VARS
  * @return bool true if the request should continue, false if the request is bad
  */
 function authenticate(): bool {
-    global $VARS, $database;
-    if (empty($VARS['key'])) {
+    global $VARS;
+    // HTTP basic auth
+    if (!empty($_SERVER['PHP_AUTH_USER']) && !empty($_SERVER['PHP_AUTH_PW'])) {
+        $user = User::byUsername($_SERVER['PHP_AUTH_USER']);
+        if (!$user->checkPassword($_SERVER['PHP_AUTH_PW'])) {
+            return false;
+        }
+        return true;
+    }
+    // Form auth
+    if (empty($VARS['username']) || empty($VARS['password'])) {
         return false;
     } else {
-        $key = $VARS['key'];
-        if ($database->has('apikeys', ['key' => $key]) !== TRUE) {
-            engageRateLimit();
-            http_response_code(403);
-            Log::insert(LogType::API_BAD_KEY, null, "Key: " . $key);
+        $username = $VARS['username'];
+        $password = $VARS['password'];
+        $user = User::byUsername($username);
+        if ($user->exists() !== true || Login::auth($username, $password) !== Login::LOGIN_OK) {
             return false;
         }
     }
