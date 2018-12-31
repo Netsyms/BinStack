@@ -173,33 +173,50 @@ HTMLTOP;
             $required = $item["required"] ? "required" : "";
             $id = empty($item["id"]) ? "" : "id=\"$item[id]\"";
             $pattern = empty($item["pattern"]) ? "" : "pattern=\"$item[pattern]\"";
-
+            if (empty($item['type'])) {
+                $item['type'] = "text";
+            }
             $itemhtml = "";
+            $itemlabel = "";
+            if ($item['type'] != "checkbox") {
+                $itemlabel = "<label class=\"mb-0\">$item[label]:</label>";
+            }
             $itemhtml .= <<<ITEMTOP
 \n\n                <div class="col-12 col-md-$item[width]">
                     <div class="form-group mb-3">
-                        <label class="mb-0">$item[label]:</label>
+                        $itemlabel
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="$item[icon]"></i></span>
                             </div>
 ITEMTOP;
-            if (empty($item['type']) || $item['type'] != "select") {
-                $itemhtml .= <<<INPUT
-\n                            <input type="$item[type]" name="$item[name]" $id class="form-control" aria-label="$item[label]" minlength="$item[minlength]" maxlength="$item[maxlength]" $pattern value="$item[value]" $required />
-INPUT;
-            } else {
-                $itemhtml .= <<<SELECT
+            switch ($item['type']) {
+                case "select":
+                    $itemhtml .= <<<SELECT
 \n                            <select class="form-control" name="$item[name]" aria-label="$item[label]" $required>
 SELECT;
-                foreach ($item['options'] as $value => $label) {
-                    $selected = "";
-                    if (!empty($item['value']) && $value == $item['value']) {
-                        $selected = " selected";
+                    foreach ($item['options'] as $value => $label) {
+                        $selected = "";
+                        if (!empty($item['value']) && $value == $item['value']) {
+                            $selected = " selected";
+                        }
+                        $itemhtml .= "\n                                <option value=\"$value\"$selected>$label</option>";
                     }
-                    $itemhtml .= "\n                                <option value=\"$value\"$selected>$label</option>";
-                }
-                $itemhtml .= "\n                            </select>";
+                    $itemhtml .= "\n                            </select>";
+                    break;
+                case "checkbox":
+                    $itemhtml .= <<<CHECKBOX
+\n                            <div class="form-group form-check">
+                                <input type="checkbox" name="$item[name]" $id class="form-check-input" value="$item[value]" $required aria-label="$item[label]">
+                                <label class="form-check-label">$item[label]</label>
+                              </div>
+CHECKBOX;
+                    break;
+                default:
+                    $itemhtml .= <<<INPUT
+\n                            <input type="$item[type]" name="$item[name]" $id class="form-control" aria-label="$item[label]" minlength="$item[minlength]" maxlength="$item[maxlength]" $pattern value="$item[value]" $required />
+INPUT;
+                    break;
             }
 
             if (!empty($item["error"])) {
