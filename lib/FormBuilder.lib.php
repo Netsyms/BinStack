@@ -181,6 +181,7 @@ HTMLTOP;
             if ($item['type'] != "checkbox") {
                 $itemlabel = "<label class=\"mb-0\">$item[label]:</label>";
             }
+            $strippedlabel = strip_tags($item['label']);
             $itemhtml .= <<<ITEMTOP
 \n\n                <div class="col-12 col-md-$item[width]">
                     <div class="form-group mb-3">
@@ -193,7 +194,7 @@ ITEMTOP;
             switch ($item['type']) {
                 case "select":
                     $itemhtml .= <<<SELECT
-\n                            <select class="form-control" name="$item[name]" aria-label="$item[label]" $required>
+\n                            <select class="form-control" name="$item[name]" aria-label="$strippedlabel" $required>
 SELECT;
                     foreach ($item['options'] as $value => $label) {
                         $selected = "";
@@ -207,14 +208,14 @@ SELECT;
                 case "checkbox":
                     $itemhtml .= <<<CHECKBOX
 \n                            <div class="form-group form-check">
-                                <input type="checkbox" name="$item[name]" $id class="form-check-input" value="$item[value]" $required aria-label="$item[label]">
+                                <input type="checkbox" name="$item[name]" $id class="form-check-input" value="$item[value]" $required aria-label="$strippedlabel">
                                 <label class="form-check-label">$item[label]</label>
                               </div>
 CHECKBOX;
                     break;
                 default:
                     $itemhtml .= <<<INPUT
-\n                            <input type="$item[type]" name="$item[name]" $id class="form-control" aria-label="$item[label]" minlength="$item[minlength]" maxlength="$item[maxlength]" $pattern value="$item[value]" $required />
+\n                            <input type="$item[type]" name="$item[name]" $id class="form-control" aria-label="$strippedlabel" minlength="$item[minlength]" maxlength="$item[maxlength]" $pattern value="$item[value]" $required />
 INPUT;
                     break;
             }
