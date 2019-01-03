@@ -8,10 +8,6 @@
  * Mobile app API
  */
 
-// The name of the permission needed to log in.
-// Set to null if you don't need it.
-$access_permission = null;
-
 require __DIR__ . "/../required.php";
 
 header('Content-Type: application/json');
@@ -70,13 +66,14 @@ switch ($VARS['action']) {
         if ($user->exists()) {
             if ($user->getStatus()->getString() == "NORMAL") {
                 if ($user->checkPassword($VARS['password'])) {
-                    if (is_null($access_permission) || $user->hasPermission($access_permission)) {
-                        Session::start($user);
-                        $_SESSION['mobile'] = true;
-                        exit(json_encode(["status" => "OK"]));
-                    } else {
-                        exit(json_encode(["status" => "ERROR", "msg" => $Strings->get("no admin permission", false)]));
+                    foreach ($SETTINGS['permissions'] as $perm) {
+                        if (!$user->hasPermission($perm)) {
+                            exit(json_encode(["status" => "ERROR", "msg" => $Strings->get("no permission", false)]));
+                        }
                     }
+                    Session::start($user);
+                    $_SESSION['mobile'] = true;
+                    exit(json_encode(["status" => "OK"]));
                 }
             }
         }

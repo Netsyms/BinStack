@@ -131,10 +131,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     define("GET", true);
 }
 
-
 function dieifnotloggedin() {
     if ($_SESSION['loggedin'] != true) {
         sendError("Session expired.  Please log out and log in again.");
+    }
+    $user = new User($_SESSION['uid']);
+    foreach ($SETTINGS['permissions'] as $perm) {
+        if (!$user->hasPermission($perm)) {
+            session_destroy();
+            die("You don't have permission to be here.");
+        }
     }
 }
 
@@ -159,5 +165,13 @@ function redirectIfNotLoggedIn() {
     if ($_SESSION['loggedin'] !== TRUE) {
         header('Location: ' . $SETTINGS['url'] . '/index.php');
         die();
+    }
+    $user = new User($_SESSION['uid']);
+    foreach ($SETTINGS['permissions'] as $perm) {
+        if (!$user->hasPermission($perm)) {
+            session_destroy();
+            header('Location: ./index.php');
+            die("You don't have permission to be here.");
+        }
     }
 }
