@@ -11,6 +11,10 @@ Program Structure
 -----------------
 
 ### Folders
+* api
+   An API framework.  See api/apisettings.php below.
+* api/actions
+   A place to put your API actions.
 * langs
    Translations and alert messages.
    The language files that are loaded depends on the value of `LANGUAGE` in `settings.php`.
@@ -22,7 +26,7 @@ Program Structure
    The app checks before loading, so it will give a friendly 404 error if it doesn't find your page.
    Woe to you if you delete `home.php` or `404.php`, as those are assumed to exist for fallback behavior.
 * static
-   CSS, JS, fonts, images...
+   CSS, JavaScript, fonts, images...
 * vendor
    If you don't know what this is about, or you don't have it, you need to read up on Composer.  Right now.
 
@@ -41,11 +45,12 @@ Program Structure
    Read through it to see exactly what it does.
 * action.php
    A good place to put form handling code.  By default it only handles logging out, but is easily expanded.
+* api/apisettings.php
+   An array of API actions.  Validates any variables required by your actions before running them.  See https://source.netsyms.com/Apps/NotePost/src/branch/master/api/apisettings.php for a full example of its capabilities.
 * api.php
-   Similar to action.php, but designed for user/pass authenticated JSON responses.
+   Legacy shim for code that still expects the API endpoint to be here.
 * index.php
-   Login page and handler.  Hands off to `app.php` after authenticating user.
-   It includes 2fa support, by the way.
+   Handles login and checking permissions.
 * app.php
    Main app page after login.  Handles loading app pages and 404 errors.
    Redirects to `index.php` if the user is not logged in.
