@@ -132,6 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 function dieifnotloggedin() {
+    global $SETTINGS;
     if ($_SESSION['loggedin'] != true) {
         sendError("Session expired.  Please log out and log in again.");
     }
@@ -162,6 +163,7 @@ function checkDBError($specials = []) {
 }
 
 function redirectIfNotLoggedIn() {
+    global $SETTINGS;
     if ($_SESSION['loggedin'] !== TRUE) {
         header('Location: ' . $SETTINGS['url'] . '/index.php');
         die();
