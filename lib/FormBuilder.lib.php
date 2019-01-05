@@ -242,7 +242,7 @@ ITEMBOTTOM;
 HTMLBOTTOM;
 
         if (!empty($this->buttons)) {
-            $html .= "\n        <div class=\"card-footer\">";
+            $html .= "\n        <div class=\"card-footer d-flex\">";
             foreach ($this->buttons as $btn) {
                 $btnhtml = "";
                 $inner = "<i class=\"$btn[icon]\"></i> $btn[text]";
