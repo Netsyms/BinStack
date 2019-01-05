@@ -17,22 +17,7 @@ class User {
 
     public function __construct(int $uid, string $username = "") {
         // Check if user exists
-        $client = new GuzzleHttp\Client();
-
-        $response = $client
-                ->request('POST', PORTAL_API, [
-            'form_params' => [
-                'key' => PORTAL_KEY,
-                'action' => "userexists",
-                'uid' => $uid
-            ]
-        ]);
-
-        if ($response->getStatusCode() > 299) {
-            sendError("Login server error: " . $response->getBody());
-        }
-
-        $resp = json_decode($response->getBody(), TRUE);
+        $resp = AccountHubApi::get("userexists", ["uid" => $uid]);
         if ($resp['status'] == "OK" && $resp['exists'] === true) {
             $this->exists = true;
         } else {
@@ -43,22 +28,7 @@ class User {
 
         if ($this->exists) {
             // Get user info
-            $client = new GuzzleHttp\Client();
-
-            $response = $client
-                    ->request('POST', PORTAL_API, [
-                'form_params' => [
-                    'key' => PORTAL_KEY,
-                    'action' => "userinfo",
-                    'uid' => $uid
-                ]
-            ]);
-
-            if ($response->getStatusCode() > 299) {
-                sendError("Login server error: " . $response->getBody());
-            }
-
-            $resp = json_decode($response->getBody(), TRUE);
+            $resp = AccountHubApi::get("userinfo", ["uid" => $uid]);
             if ($resp['status'] == "OK") {
                 $this->uid = $resp['data']['uid'] * 1;
                 $this->username = $resp['data']['username'];
@@ -71,22 +41,7 @@ class User {
     }
 
     public static function byUsername(string $username): User {
-        $client = new GuzzleHttp\Client();
-
-        $response = $client
-                ->request('POST', PORTAL_API, [
-            'form_params' => [
-                'key' => PORTAL_KEY,
-                'username' => $username,
-                'action' => "userinfo"
-            ]
-        ]);
-
-        if ($response->getStatusCode() > 299) {
-            sendError("Login server error: " . $response->getBody());
-        }
-
-        $resp = json_decode($response->getBody(), TRUE);
+        $resp = AccountHubApi::get("userinfo", ["username" => $username]);
         if (!isset($resp['status'])) {
             sendError("Login server error: " . $resp);
         }
@@ -105,22 +60,8 @@ class User {
         if (!$this->exists) {
             return false;
         }
-        $client = new GuzzleHttp\Client();
 
-        $response = $client
-                ->request('POST', PORTAL_API, [
-            'form_params' => [
-                'key' => PORTAL_KEY,
-                'action' => "hastotp",
-                'username' => $this->username
-            ]
-        ]);
-
-        if ($response->getStatusCode() > 299) {
-            sendError("Login server error: " . $response->getBody());
-        }
-
-        $resp = json_decode($response->getBody(), TRUE);
+        $resp = AccountHubApi::get("hastotp", ['username' => $this->username]);
         if ($resp['status'] == "OK") {
             return $resp['otp'] == true;
         } else {
@@ -150,23 +91,7 @@ class User {
      * @return bool
      */
     function checkPassword(string $password): bool {
-        $client = new GuzzleHttp\Client();
-
-        $response = $client
-                ->request('POST', PORTAL_API, [
-            'form_params' => [
-                'key' => PORTAL_KEY,
-                'action' => "auth",
-                'username' => $this->username,
-                'password' => $password
-            ]
-        ]);
-
-        if ($response->getStatusCode() > 299) {
-            sendError("Login server error: " . $response->getBody());
-        }
-
-        $resp = json_decode($response->getBody(), TRUE);
+        $resp = AccountHubApi::get("auth", ['username' => $this->username, 'password' => $password]);
         if ($resp['status'] == "OK") {
             return true;
         } else {
@@ -178,23 +103,8 @@ class User {
         if (!$this->has2fa) {
             return true;
         }
-        $client = new GuzzleHttp\Client();
 
-        $response = $client
-                ->request('POST', PORTAL_API, [
-            'form_params' => [
-                'key' => PORTAL_KEY,
-                'action' => "verifytotp",
-                'username' => $this->username,
-                'code' => $code
-            ]
-        ]);
-
-        if ($response->getStatusCode() > 299) {
-            sendError("Login server error: " . $response->getBody());
-        }
-
-        $resp = json_decode($response->getBody(), TRUE);
+        $resp = AccountHubApi::get("verifytotp", ['username' => $this->username, 'code' => $code]);
         if ($resp['status'] == "OK") {
             return $resp['valid'];
         } else {
@@ -209,23 +119,7 @@ class User {
      * @return boolean TRUE if the user has the permission (or admin access), else FALSE
      */
     function hasPermission(string $code): bool {
-        $client = new GuzzleHttp\Client();
-
-        $response = $client
-                ->request('POST', PORTAL_API, [
-            'form_params' => [
-                'key' => PORTAL_KEY,
-                'action' => "permission",
-                'username' => $this->username,
-                'code' => $code
-            ]
-        ]);
-
-        if ($response->getStatusCode() > 299) {
-            sendError("Login server error: " . $response->getBody());
-        }
-
-        $resp = json_decode($response->getBody(), TRUE);
+        $resp = AccountHubApi::get("permission", ['username' => $this->username, 'code' => $code]);
         if ($resp['status'] == "OK") {
             return $resp['has_permission'];
         } else {
@@ -238,23 +132,7 @@ class User {
      * @return \AccountStatus
      */
     function getStatus(): AccountStatus {
-
-        $client = new GuzzleHttp\Client();
-
-        $response = $client
-                ->request('POST', PORTAL_API, [
-            'form_params' => [
-                'key' => PORTAL_KEY,
-                'action' => "acctstatus",
-                'username' => $this->username
-            ]
-        ]);
-
-        if ($response->getStatusCode() > 299) {
-            sendError("Login server error: " . $response->getBody());
-        }
-
-        $resp = json_decode($response->getBody(), TRUE);
+        $resp = AccountHubApi::get("acctstatus", ['username' => $this->username]);
         if ($resp['status'] == "OK") {
             return AccountStatus::fromString($resp['account']);
         } else {
@@ -262,24 +140,13 @@ class User {
         }
     }
 
-    function sendAlertEmail(string $appname = SITE_TITLE) {
-        $client = new GuzzleHttp\Client();
-
-        $response = $client
-                ->request('POST', PORTAL_API, [
-            'form_params' => [
-                'key' => PORTAL_KEY,
-                'action' => "alertemail",
-                'username' => $this->username,
-                'appname' => SITE_TITLE
-            ]
-        ]);
-
-        if ($response->getStatusCode() > 299) {
-            return "An unknown error occurred.";
+    function sendAlertEmail(string $appname = null) {
+        global $SETTINGS;
+        if (is_null($appname)) {
+            $appname = $SETTINGS['site_title'];
         }
+        $resp = AccountHubApi::get("alertemail", ['username' => $this->username, 'appname' => $SETTINGS['site_title']]);
 
-        $resp = json_decode($response->getBody(), TRUE);
         if ($resp['status'] == "OK") {
             return true;
         } else {

@@ -1,5 +1,4 @@
 <?php
-
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -14,7 +13,7 @@ if ($_SESSION['loggedin'] != true) {
 require_once __DIR__ . "/pages.php";
 
 $pageid = "home";
-if (isset($_GET['page']) && !is_empty($_GET['page'])) {
+if (!empty($_GET['page'])) {
     $pg = strtolower($_GET['page']);
     $pg = preg_replace('/[^0-9a-z_]/', "", $pg);
     if (array_key_exists($pg, PAGES) && file_exists(__DIR__ . "/pages/" . $pg . ".php")) {
@@ -40,7 +39,7 @@ header("Link: <static/js/bootstrap.bundle.min.js>; rel=preload; as=script", fals
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title><?php echo SITE_TITLE; ?></title>
+        <title><?php echo $SETTINGS['site_title']; ?></title>
 
         <link rel="icon" href="static/img/logo.svg">
 
@@ -66,28 +65,35 @@ header("Link: <static/js/bootstrap.bundle.min.js>; rel=preload; as=script", fals
 
         <?php
 // Alert messages
-        if (isset($_GET['msg']) && !is_empty($_GET['msg']) && array_key_exists($_GET['msg'], MESSAGES)) {
-            // optional string generation argument
-            if (!isset($_GET['arg']) || is_empty($_GET['arg'])) {
-                $alertmsg = $Strings->get(MESSAGES[$_GET['msg']]['string'], false);
+        if (!empty($_GET['msg'])) {
+            if (array_key_exists($_GET['msg'], MESSAGES)) {
+                // optional string generation argument
+                if (empty($_GET['arg'])) {
+                    $alertmsg = $Strings->get(MESSAGES[$_GET['msg']]['string'], false);
+                } else {
+                    $alertmsg = $Strings->build(MESSAGES[$_GET['msg']]['string'], ["arg" => strip_tags($_GET['arg'])], false);
+                }
+                $alerttype = MESSAGES[$_GET['msg']]['type'];
+                $alerticon = "square-o";
+                switch (MESSAGES[$_GET['msg']]['type']) {
+                    case "danger":
+                        $alerticon = "times";
+                        break;
+                    case "warning":
+                        $alerticon = "exclamation-triangle";
+                        break;
+                    case "info":
+                        $alerticon = "info-circle";
+                        break;
+                    case "success":
+                        $alerticon = "check";
+                        break;
+                }
             } else {
-                $alertmsg = $Strings->build(MESSAGES[$_GET['msg']]['string'], ["arg" => strip_tags($_GET['arg'])], false);
-            }
-            $alerttype = MESSAGES[$_GET['msg']]['type'];
-            $alerticon = "square-o";
-            switch (MESSAGES[$_GET['msg']]['type']) {
-                case "danger":
-                    $alerticon = "times";
-                    break;
-                case "warning":
-                    $alerticon = "exclamation-triangle";
-                    break;
-                case "info":
-                    $alerticon = "info-circle";
-                    break;
-                case "success":
-                    $alerticon = "check";
-                    break;
+                // We don't have a message for this, so just assume an error and escape stuff.
+                $alertmsg = htmlentities($Strings->get($_GET['msg'], false));
+                $alerticon = "times";
+                $alerttype = "danger";
             }
             echo <<<END
             <div class="row justify-content-center" id="msg-alert-box">
@@ -121,7 +127,7 @@ END;
             </button>
             <a class="navbar-brand py-0 mr-auto" href="app.php">
                 <img src="static/img/logo.svg" alt="" class="d-none d-<?php echo $navbar_breakpoint; ?>-inline brand-img py-0" />
-                <?php echo SITE_TITLE; ?>
+                <?php echo $SETTINGS['site_title']; ?>
             </a>
 
             <div class="collapse navbar-collapse py-0" id="navbar-collapse">
@@ -157,7 +163,7 @@ END;
                 </div>
                 <div class="navbar-nav ml-auto py-0" id="navbar-right">
                     <span class="nav-item py-<?php echo $navbar_breakpoint; ?>-0">
-                        <a class="nav-link py-<?php echo $navbar_breakpoint; ?>-0" href="<?php echo PORTAL_URL; ?>">
+                        <a class="nav-link py-<?php echo $navbar_breakpoint; ?>-0" href="<?php echo $SETTINGS['accounthub']['home']; ?>">
                             <i class="fas fa-user fa-fw"></i><span>&nbsp;<?php echo $_SESSION['realname'] ?></span>
                         </a>
                     </span>
@@ -177,8 +183,8 @@ END;
                 ?>
             </div>
             <div class="footer">
-                <?php echo FOOTER_TEXT; ?><br />
-                Copyright &copy; <?php echo date('Y'); ?> <?php echo COPYRIGHT_NAME; ?>
+                <?php echo $SETTINGS['footer_text']; ?><br />
+                Copyright &copy; <?php echo date('Y'); ?> <?php echo $SETTINGS['copyright']; ?>
             </div>
         </div>
         <script src="static/js/jquery-3.3.1.min.js"></script>

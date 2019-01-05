@@ -8,7 +8,7 @@
 
 require_once __DIR__ . "/required.php";
 
-$base = FILE_UPLOAD_PATH . "/";
+$base = $SETTINGS['file_upload_path'] . "/";
 if (isset($_GET['i'])) {
     $file = $_GET['i'];
     $filepath = $base . $file;
@@ -16,7 +16,7 @@ if (isset($_GET['i'])) {
         http_response_code(404);
         die("404 File Not Found");
     }
-    if (strpos(realpath($filepath), FILE_UPLOAD_PATH) !== 0) {
+    if (strpos(realpath($filepath), $SETTINGS['file_upload_path']) !== 0) {
         http_response_code(404);
         die("404 File Not Found");
     }

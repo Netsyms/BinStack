@@ -1,19 +1,7 @@
-Copyright (c) 2018 Netsyms Technologies.
+Copyright (c) 2017-2019 Netsyms Technologies.  Some rights reserved.
 
-If you modify and redistribute this project, you must replace the branding
-assets with your own.
-
-The branding assets include:
- * the application icon
- * the Netsyms N punchcard logo
- * the Netsyms for Business graph logo
-
-If you are unsure if your usage is allowed, please contact us:
-https://netsyms.com/contact
-legal@netsyms.com
-
-All other portions of this application,
-unless otherwise noted (in comments, headers, etc), are licensed as follows:
+Licensed under the Mozilla Public License Version 2.0.  Files without MPL header
+comments, including third party code, may be under a different license.
 
 Mozilla Public License Version 2.0
 ==================================

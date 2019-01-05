@@ -21,6 +21,10 @@ class Strings {
 
         $this->load("en");
 
+        if ($language == "en") {
+            return;
+        }
+
         if (file_exists(__DIR__ . "/../langs/$language/")) {
             $this->language = $language;
             $this->load($language);

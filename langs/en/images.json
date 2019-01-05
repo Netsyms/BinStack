@@ -6,5 +6,7 @@
     "Promoted": "Promoted",
     "Promote": "Promote",
     "Delete": "Delete",
-    "Back": "Back"
+    "Back": "Back",
+    "Image uploaded.": "Image uploaded.",
+    "Upload finished with errors: {arg}": "Upload finished with errors: {arg}"
 }

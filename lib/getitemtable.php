@@ -57,7 +57,7 @@ switch ($VARS['order'][0]['column']) {
 }
 
 // search
-if (!is_empty($VARS['search']['value'])) {
+if (!empty($VARS['search']['value'])) {
     $filter = true;
     $wherenolimit = [];
     if ($showwant) {

@@ -36,7 +36,7 @@ if ($VARS['action'] != "signout" && !(new User($_SESSION['uid']))->hasPermission
 switch ($VARS['action']) {
     case "edititem":
         $insert = true;
-        if (is_empty($VARS['itemid'])) {
+        if (empty($VARS['itemid'])) {
             $insert = true;
         } else {
             if ($database->has('items', ['itemid' => $VARS['itemid']])) {
@@ -45,42 +45,42 @@ switch ($VARS['action']) {
                 returnToSender("invalid_itemid");
             }
         }
-        if (is_empty($VARS['name'])) {
+        if (empty($VARS['name'])) {
             returnToSender('missing_name');
         }
-        if (!is_empty($VARS['catstr']) && is_empty($VARS['cat'])) {
+        if (!empty($VARS['catstr']) && empty($VARS['cat'])) {
             if ($database->count("categories", ["catname" => $VARS['catstr']]) == 1) {
                 $VARS['cat'] = $database->get("categories", 'catid', ["catname" => $VARS['catstr']]);
             } else {
                 returnToSender('use_the_drop_luke');
             }
         }
-        if (!is_empty($VARS['locstr']) && is_empty($VARS['loc'])) {
+        if (!empty($VARS['locstr']) && empty($VARS['loc'])) {
             if ($database->count("locations", ["locname" => $VARS['locstr']]) == 1) {
                 $VARS['loc'] = $database->get("locations", 'locid', ["locname" => $VARS['locstr']]);
             } else {
                 returnToSender('use_the_drop_luke');
             }
         }
-        if (is_empty($VARS['cat']) || is_empty($VARS['loc'])) {
+        if (empty($VARS['cat']) || empty($VARS['loc'])) {
             returnToSender('invalid_parameters');
         }
-        if (is_empty($VARS['qty'])) {
+        if (empty($VARS['qty'])) {
             $VARS['qty'] = 1;
         } else if (!is_numeric($VARS['qty'])) {
             returnToSender('field_nan');
         }
-        if (is_empty($VARS['want'])) {
+        if (empty($VARS['want'])) {
             $VARS['want'] = 0;
         } else if (!is_numeric($VARS['want'])) {
             returnToSender('field_nan');
         }
-        if (is_empty($VARS['cost'])) {
+        if (empty($VARS['cost'])) {
             $VARS['cost'] = null;
         } else if (!is_numeric($VARS['cost'])) {
             returnToSender('field_nan');
         }
-        if (is_empty($VARS['price'])) {
+        if (empty($VARS['price'])) {
             $VARS['price'] = null;
         } else if (!is_numeric($VARS['price'])) {
             returnToSender('field_nan');
@@ -128,7 +128,7 @@ switch ($VARS['action']) {
         returnToSender("item_saved");
     case "editcat":
         $insert = true;
-        if (is_empty($VARS['catid'])) {
+        if (empty($VARS['catid'])) {
             $insert = true;
         } else {
             if ($database->has('categories', ['catid' => $VARS['catid']])) {
@@ -137,7 +137,7 @@ switch ($VARS['action']) {
                 returnToSender("invalid_catid");
             }
         }
-        if (is_empty($VARS['name'])) {
+        if (empty($VARS['name'])) {
             returnToSender('invalid_parameters');
         }
 
@@ -154,7 +154,7 @@ switch ($VARS['action']) {
         returnToSender("category_saved");
     case "editloc":
         $insert = true;
-        if (is_empty($VARS['locid'])) {
+        if (empty($VARS['locid'])) {
             $insert = true;
         } else {
             if ($database->has('locations', ['locid' => $VARS['locid']])) {
@@ -163,7 +163,7 @@ switch ($VARS['action']) {
                 returnToSender("invalid_locid");
             }
         }
-        if (is_empty($VARS['name'])) {
+        if (empty($VARS['name'])) {
             returnToSender('invalid_parameters');
         }
 
@@ -217,9 +217,9 @@ switch ($VARS['action']) {
         $client = new GuzzleHttp\Client();
 
         $response = $client
-                ->request('POST', PORTAL_API, [
+                ->request('POST', $SETTINGS['accounthub']['api'], [
             'form_params' => [
-                'key' => PORTAL_KEY,
+                'key' => $SETTINGS['accounthub']['key'],
                 'action' => "usersearch",
                 'search' => $VARS['q']
             ]
@@ -237,7 +237,7 @@ switch ($VARS['action']) {
         }
         break;
     case "imageupload":
-        $destpath = FILE_UPLOAD_PATH;
+        $destpath = $SETTINGS['file_upload_path'];
         if (!is_writable($destpath)) {
             returnToSender("unwritable_folder", "&id=$VARS[itemid]");
         }
@@ -274,7 +274,7 @@ switch ($VARS['action']) {
                     default:
                         $err = "could not be uploaded.";
                 }
-                $errors[] = htmlspecialchars($f['name']) . " $err";
+                $errors[] = htmlentities($f['name']) . " $err";
                 continue;
             }
 
@@ -296,7 +296,7 @@ switch ($VARS['action']) {
             }
 
             if (!$imagevalid) {
-                $errors[] = htmlspecialchars($f['name']) . " is not a supported image type (JPEG, GIF, PNG, WEBP).";
+                $errors[] = htmlentities($f['name']) . " is not a supported image type (JPEG, GIF, PNG, WEBP).";
                 continue;
             }
 
@@ -319,7 +319,7 @@ switch ($VARS['action']) {
                 }
                 $database->insert('images', ['itemid' => $VARS['itemid'], 'imagename' => $filename, 'primary' => $primary]);
             } else {
-                $errors[] = htmlspecialchars($f['name']) . " could not be uploaded.";
+                $errors[] = htmlentities($f['name']) . " could not be uploaded.";
             }
         }
 
@@ -350,7 +350,7 @@ switch ($VARS['action']) {
 
         $imagename = $database->get('images', 'imagename', ['imageid' => $VARS['imageid']]);
         if ($database->count('images', ['imagename' => $imagename]) <= 1) {
-            unlink(FILE_UPLOAD_PATH . "/" . $imagename);
+            unlink($SETTINGS['file_upload_path'] . "/" . $imagename);
         }
         $database->delete('images', ['AND' => ['itemid' => $VARS['itemid'], 'imageid' => $VARS['imageid']]]);
 
@@ -361,6 +361,6 @@ switch ($VARS['action']) {
         returnToSender("image_deleted", "&id=$VARS[itemid]");
     case "signout":
         session_destroy();
-        header('Location: index.php');
+        header('Location: index.php?logout=1');
         die("Logged out.");
 }

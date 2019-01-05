@@ -28,43 +28,24 @@ if (!empty($VARS['id'])) {
         header('Location: app.php?page=editcat');
     }
 }
-?>
 
-<form role="form" action="action.php" method="POST">
-    <div class="card border-green">
-        <h3 class="card-header text-green">
-            <?php
-            if ($editing) {
-                ?>
-                <i class="fas fa-edit"></i> <?php $Strings->build("editing category", ['cat' => "<span id=\"name_title\">" . htmlspecialchars($catdata['catname']) . "</span>"]); ?>
-                <?php
-            } else {
-                ?>
-                <i class="fas fa-edit"></i> <?php $Strings->get("Adding new category"); ?>
-                <?php
-            }
-            ?>
-        </h3>
-        <div class="card-body">
-            <div class="form-group">
-                <label for="name"><i class="fas fa-archive"></i> <?php $Strings->get("name"); ?></label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Foo Bar" required="required" value="<?php echo htmlspecialchars($catdata['catname']); ?>" />
-            </div>
-        </div>
+$form = new FormBuilder("", "fas fa-edit");
 
-        <input type="hidden" name="catid" value="<?php echo isset($VARS['id']) ? htmlspecialchars($VARS['id']) : ""; ?>" />
-        <input type="hidden" name="action" value="editcat" />
-        <input type="hidden" name="source" value="categories" />
+if ($editing) {
+    $form->setTitle($Strings->build("editing category", ['cat' => "<span id=\"name_title\">" . htmlentities($catdata['catname']) . "</span>"], false));
+} else {
+    $form->setTitle($Strings->get("Adding new category", false));
+}
+$form->addInput("name", htmlentities($catdata['catname']), "text", true, "name", null, $Strings->get("name", false), "fas fa-archive", 12);
 
-        <div class="card-footer d-flex">
-            <button type="submit" class="btn btn-success mr-auto"><i class="fas fa-save"></i> <?php $Strings->get("save"); ?></button>
-            <?php
-            if ($editing) {
-                ?>
-                <a href="action.php?action=deletecat&source=categories&catid=<?php echo htmlspecialchars($VARS['id']); ?>" class="btn btn-danger ml-auto"><i class="fas fa-times"></i> <?php $Strings->get('delete'); ?></a>
-                <?php
-            }
-            ?>
-        </div>
-    </div>
-</form>
+$form->addHiddenInput("catid", isset($VARS['id']) ? htmlspecialchars($VARS['id']) : "");
+$form->addHiddenInput("action", "editcat");
+$form->addHiddenInput("source", "categories");
+
+$form->addButton($Strings->get("save", false), "fas fa-save", null, "submit");
+
+if ($editing) {
+    $form->addButton($Strings->get("delete", false), "fas fa-times", "action.php?action=deletecat&source=categories&catid=" . htmlspecialchars($VARS['id']), "", null, null, "", "btn btn-danger ml-auto");
+}
+
+$form->generate();

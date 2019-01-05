@@ -45,50 +45,13 @@ class Login {
         return Login::LOGIN_OK;
     }
 
-    public static function verifyCaptcha(string $session, string $answer, string $url): bool {
-        $data = [
-            'session_id' => $session,
-            'answer_id' => $answer,
-            'action' => "verify"
-        ];
-        $options = [
-            'http' => [
-                'header' => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method' => 'POST',
-                'content' => http_build_query($data)
-            ]
-        ];
-        $context = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
-        $resp = json_decode($result, TRUE);
-        if (!$resp['result']) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     /**
      * Check the login server API for sanity
      * @return boolean true if OK, else false
      */
     public static function checkLoginServer() {
         try {
-            $client = new GuzzleHttp\Client();
-
-            $response = $client
-                    ->request('POST', PORTAL_API, [
-                'form_params' => [
-                    'key' => PORTAL_KEY,
-                    'action' => "ping"
-                ]
-            ]);
-
-            if ($response->getStatusCode() != 200) {
-                return false;
-            }
-
-            $resp = json_decode($response->getBody(), TRUE);
+            $resp = AccountHubApi::get("ping");
             if ($resp['status'] == "OK") {
                 return true;
             } else {
@@ -107,19 +70,7 @@ class Login {
      */
     function checkAPIKey($key) {
         try {
-            $client = new GuzzleHttp\Client();
-
-            $response = $client
-                    ->request('POST', PORTAL_API, [
-                'form_params' => [
-                    'key' => $key,
-                    'action' => "ping"
-                ]
-            ]);
-
-            if ($response->getStatusCode() === 200) {
-                return true;
-            }
+            $resp = AccountHubApi::get("ping", null, true);
             return false;
         } catch (Exception $e) {
             return false;

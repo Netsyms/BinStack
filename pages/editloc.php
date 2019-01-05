@@ -34,58 +34,26 @@ if (!empty($VARS['id'])) {
         header('Location: app.php?page=editloc');
     }
 }
-?>
 
-<form role="form" action="action.php" method="POST">
-    <div class="card border-green">
-            <h3 class="card-header text-green">
-                <?php
-                if ($editing) {
-                    ?>
-                    <i class="fas fa-edit"></i> <?php $Strings->build("editing location", ['loc' => "<span id=\"name_title\">" . htmlspecialchars($locdata['locname']) . "</span>"]); ?>
-                    <?php
-                } else {
-                    ?>
-                    <i class="fas fa-edit"></i> <?php $Strings->get("Adding new location"); ?>
-                    <?php
-                }
-                ?>
-            </h3>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                        <label for="name"><i class="fas fa-map-marker"></i> <?php $Strings->get("name"); ?></label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="<?php $Strings->get("placeholder location name"); ?>" required="required" value="<?php echo htmlspecialchars($locdata['locname']); ?>" />
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                        <label for="code"><i class="fas fa-barcode"></i> <?php $Strings->get("code"); ?></label>
-                        <input type="text" class="form-control" id="code" name="code" placeholder="123456789" value="<?php echo htmlspecialchars($locdata['loccode']); ?>" />
-                    </div>
-                </div>
-            </div>
+$form = new FormBuilder("", "fas fa-edit");
 
-            <div class="form-group">
-                <label for="info"><i class="fas fa-info"></i> <?php $Strings->get("Description"); ?></label>
-                <textarea class="form-control" id="info" name="info"><?php echo htmlspecialchars($locdata['locinfo']); ?></textarea>
-            </div>
-        </div>
+if ($editing) {
+    $form->setTitle($Strings->build("editing location", ['loc' => "<span id=\"name_title\">" . htmlentities($locdata['locname']) . "</span>"], false));
+} else {
+    $form->setTitle($Strings->get("Adding new location", false));
+}
+$form->addInput("name", htmlentities($locdata['locname']), "text", true, "name", null, $Strings->get("name", false), "fas fa-map-marker", 6);
+$form->addInput("code", htmlentities($locdata['loccode']), "text", false, "code", null, $Strings->get("code", false), "fas fa-barcode", 6);
+$form->addInput("info", htmlentities($locdata['locinfo']), "textarea", false, "info", null, $Strings->get("Description", false), "fas fa-info", 12);
 
-        <input type="hidden" name="locid" value="<?php echo isset($VARS['id']) ? htmlspecialchars($VARS['id']) : ""; ?>" />
-        <input type="hidden" name="action" value="editloc" />
-        <input type="hidden" name="source" value="locations" />
+$form->addHiddenInput("locid", isset($VARS['id']) ? htmlspecialchars($VARS['id']) : "");
+$form->addHiddenInput("action", "editloc");
+$form->addHiddenInput("source", "locations");
 
-        <div class="card-footer d-flex">
-            <button type="submit" class="btn btn-success mr-auto"><i class="fas fa-save"></i> <?php $Strings->get("save"); ?></button>
-            <?php
-            if ($editing) {
-                ?>
-                <a href="action.php?action=deleteloc&source=locations&locid=<?php echo htmlspecialchars($VARS['id']); ?>" class="btn btn-danger ml-auto"><i class="fas fa-times"></i> <?php $Strings->get('delete'); ?></a>
-                <?php
-            }
-            ?>
-        </div>
-    </div>
-</form>
+$form->addButton($Strings->get("save", false), "fas fa-save", null, "submit");
+
+if ($editing) {
+    $form->addButton($Strings->get("delete", false), "fas fa-times", "action.php?action=deleteloc&source=locations&locid=" . htmlspecialchars($VARS['id']), "", null, null, "", "btn btn-danger ml-auto");
+}
+
+$form->generate();

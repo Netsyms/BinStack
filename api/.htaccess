@@ -1,0 +1,5 @@
+# Rewrite for Nextcloud Notes API
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteRule ([a-zA-Z0-9]+) index.php?action=$1 [PT]
+</IfModule>

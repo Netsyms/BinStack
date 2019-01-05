@@ -84,7 +84,7 @@ if (!empty($VARS['id']) && $database->has('items', ['itemid' => $VARS['id']])) {
     <div class="card-footer d-flex">
         <?php
         $source = "edititem";
-        if ($_GET['source'] === "item") {
+        if (!empty($_GET['source']) && $_GET['source'] === "item") {
             $source = "item";
         }
         ?>

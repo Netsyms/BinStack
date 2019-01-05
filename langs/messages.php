@@ -88,5 +88,13 @@ define("MESSAGES", [
     "noloccat" => [
         "string" => "make categories and locations",
         "type" => "info"
+    ],
+    "upload_warning" => [
+        "string" => "Upload finished with errors: {arg}",
+        "type" => "warning"
+    ],
+    "upload_success" => [
+        "string" => "Image uploaded.",
+        "type" => "success"
     ]
 ]);

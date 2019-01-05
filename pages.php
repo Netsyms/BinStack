@@ -99,5 +99,13 @@ define("PAGES", [
     ],
     "404" => [
         "title" => "404 error"
+    ],
+    "form" => [
+        "title" => "Form",
+        "navbar" => true,
+        "icon" => "fas fa-file-alt",
+        "scripts" => [
+            "static/js/form.js"
+        ]
     ]
 ]);

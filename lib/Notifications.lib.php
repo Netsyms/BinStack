@@ -32,27 +32,15 @@ class Notifications {
                 $timestamp = date("Y-m-d H:i:s", strtotime($timestamp));
             }
 
-            $client = new GuzzleHttp\Client();
-
-            $response = $client
-                    ->request('POST', PORTAL_API, [
-                'form_params' => [
-                    'key' => PORTAL_KEY,
-                    'action' => "addnotification",
-                    'uid' => $user->getUID(),
-                    'title' => $title,
-                    'content' => $content,
-                    'timestamp' => $timestamp,
-                    'url' => $url,
-                    'sensitive' => $sensitive
-                ]
-            ]);
-
-            if ($response->getStatusCode() > 299) {
-                sendError("Login server error: " . $response->getBody());
-            }
-
-            $resp = json_decode($response->getBody(), TRUE);
+            $resp = AccountHubApi::get("addnotification", [
+                        'uid' => $user->getUID(),
+                        'title' => $title,
+                        'content' => $content,
+                        'timestamp' => $timestamp,
+                        'url' => $url,
+                        'sensitive' => $sensitive
+                            ]
+            );
             if ($resp['status'] == "OK") {
                 return $resp['id'] * 1;
             } else {
