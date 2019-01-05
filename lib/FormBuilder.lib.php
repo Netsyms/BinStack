@@ -178,7 +178,10 @@ HTMLTOP;
             }
             $itemhtml = "";
             $itemlabel = "";
-            if ($item['type'] != "checkbox") {
+
+            if ($item['type'] == "textarea") {
+                $itemlabel = "<label class=\"mb-0\"><i class=\"$item[icon]\"></i> $item[label]:</label>";
+            } else if ($item['type'] != "checkbox") {
                 $itemlabel = "<label class=\"mb-0\">$item[label]:</label>";
             }
             $strippedlabel = strip_tags($item['label']);
@@ -186,13 +189,16 @@ HTMLTOP;
 \n\n                <div class="col-12 col-md-$item[width]">
                     <div class="form-group mb-3">
                         $itemlabel
-                        <div class="input-group">
+ITEMTOP;
+            $inputgrouptop = <<<INPUTG
+\n                            <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="$item[icon]"></i></span>
                             </div>
-ITEMTOP;
+INPUTG;
             switch ($item['type']) {
                 case "select":
+                    $itemhtml .= $inputgrouptop;
                     $itemhtml .= <<<SELECT
 \n                            <select class="form-control" name="$item[name]" aria-label="$strippedlabel" $required>
 SELECT;
@@ -206,6 +212,7 @@ SELECT;
                     $itemhtml .= "\n                            </select>";
                     break;
                 case "checkbox":
+                    $itemhtml .= $inputgrouptop;
                     $itemhtml .= <<<CHECKBOX
 \n                            <div class="form-group form-check">
                                 <input type="checkbox" name="$item[name]" $id class="form-check-input" value="$item[value]" $required aria-label="$strippedlabel">
@@ -213,7 +220,14 @@ SELECT;
                               </div>
 CHECKBOX;
                     break;
+                case "textarea":
+                    $val = htmlentities($item['value']);
+                    $itemhtml .= <<<TEXTAREA
+\n                            <textarea class="form-control" id="info" name="$item[name]" aria-label="$strippedlabel" minlength="$item[minlength]" maxlength="$item[maxlength]" $required>$val</textarea>
+TEXTAREA;
+                    break;
                 default:
+                    $itemhtml .= $inputgrouptop;
                     $itemhtml .= <<<INPUT
 \n                            <input type="$item[type]" name="$item[name]" $id class="form-control" aria-label="$strippedlabel" minlength="$item[minlength]" maxlength="$item[maxlength]" $pattern value="$item[value]" $required />
 INPUT;
@@ -227,9 +241,11 @@ INPUT;
                             </div>
 ERROR;
             }
+            if ($item["type"] != "textarea") {
+                $itemhtml .= "\n                                </div>";
+            }
             $itemhtml .= <<<ITEMBOTTOM
-\n                        </div>
-                    </div>
+\n                    </div>
                 </div>\n
 ITEMBOTTOM;
             $html .= $itemhtml;
@@ -242,7 +258,7 @@ ITEMBOTTOM;
 HTMLBOTTOM;
 
         if (!empty($this->buttons)) {
-            $html .= "\n        <div class=\"card-footer\">";
+            $html .= "\n        <div class=\"card-footer d-flex\">";
             foreach ($this->buttons as $btn) {
                 $btnhtml = "";
                 $inner = "<i class=\"$btn[icon]\"></i> $btn[text]";
