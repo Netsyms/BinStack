@@ -55,24 +55,22 @@ function authenticate(): bool {
     global $VARS;
     // HTTP basic auth
     if (!empty($_SERVER['PHP_AUTH_USER']) && !empty($_SERVER['PHP_AUTH_PW'])) {
-        $user = User::byUsername($_SERVER['PHP_AUTH_USER']);
-        if (!$user->checkPassword($_SERVER['PHP_AUTH_PW'])) {
-            return false;
-        }
-        return true;
-    }
-    // Form auth
-    if (empty($VARS['username']) || empty($VARS['password'])) {
-        return false;
-    } else {
+        $username = $_SERVER['PHP_AUTH_USER'];
+        $password = $_SERVER['PHP_AUTH_PW'];
+    } else if (!empty($VARS['username']) && !empty($VARS['password'])) {
         $username = $VARS['username'];
         $password = $VARS['password'];
-        $user = User::byUsername($username);
-        if ($user->exists() !== true || Login::auth($username, $password) !== Login::LOGIN_OK) {
-            return false;
-        }
+    } else {
+        return false;
     }
-    return true;
+    $user = User::byUsername($username);
+    if (!$user->exists()) {
+        return false;
+    }
+    if ($user->checkPassword($password, true)) {
+        return true;
+    }
+    return false;
 }
 
 /**
