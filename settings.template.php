@@ -39,6 +39,10 @@ $SETTINGS = [
     // List of required user permissions to access this app.
     "permissions" => [
     ],
+    // List of permissions required for API access. Remove to use the value of
+    // "permissions" instead.
+    "api_permissions" => [
+    ],
     // For supported values, see http://php.net/manual/en/timezones.php
     "timezone" => "America/Denver",
     // Language to use for localization. See langs folder to add a language.

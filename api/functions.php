@@ -52,7 +52,7 @@ function getCensoredKey() {
  * @return bool true if the request should continue, false if the request is bad
  */
 function authenticate(): bool {
-    global $VARS;
+    global $VARS, $SETTINGS;
     // HTTP basic auth
     if (!empty($_SERVER['PHP_AUTH_USER']) && !empty($_SERVER['PHP_AUTH_PW'])) {
         $username = $_SERVER['PHP_AUTH_USER'];
@@ -68,6 +68,13 @@ function authenticate(): bool {
         return false;
     }
     if ($user->checkPassword($password, true)) {
+        // Check that the user has permission to access the app
+        $perms = is_array($SETTINGS['api_permissions']) ? $SETTINGS['api_permissions'] : $SETTINGS['permissions'];
+        foreach ($perms as $perm) {
+            if (!$user->hasPermission($perm)) {
+                return false;
+            }
+        }
         return true;
     }
     return false;
