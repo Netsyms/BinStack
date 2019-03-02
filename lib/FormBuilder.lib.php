@@ -117,6 +117,41 @@ class FormBuilder {
     }
 
     /**
+     * Add a text input.
+     *
+     * @param string $name Element name
+     * @param string $value Element value
+     * @param bool $required If the element is required for form submission.
+     * @param string $id Element ID
+     * @param string $label Text label to display near the input
+     * @param string $icon FontAwesome icon (example: "fas fa-toilet-paper")
+     * @param int $width Bootstrap column width for the input, out of 12.
+     * @param int $minlength Minimum number of characters for the input.
+     * @param int $maxlength Maximum number of characters for the input.
+     * @param string $pattern Regex pattern for custom client-side validation.
+     * @param string $error Message to show if the input doesn't validate.
+     */
+    public function addTextInput(string $name, string $value = "", bool $required = true, string $id = "", string $label = "", string $icon = "", int $width = 4, int $minlength = 1, int $maxlength = 100, string $pattern = "", string $error = "") {
+        $this->addInput($name, $value, "text", $required, $id, null, $label, $icon, $width, $minlength, $maxlength, $pattern, $error);
+    }
+
+    /**
+     * Add a select dropdown.
+     *
+     * @param string $name Element name
+     * @param string $value Element value
+     * @param bool $required If the element is required for form submission.
+     * @param string $id Element ID
+     * @param array $options Array of [value => text] pairs for a select element
+     * @param string $label Text label to display near the input
+     * @param string $icon FontAwesome icon (example: "fas fa-toilet-paper")
+     * @param int $width Bootstrap column width for the input, out of 12.
+     */
+    public function addSelect(string $name, string $value = "", bool $required = true, string $id = null, array $options = null, string $label = "", string $icon = "", int $width = 4) {
+        $this->addInput($name, $value, "select", $required, $id, $options, $label, $icon, $width);
+    }
+
+    /**
      * Add a button to the form.
      *
      * @param string $text Text string to show on the button.
