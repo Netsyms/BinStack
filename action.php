@@ -7,7 +7,6 @@
 /**
  * Make things happen when buttons are pressed and forms submitted.
  */
-
 require_once __DIR__ . "/required.php";
 
 if ($VARS['action'] !== "signout") {
@@ -22,11 +21,11 @@ if ($VARS['action'] !== "signout") {
  */
 function returnToSender($msg, $arg = "") {
     global $VARS;
-    if ($arg == "") {
-        header("Location: app.php?page=" . urlencode($VARS['source']) . "&msg=" . $msg);
-    } else {
-        header("Location: app.php?page=" . urlencode($VARS['source']) . "&msg=$msg&arg=$arg");
+    $header = "Location: app.php?page=" . urlencode($VARS['source']) . "&msg=$msg";
+    if ($arg != "") {
+        $header .= "&arg=$arg";
     }
+    header($header);
     die();
 }
 
