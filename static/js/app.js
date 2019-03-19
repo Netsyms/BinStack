@@ -13,7 +13,7 @@ $(document).ready(function () {
         var gone = 20;
 
         var msgticker = setInterval(function () {
-            if ($('#msg-alert-box .alert:hover').length) {
+            if ($("#msg-alert-box .alert:hover").length) {
                 msginteractiontick = 0;
             } else {
                 msginteractiontick++;
@@ -55,7 +55,6 @@ $(document).ready(function () {
         $("#msg-alert-box").on("mouseenter", function () {
             $("#msg-alert-box").css("opacity", "1");
             msginteractiontick = 0;
-            console.log("👈😎👈 zoop");
         });
         $("#msg-alert-box").on("click", ".close", function (e) {
             $("#msg-alert-box").fadeOut("slow");

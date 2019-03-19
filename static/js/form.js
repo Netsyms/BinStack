@@ -12,5 +12,5 @@ $("#savebtn").click(function (event) {
         event.preventDefault();
         event.stopPropagation();
     }
-    form.addClass('was-validated');
+    form.addClass("was-validated");
 });

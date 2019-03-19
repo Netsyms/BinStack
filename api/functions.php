@@ -52,27 +52,32 @@ function getCensoredKey() {
  * @return bool true if the request should continue, false if the request is bad
  */
 function authenticate(): bool {
-    global $VARS;
+    global $VARS, $SETTINGS;
     // HTTP basic auth
     if (!empty($_SERVER['PHP_AUTH_USER']) && !empty($_SERVER['PHP_AUTH_PW'])) {
-        $user = User::byUsername($_SERVER['PHP_AUTH_USER']);
-        if (!$user->checkPassword($_SERVER['PHP_AUTH_PW'])) {
-            return false;
+        $username = $_SERVER['PHP_AUTH_USER'];
+        $password = $_SERVER['PHP_AUTH_PW'];
+    } else if (!empty($VARS['username']) && !empty($VARS['password'])) {
+        $username = $VARS['username'];
+        $password = $VARS['password'];
+    } else {
+        return false;
+    }
+    $user = User::byUsername($username);
+    if (!$user->exists()) {
+        return false;
+    }
+    if ($user->checkPassword($password, true)) {
+        // Check that the user has permission to access the app
+        $perms = is_array($SETTINGS['api_permissions']) ? $SETTINGS['api_permissions'] : $SETTINGS['permissions'];
+        foreach ($perms as $perm) {
+            if (!$user->hasPermission($perm)) {
+                return false;
+            }
         }
         return true;
     }
-    // Form auth
-    if (empty($VARS['username']) || empty($VARS['password'])) {
-        return false;
-    } else {
-        $username = $VARS['username'];
-        $password = $VARS['password'];
-        $user = User::byUsername($username);
-        if ($user->exists() !== true || Login::auth($username, $password) !== Login::LOGIN_OK) {
-            return false;
-        }
-    }
-    return true;
+    return false;
 }
 
 /**

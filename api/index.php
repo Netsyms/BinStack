@@ -10,6 +10,8 @@ require __DIR__ . '/../required.php';
 require __DIR__ . '/functions.php';
 require __DIR__ . '/apisettings.php';
 
+header("Access-Control-Allow-Origin: *");
+
 $VARS = $_GET;
 if ($_SERVER['REQUEST_METHOD'] != "GET") {
     $VARS = array_merge($VARS, $_POST);
