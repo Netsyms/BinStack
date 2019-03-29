@@ -5,6 +5,10 @@
 
 require_once __DIR__ . "/required.php";
 
+// If the SVG/JavaScript version of FontAwesome is needed
+// Increases overhead by a notable amount
+define("FONTAWESOME_USEJS", true);
+
 if ($_SESSION['loggedin'] != true) {
     header('Location: index.php');
     die("Session expired.  Log in again to continue.");
@@ -23,12 +27,17 @@ if (!empty($_GET['page'])) {
     }
 }
 
+header("Link: <static/img/logo.svg>; rel=preload; as=image", false);
 header("Link: <static/fonts/Roboto.css>; rel=preload; as=style", false);
 header("Link: <static/css/bootstrap.min.css>; rel=preload; as=style", false);
 header("Link: <static/css/material-color/material-color.min.css>; rel=preload; as=style", false);
 header("Link: <static/css/app.css>; rel=preload; as=style", false);
-header("Link: <static/css/svg-with-js.min.css>; rel=preload; as=style", false);
-header("Link: <static/js/fontawesome-all.min.js>; rel=preload; as=script", false);
+if (FONTAWESOME_USEJS) {
+    header("Link: <static/css/svg-with-js.min.css>; rel=preload; as=style", false);
+    header("Link: <static/js/fontawesome-all.min.js>; rel=preload; as=script", false);
+} else {
+    header("Link: <static/css/fontawesome-all.min.css>; rel=preload; as=style", false);
+}
 header("Link: <static/js/jquery-3.3.1.min.js>; rel=preload; as=script", false);
 header("Link: <static/js/bootstrap.bundle.min.js>; rel=preload; as=script", false);
 ?>
@@ -41,16 +50,26 @@ header("Link: <static/js/bootstrap.bundle.min.js>; rel=preload; as=script", fals
 
         <title><?php echo $SETTINGS['site_title']; ?></title>
 
-        <link rel="icon" href="static/img/logo.svg">
+        <link rel="icon" href="static/img/logo.svg" type="image/svg+xml">
 
         <link href="static/css/bootstrap.min.css" rel="stylesheet">
         <link href="static/css/material-color/material-color.min.css" rel="stylesheet">
         <link href="static/css/app.css" rel="stylesheet">
-        <link href="static/css/svg-with-js.min.css" rel="stylesheet">
-        <script nonce="<?php echo $SECURE_NONCE; ?>">
-            FontAwesomeConfig = {autoAddCss: false}
-        </script>
-        <script src="static/js/fontawesome-all.min.js"></script>
+        <?php
+        if (FONTAWESOME_USEJS) {
+            ?>
+            <link href="static/css/svg-with-js.min.css" rel="stylesheet">
+            <script nonce="<?php echo $SECURE_NONCE; ?>">
+                FontAwesomeConfig = {autoAddCss: false}
+            </script>
+            <script src="static/js/fontawesome-all.min.js"></script>
+            <?php
+        } else {
+            ?>
+            <link href="static/css/fontawesome-all.min.css" rel="stylesheet">
+            <?php
+        }
+        ?>
         <?php
         // custom page styles
         if (isset(PAGES[$pageid]['styles'])) {
