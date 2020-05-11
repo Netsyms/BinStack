@@ -32,7 +32,7 @@ session_start(); // stick some cookies in it
 // renew session cookie
 setcookie(session_name(), session_id(), time() + $session_length, "/", false, false);
 
-if ($_SESSION['mobile'] === TRUE) {
+if (isset($_SESSION['mobile']) && $_SESSION['mobile'] === TRUE) {
     header("Content-Security-Policy: "
             . "default-src 'self';"
             . "object-src 'none'; "
