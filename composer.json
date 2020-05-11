@@ -3,8 +3,8 @@
     "description": "Template for a webapp integrated with an AccountHub server.",
     "type": "project",
     "require": {
-        "catfan/medoo": "^1.5",
-        "guzzlehttp/guzzle": "^6.2"
+        "catfan/medoo": "^1.7",
+        "guzzlehttp/guzzle": "^6.5"
     },
     "license": "MPL-2.0",
     "authors": [
