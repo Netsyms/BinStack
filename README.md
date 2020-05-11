@@ -1,11 +1,9 @@
-Business App Template
-=====================
+App Template
+============
 
 This is an empty (but fully functional) PHP application.  It is designed to
 integrate with AccountHub, an account management web interface.  AccountHub manages
 user credentials and account data, and is accessed by this app via [a simple API](http://docs.netsyms.com/docs/AccountHub/API%20Documentation/).
-
-[<img src="https://api.codacy.com/project/badge/Grade/2aeadc6b65d545c4a4c2e77d286373fd" alt="Codacy badge">](https://www.codacy.com/app/Netsyms/BusinessAppTemplate?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Netsyms/BusinessAppTemplate&amp;utm_campaign=Badge_Grade)
 
 Program Structure
 -----------------
