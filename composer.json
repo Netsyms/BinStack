@@ -3,8 +3,8 @@
     "description": "Inventory management app.",
     "type": "project",
     "require": {
-        "catfan/medoo": "^1.4",
-        "guzzlehttp/guzzle": "^6.2",
+        "catfan/medoo": "^1.7",
+        "guzzlehttp/guzzle": "^6.5",
         "league/csv": "^9.0",
         "lapinator/ods-php-generator": "^0.0.3"
     },

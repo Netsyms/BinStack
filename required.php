@@ -32,7 +32,7 @@ session_start(); // stick some cookies in it
 // renew session cookie
 setcookie(session_name(), session_id(), time() + $session_length, "/", false, false);
 
-if ($_SESSION['mobile'] === TRUE) {
+if (isset($_SESSION['mobile']) && $_SESSION['mobile'] === TRUE) {
     header("Content-Security-Policy: "
             . "default-src 'self';"
             . "object-src 'none'; "
@@ -106,7 +106,10 @@ try {
         'server' => $SETTINGS['database']['server'],
         'username' => $SETTINGS['database']['user'],
         'password' => $SETTINGS['database']['password'],
-        'charset' => $SETTINGS['database']['charset']
+        'charset' => $SETTINGS['database']['charset'],
+        'option' => [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        ]
     ]);
 } catch (Exception $ex) {
     //header('HTTP/1.1 500 Internal Server Error');
@@ -146,23 +149,6 @@ function dieifnotloggedin() {
             session_destroy();
             die("You don't have permission to be here.");
         }
-    }
-}
-
-/**
- * Check if the previous database action had a problem.
- * @param array $specials int=>string array with special response messages for SQL errors
- */
-function checkDBError($specials = []) {
-    global $database;
-    $errors = $database->error();
-    if (!is_null($errors[1])) {
-        foreach ($specials as $code => $text) {
-            if ($errors[1] == $code) {
-                sendError($text);
-            }
-        }
-        sendError("A database error occurred:<br /><code>" . $errors[2] . "</code>");
     }
 }
 
