@@ -1,4 +1,4 @@
-Copyright (c) 2017-2019 Netsyms Technologies.  Some rights reserved.
+Copyright (c) 2017-2020 Netsyms Technologies.  Some rights reserved.
 
 Licensed under the Mozilla Public License Version 2.0.  Files without MPL header
 comments, including third party code, may be under a different license.

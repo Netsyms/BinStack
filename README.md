@@ -30,10 +30,9 @@ Installing
 
 0. Follow the installation directions for [AccountHub](https://source.netsyms.com/Business/AccountHub), then download this app somewhere.
 1. Copy `settings.template.php` to `settings.php`
-2. Import `database.sql` into your database server
-3. Edit `settings.php` and fill in your DB info
-4. Set the location of the AccountHub API in `settings.php` (see "PORTAL_API") and enter an API key ("PORTAL_KEY")
-5. Set the location of the AccountHub home page ("PORTAL_URL")
-6. Set the URL of this app ("URL")
-7. Run `composer install` (or `composer.phar install`) to install dependency libraries
-8. Run `git submodule init` and `git submodule update` to install other dependencies via git.
+2. Create an empty database.
+3. Import `database.sql` into your database.
+4. Edit `settings.php` and fill in your DB info
+5. Set the location of the AccountHub API and home page URL in `settings.php`
+6. Run `composer install` (or `composer.phar install`) to install dependency libraries
+7. Run `git submodule update --init` to install other dependencies via git.
